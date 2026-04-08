@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chris Eaton</title>
+    <link>https://chriseatonai.com</link>
+    <description>Thoughts on AI, building software, and the things in between.</description>
+    <language>en-us</language>
+    <atom:link href="https://chriseatonai.com/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>The Future of AI Assistants</title>
+      <link>https://chriseatonai.com/#</link>
+      <description>How AI agents are evolving beyond chat interfaces into genuinely capable collaborators — and what that means for how we work.</description>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/future-of-ai-assistants</guid>
+    </item>
+
+    <item>
+      <title>Building in Public</title>
+      <link>https://chriseatonai.com/#</link>
+      <description>Why I believe in sharing progress openly, learning from the community, and the unexpected benefits of working with the garage door up.</description>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/building-in-public</guid>
+    </item>
+
+    <item>
+      <title>Lessons from Shipping Fast</title>
+      <link>https://chriseatonai.com/#</link>
+      <description>What I've learned about velocity, quality, and the art of knowing when something is good enough to share with the world.</description>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/lessons-from-shipping-fast</guid>
+    </item>
+
+  </channel>
+</rss>

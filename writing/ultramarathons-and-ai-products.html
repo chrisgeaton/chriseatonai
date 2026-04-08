@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Running 100 Miles Taught Me About Building AI Products | Chris Eaton</title>
+  <meta name="description" content="At mile 70 of the Vermont 100, everything hurts and nothing makes sense. That experience maps almost perfectly onto what it feels like to build and ship AI products.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Chris Eaton" href="../feed.xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Running 100 Miles Taught Me About Building AI Products">
+  <meta property="og:description" content="At mile 70 of the Vermont 100, everything hurts and nothing makes sense. That experience maps almost perfectly onto what it feels like to build and ship AI products.">
+  <meta property="og:url" content="https://chriseatonai.com/writing/ultramarathons-and-ai-products">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Running 100 Miles Taught Me About Building AI Products">
+  <meta name="twitter:description" content="At mile 70 of the Vermont 100, everything hurts and nothing makes sense. That experience maps almost perfectly onto what it feels like to build and ship AI products.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="../about.html">About</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#links">Links</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article">
+      <div class="container">
+
+        <header class="article-header">
+          <a href="../index.html#writing" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            All writing
+          </a>
+          <h1 class="article-title">What Running 100 Miles Taught Me About Building AI Products</h1>
+          <div class="article-meta">
+            <time>April 2026</time>
+            <span class="meta-sep">&middot;</span>
+            <span>10 min read</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+
+          <p class="article-lede">At mile 70 of the Vermont 100, somewhere in the dark, everything hurts and nothing makes sense. You've been moving for 17 hours. You have 30 miles left. The rational part of your brain is doing the math and the math is bad.</p>
+
+          <p>And yet you keep moving.</p>
+
+          <p>That experience, managing through the low points, trusting the system you built in training, adjusting without stopping, turns out to map almost perfectly onto what it feels like to build and ship AI products. Not the polished keynote version of AI product work. The real version. The one where the model works beautifully in the demo and then hallucinates its way through the first real customer interaction.</p>
+
+          <p>I've run the Vermont 100 and the CCC (the Courmayeur-Champex-Chamonix, a 100K through the Alps from Italy through Switzerland into France). Both races taught me things about product work that I couldn't have learned any other way, because both forced me into the same fundamental situation: you're deep into something enormous, the feedback is ambiguous, and the only option is to keep making decisions with incomplete information.</p>
+
+          <hr>
+
+          <h2>Training Is the Product. Nobody Sees It.</h2>
+
+          <p>The race is the demo. Training is the work.</p>
+
+          <p>Most of what determines your finish time at the Vermont 100 happens in the four months before you cross the start line. The long runs on tired legs. The back-to-back weekends where you stack 50 miles into 48 hours. The nutrition experiments that go wrong on a Tuesday so they don't go wrong at mile 60. The hours studying the course profile, memorizing where the climbs hit and where you can recover.</p>
+
+          <p>None of this is visible on race day. Spectators see you running. They don't see the six months that made the running possible.</p>
+
+          <p>AI products work the same way. The data curation, the eval frameworks, the prompt architecture, the human review loops, the edge case catalogs, the latency optimization, the guardrails that keep the model from confidently telling a customer something catastrophically wrong. None of it is visible to the user. All of it determines the outcome.</p>
+
+          <p>The teams that treat this pre-work as overhead, as the boring part before the real building starts, are the ones whose demos don't survive contact with production. I've seen it happen. A team ships a beautiful AI feature that works flawlessly in the controlled environment they built it in and falls apart the moment a real user asks a question the prompt engineer didn't anticipate. That's the equivalent of showing up to a 100-miler having done your long runs on flat pavement and expecting the Vermont hills to be forgiving.</p>
+
+          <p>The work nobody sees is the product. Everything else is just the race day performance of a system you already built.</p>
+
+          <hr>
+
+          <h2>Miles 60 to 80: The Part Nobody Talks About</h2>
+
+          <p>Every 100-miler has a section where the early excitement is gone and the finish line isn't real yet. At the Vermont 100, miles 60 to 80 are that section. The aid stations are incredible, volunteers giving hugs, singing, cheering you through like you're winning the thing. But inside your own head it's a different story. My knee was hurting. My legs worked, technically, but nothing felt right. I wasn't injured enough to stop. I wasn't moving well enough to feel good about the math.</p>
+
+          <p>What changed for me was a decision that made no logical sense: I started running faster. Changed my gait entirely. The thing that had been hurting at a slow shuffle stopped hurting at a quicker cadence. Sometimes the fix isn't to back off. Sometimes it's to change the approach completely, even when every instinct says to protect what you have.</p>
+
+          <p>This is where most people drop.</p>
+
+          <p>Not because they can't physically continue, but because the gap between where they are and where they need to be feels impossible to close. The math doesn't work. Thirty miles sounds like a different race when you've already done seventy. The temptation to sit down at an aid station and let the cutoff time make the decision for you is enormous.</p>
+
+          <p>In AI product work, this is the post-demo, pre-launch phase. The model works. The stakeholders are excited. And then the edge cases start appearing. Latency is a problem. The output isn't quite right for 20% of cases. The integration with the existing system surfaces data quality issues nobody anticipated. Every day brings a new reason this might not ship on time, or at all.</p>
+
+          <p>The teams that make it through this phase are the ones who treat it as normal. Not as evidence that the thing doesn't work, but as the expected cost of building something real. Miles 60 to 80 aren't a sign that you chose the wrong race. They're the race. The earlier miles were just the warmup.</p>
+
+          <p>I've watched AI product teams quit in this phase. Not literally, but functionally. They pivot to a different approach. They reduce scope until the product is unrecognizable. They declare the technology "not ready" and shelve it. Sometimes that's the right call. But more often, they quit because they expected the second half to feel like the first half, and when it didn't, they assumed something was broken.</p>
+
+          <p>Nothing was broken. They were just at mile 70.</p>
+
+          <hr>
+
+          <h2>Pacing Is Strategy</h2>
+
+          <p>Going out too fast in an ultra is fatal. Not immediately. That's what makes it dangerous. You feel incredible at mile 10. Strong legs, good weather, adrenaline from the start. You're ahead of pace and you feel like you earned it. Then mile 50 arrives and you realize you didn't earn anything. You borrowed from mile 50 to feel good at mile 10, and now the bill is due.</p>
+
+          <p>At the CCC, this lesson is built into the course. The race starts in Courmayeur, Italy, and immediately climbs. The temptation to attack the first ascent is overwhelming because you're fresh, the scenery is staggering, and everyone around you is moving fast. But the race is 100 kilometers with 6,000 meters of elevation gain. If you spend yourself on the first climb, you won't have legs for the final push into Chamonix.</p>
+
+          <p>In AI development, the equivalent is over-promising early capability. Shipping a demo that sets expectations the production system can't meet. Building for a board presentation instead of a user workflow. Announcing timelines based on how fast the prototype came together without accounting for the 80% of work that comes after the prototype.</p>
+
+          <p>I've done this. Early in my AI work, I built an internal tool that performed brilliantly in testing and I showed it to stakeholders before I'd stress-tested the failure modes. The excitement it generated created pressure to ship fast, which compressed the time I had to do the hard work of making it reliable. We got there, but I'd made my own job harder by going out too fast.</p>
+
+          <p>Sustainable pace isn't timidity. It's how you finish. In ultras and in product work, the people who look slow at the start are often the ones passing you at the end.</p>
+
+          <hr>
+
+          <h2>Crew and Pacers: You Don't Do This Alone</h2>
+
+          <p>At mile 60 of the Vermont 100, you can pick up a pacer. Someone who runs with you through the night. They don't carry your pack. They don't run the miles for you. But they're there. They talk when you need distraction. They go quiet when you need to focus. They remind you to eat when your brain has stopped sending hunger signals. They tell you you're moving well when you feel like you're barely moving at all.</p>
+
+          <p>At the CCC, aid stations are stocked by volunteers who've been awake as long as you have. They hand you soup at 3am with a level of enthusiasm that makes no rational sense. Your crew, if you have one, has been leapfrogging access points for hours, hauling gear bags and trying to read your face in a headlamp beam to figure out what you need before you can articulate it.</p>
+
+          <p>The support system isn't secondary to the race. It's what makes finishing possible.</p>
+
+          <p>AI products need the same infrastructure. The internal champion who fights for resources when the executive team's attention has moved on. The clinical validator who catches the edge case that would have been embarrassing in production. The customer who gives you honest, specific feedback at the equivalent of mile 70, when the product is good enough to use but not good enough to love.</p>
+
+          <p>I've built AI tools that only made it from prototype to something real because of one person on the customer side who believed in what we were building and gave us the kind of feedback you can't get from analytics. That person was our pacer. They didn't build the product for us. But they kept us moving when the gap between "promising demo" and "something people actually rely on" felt unclosable.</p>
+
+          <p>No one finishes a 100-miler alone. No one ships a real AI product alone either.</p>
+
+          <hr>
+
+          <h2>The View from the Col</h2>
+
+          <p>The CCC starts at 9am in Courmayeur, Italy, and the col comes in full daylight. You climb and climb, sunny on one side, foggy and slippery on the other. Then you crest it and turn around, and the view stops you. You can see the kilometers you just ran along Mont Blanc, the ridgeline stretching behind you, the valleys you passed through hours ago now tiny and distant. For the first time, you can see the full picture of what you've done and what's still ahead.</p>
+
+          <p>The view does something useful to your thinking. It puts your individual effort in perspective. You've been focused on the next step, the next kilometer marker, the next aid station. And suddenly you can see the whole course: the valley you climbed out of, the valley you're descending into, the ridgeline you'll be on in four hours. Your local optimization, the pace, the nutrition, the effort, matters enormously. But it only matters in the context of the full picture.</p>
+
+          <p>Later, after dark, the perspective shifts again. Leaving Trient, Switzerland, you look up at the switchbacks above you and see a zigzagging line of headlamps, dozens of runners strung along the mountain. You know exactly what you're about to climb. Every switchback is visible. That's a different kind of clarity: not the big picture view from the col, but the honest reckoning with what's immediately in front of you.</p>
+
+          <p>This is the difference between building a feature and building a product. You can execute perfectly on the thing in front of you and still be heading in the wrong direction. The engineer optimizing model latency and the PM defining the user workflow and the designer simplifying the interface are all running well through their own valleys. But someone needs to be looking at the full ridgeline.</p>
+
+          <p>At LiveData, where I work on perioperative workflow software for 90+ hospitals, the "ridgeline view" is critical. A single AI feature might perform beautifully in isolation and create chaos in the broader clinical workflow. The surgeon's experience and the nurse's experience and the scheduling system's constraints are all connected in ways that aren't visible from any one valley. Product leadership means holding the full picture even when you're deep in one section of the course.</p>
+
+          <p>The Alps taught me that. Not as a metaphor I read somewhere, but as a physical experience of cresting a col and looking back at everything behind me and forward at everything ahead and suddenly understanding how small and how essential my individual effort was at the same time.</p>
+
+          <hr>
+
+          <h2>The Silver Buckle</h2>
+
+          <p>The Vermont 100 has a 30-hour cutoff. Finish under 30 hours and you get a belt buckle. Finish under 24 hours and you get a silver buckle.</p>
+
+          <p>Twenty-four hours is an arbitrary line. There is nothing magical about it. Your body doesn't know the difference between 23:59 and 24:01. And yet, once you commit to sub-24, it changes every decision you make. Your pacing strategy shifts. Your aid station time shrinks. The margin for error gets thinner. You make choices at mile 40 that you wouldn't make if you were just trying to finish.</p>
+
+          <p>The threshold itself isn't what matters. The commitment to a specific standard is what matters, because it forces clarity downstream.</p>
+
+          <p>Product teams need these thresholds too. Not arbitrary deadlines imposed by someone who doesn't understand the work, but specific, meaningful standards the team commits to and then builds toward. "The model's response time will be under 2 seconds" is a silver buckle. "The AI will never surface patient data to an unauthorized user" is a silver buckle. "We ship to the first five hospitals by Q3" is a silver buckle.</p>
+
+          <p>Without a specific target, every decision gets made in a vacuum. With one, the decisions connect to each other. You make choices early that pay off late because you know what "late" looks like. The standard doesn't have to be perfect. It has to be specific enough to change how you run.</p>
+
+          <hr>
+
+          <p>I'm still running. The next race is already on the calendar. The thing about ultras is that finishing one doesn't make the next one easier. It just changes what you think is possible. The Vermont 100 didn't make the CCC less painful. It made me believe I could get through the pain and still have something left at the end.</p>
+
+          <p>That's a reasonable description of where I am with AI product work too. Every tool I've shipped, every internal system I've built, every production deployment that survived contact with real users has made me better at the work, but not because the work got easier. The problems get harder. The stakes get higher. What changes is your relationship with the difficulty. You stop expecting it to feel comfortable and start expecting it to feel exactly like this.</p>
+
+          <p>Mile 70 is coming. It's always coming. The only question is whether you've done the training.</p>
+
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
