@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Technical PM Curriculum Builder | Chris Eaton</title>
-  <meta name="description" content="Free AI-personalized technical PM curriculum. AI engineering, languages, infrastructure, and more — built around your actual work.">
+  <meta name="description" content="Free AI-personalized technical PM curriculum. AI engineering, languages, infrastructure, and more. Built around your actual work.">
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -498,7 +498,7 @@
         </a>
         <p class="course-kicker">Free Course &middot; Technical PM Track</p>
         <h1>The Technical PM <em>Curriculum Builder</em></h1>
-        <p class="course-desc">For PMs who build with AI assistance and want to lead engineers more credibly, make smarter architecture tradeoffs, and ship AI products that hold up in production. Tell us what you're working on — get a curriculum tied to your actual work.</p>
+        <p class="course-desc">For PMs who build with AI assistance and want to lead engineers more credibly, make smarter architecture tradeoffs, and ship AI products that hold up in production. Tell us what you're working on and get a curriculum tied to your actual work.</p>
         <div class="course-stats">
           <div><span class="stat-n">20</span><span class="stat-l">Modules</span></div>
           <div><span class="stat-n">6</span><span class="stat-l">Tracks</span></div>
@@ -526,17 +526,17 @@
         </div>
 
         <div class="field">
-          <label>Current work projects <span>— be specific, this shapes every module</span></label>
+          <label>Current work projects <span>(be specific, this shapes every module)</span></label>
           <textarea id="f-work" rows="4" placeholder="e.g. Building an NL analytics interface on surgical workflow data. Leading an org-wide RAG system. Shipping a multi-agent sales ROI calculator. Serving 90+ hospitals..."></textarea>
         </div>
 
         <div class="field">
-          <label>Side projects <span>— optional</span></label>
+          <label>Side projects <span>(optional)</span></label>
           <textarea id="f-side" rows="2" placeholder="e.g. Soccer trading card marketplace on Next.js + Supabase. Personal AI newsletter..."></textarea>
         </div>
 
         <div class="field">
-          <label>Technical gaps you want to close <span>— optional</span></label>
+          <label>Technical gaps you want to close <span>(optional)</span></label>
           <textarea id="f-gaps" rows="2" placeholder="e.g. AWS architecture decisions, TypeScript beyond basics, understanding RAG quality..."></textarea>
         </div>
 
@@ -571,6 +571,7 @@
         <div class="filter-bar" id="filter-bar"></div>
         <div id="modules-list"></div>
 
+        <button class="btn-build" onclick="exportCurriculum()" style="margin-top:24px;">Export as HTML</button>
         <button class="btn-reset" onclick="resetApp()">&#8592; Start over with a new curriculum</button>
 
       </section>
@@ -601,24 +602,24 @@ const TRACKS = [
 ];
 
 const MODULES = [
-  { id:"ai-1",  track:"ai",       title:"LLM Internals for PMs",                  week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"You can\u2019t lead AI product decisions without knowing what\u2019s actually happening inside the model \u2014 tokens, context windows, hallucinations, and when RAG beats fine-tuning.", concepts:["Tokenization & context windows","Temperature / sampling parameters","Embeddings & vector similarity","Why RAG beats fine-tuning for most cases","Prompt caching & cost modeling"] },
+  { id:"ai-1",  track:"ai",       title:"LLM Internals for PMs",                  week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"You can\u2019t lead AI product decisions without knowing what\u2019s actually happening inside the model: tokens, context windows, hallucinations, and when RAG beats fine-tuning.", concepts:["Tokenization & context windows","Temperature / sampling parameters","Embeddings & vector similarity","Why RAG beats fine-tuning for most cases","Prompt caching & cost modeling"] },
   { id:"ai-2",  track:"ai",       title:"RAG Architecture & Retrieval Quality",   week:"3\u20134",  time:"~8 hrs",  type:"project",    core:"RAG is the workhorse of enterprise AI. Understand chunking, retrieval quality, and how to evaluate whether your system is actually working.", concepts:["Chunking strategies (fixed, semantic, document-aware)","Embedding model selection","Hybrid search: BM25 + vector","Reranking with cross-encoders","RAGAS evaluation framework"] },
   { id:"ai-3",  track:"ai",       title:"Agent Architecture & Orchestration",     week:"5\u20136",  time:"~8 hrs",  type:"project",    core:"Agents are where AI goes wrong at scale. Learn the patterns that govern reliability: tool design, loop control, memory strategies, and failure modes.", concepts:["ReAct / plan-and-execute patterns","Tool design principles","Memory: in-context vs. external vs. episodic","Multi-agent coordination patterns","Observability: traces, spans, LLM logging"] },
   { id:"ai-4",  track:"ai",       title:"LLM Evaluation & Production Readiness",  week:"7\u20138",  time:"~6 hrs",  type:"structured", core:"This is what most AI PMs skip. You can\u2019t ship confidently without evals. Learn to design eval suites, interpret drift, and detect when a model change broke something.", concepts:["Eval taxonomy: unit, integration, human preference","LLM-as-judge patterns","Regression testing for prompts","Dataset curation & golden sets","Monitoring: latency, cost, quality drift"] },
   { id:"ai-5",  track:"ai",       title:"Fine-tuning, LoRA & When to Use Them",   week:"9",    time:"~4 hrs",  type:"reference",  core:"You\u2019ll get asked about this constantly. Know when fine-tuning beats prompting, what LoRA is, and why most teams shouldn\u2019t fine-tune until they\u2019ve exhausted RAG and prompting.", concepts:["Full fine-tune vs. LoRA vs. QLoRA","Data requirements & quality","When fine-tuning wins (style, format, domain)","Cost/latency vs. hosted models","The case against premature fine-tuning"] },
   { id:"lang-1",track:"lang",     title:"TypeScript That Actually Matters",        week:"1\u20132",  time:"~8 hrs",  type:"project",    core:"TypeScript is the contract language between you and your engineers. Understanding types means you can review PRs, catch design issues, and write glue code confidently.", concepts:["Types, unions, intersections, generics","Async/await, Promise.all, error handling","Zod for runtime validation","React hooks typing & component props","Reading TypeScript in PRs"] },
-  { id:"lang-2",track:"lang",     title:"Python for AI Builders",                 week:"3\u20135",  time:"~12 hrs", type:"project",    core:"Python is the native language of AI. FastAPI, LangChain, LlamaIndex \u2014 all Python. Read it fluently, write it for glue work and prototypes.", concepts:["Data structures & comprehensions","Pydantic models","FastAPI: routes, middleware, dependency injection","asyncio and httpx","Pandas basics for data wrangling"] },
+  { id:"lang-2",track:"lang",     title:"Python for AI Builders",                 week:"3\u20135",  time:"~12 hrs", type:"project",    core:"Python is the native language of AI. FastAPI, LangChain, LlamaIndex. All Python. Read it fluently, write it for glue work and prototypes.", concepts:["Data structures & comprehensions","Pydantic models","FastAPI: routes, middleware, dependency injection","asyncio and httpx","Pandas basics for data wrangling"] },
   { id:"lang-3",track:"lang",     title:"SQL at the PM Level",                    week:"6",    time:"~6 hrs",  type:"structured", core:"Every strategic product decision comes down to data. Write your own queries. Don\u2019t wait for analytics.", concepts:["Window functions (ROW_NUMBER, LAG, LEAD)","CTEs for readable complex queries","Aggregations & GROUP BY patterns","Reading explain plans & indexes","PostgreSQL / Supabase specifics"] },
   { id:"infra-1",track:"infra",   title:"AWS Core Services (PM-Depth)",           week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"You don\u2019t need to provision servers. You need to understand what your engineers are building to make scope, cost, and risk tradeoffs in planning conversations.", concepts:["S3: object storage, presigned URLs, lifecycle","Lambda: serverless, cold starts, limits","RDS / Aurora: managed postgres","IAM: roles, policies, least privilege","CloudWatch: logs, alarms, dashboards"] },
   { id:"infra-2",track:"infra",   title:"Containers, ECS & Deployment Patterns",  week:"3\u20134",  time:"~6 hrs",  type:"project",    core:"Most AI services ship as containers. Knowing Docker basics, ECS tradeoffs, and deployment strategies makes you a better partner in sprint planning and incident response.", concepts:["Docker: images, containers, Dockerfiles","ECS Fargate vs. EC2 launch types","Blue/green & canary deployments","Environment variables & secrets management","Vercel vs. self-hosted tradeoffs"] },
   { id:"infra-3",track:"infra",   title:"HIPAA & Healthcare Cloud Compliance",    week:"5",    time:"~5 hrs",  type:"reference",  core:"In healthcare SaaS, this is the moat and the minefield. Know what makes an architecture BAA-eligible and how to lead these conversations with prospects.", concepts:["HIPAA technical safeguards","AWS BAA-eligible services","PHI data flows & what triggers HIPAA","Audit logging requirements","Evaluating AI vendor compliance"] },
-  { id:"infra-4",track:"infra",   title:"Networking, APIs & Web Fundamentals",    week:"6\u20137",  time:"~5 hrs",  type:"structured", core:"HTTP, REST, WebSockets \u2014 you use these every day but likely have gaps. Fill them. Makes architecture reviews and API design conversations sharper.", concepts:["HTTP verbs, status codes, headers","REST vs. GraphQL vs. tRPC","WebSockets & SSE for streaming AI responses","CDN, caching, Edge functions","Auth: OAuth2, JWT, session vs. token"] },
-  { id:"data-1",track:"data",     title:"System Design for Lead PMs",             week:"1\u20132",  time:"~8 hrs",  type:"project",    core:"This is the skill that separates strong technical PMs from weak ones \u2014 not to design systems yourself, but to participate meaningfully in the conversation.", concepts:["CAP theorem for healthcare SaaS","Queues & async processing (SQS, BullMQ)","Caching patterns: read-through, write-behind","Database scaling: read replicas, sharding concepts","Event-driven architecture & webhooks"] },
+  { id:"infra-4",track:"infra",   title:"Networking, APIs & Web Fundamentals",    week:"6\u20137",  time:"~5 hrs",  type:"structured", core:"HTTP, REST, WebSockets. You use these every day but likely have gaps. Fill them. Makes architecture reviews and API design conversations sharper.", concepts:["HTTP verbs, status codes, headers","REST vs. GraphQL vs. tRPC","WebSockets & SSE for streaming AI responses","CDN, caching, Edge functions","Auth: OAuth2, JWT, session vs. token"] },
+  { id:"data-1",track:"data",     title:"System Design for Lead PMs",             week:"1\u20132",  time:"~8 hrs",  type:"project",    core:"This is the skill that separates strong technical PMs from weak ones, not to design systems yourself, but to participate meaningfully in the conversation.", concepts:["CAP theorem for healthcare SaaS","Queues & async processing (SQS, BullMQ)","Caching patterns: read-through, write-behind","Database scaling: read replicas, sharding concepts","Event-driven architecture & webhooks"] },
   { id:"data-2",track:"data",     title:"Data Pipelines & Analytics Engineering", week:"3",    time:"~6 hrs",  type:"project",    core:"Understanding ETL/ELT, dbt, and pipeline reliability makes you dangerous in a good way when data is core to your product.", concepts:["ETL vs. ELT (why ELT won)","dbt: models, tests, lineage","Batch vs. streaming ingestion","Data quality & testing strategies","Supabase edge functions as lightweight pipeline"] },
   { id:"data-3",track:"data",     title:"Observability & Production Monitoring",  week:"4",    time:"~5 hrs",  type:"reference",  core:"Know what to instrument before shipping and what to look at when something breaks. AI products need different monitoring than traditional software.", concepts:["Logs, metrics, traces (the three pillars)","OpenTelemetry standard","Alerting strategy: what to page vs. log","Error budgets & SLOs for PMs","AI-specific observability: cost, latency, quality"] },
-  { id:"craft-1",track:"craft",   title:"Git, PRs & Code Review as a PM",        week:"1\u20132",  time:"~4 hrs",  type:"structured", core:"You should be in the repo. Reading PRs, understanding diffs, writing technical issues \u2014 this is table stakes for a credible technical PM.", concepts:["Git: branching strategies, rebasing vs. merging","Reading diffs: what to look for as a PM","Writing technical issues & acceptance criteria","Semantic versioning & changelogs","GitHub Actions basics"] },
-  { id:"craft-2",track:"craft",   title:"CI/CD & DevOps Fundamentals",           week:"3\u20134",  time:"~5 hrs",  type:"structured", core:"Deploy pipelines, staging environments, feature flags \u2014 this is the scaffolding of safe, fast shipping. Know it well enough to push for good practices.", concepts:["GitHub Actions: pipelines, jobs, triggers","Feature flags: LaunchDarkly, Unleash","Environment strategy: dev/staging/prod","Database migrations: safe patterns","Rollback strategies for AI features"] },
-  { id:"craft-3",track:"craft",   title:"Security Fundamentals for PMs",         week:"5",    time:"~5 hrs",  type:"reference",  core:"Know the vocabulary, know the attack surface, know what questions to ask in a vendor review. Security is often a revenue-gating requirement in enterprise.", concepts:["OWASP Top 10 and AI-specific risks","Prompt injection \u2014 the new SQL injection","Secrets management","Dependency scanning & supply chain","SOC2 Type II \u2014 what it is and what it costs"] },
+  { id:"craft-1",track:"craft",   title:"Git, PRs & Code Review as a PM",        week:"1\u20132",  time:"~4 hrs",  type:"structured", core:"You should be in the repo. Reading PRs, understanding diffs, writing technical issues. This is table stakes for a credible technical PM.", concepts:["Git: branching strategies, rebasing vs. merging","Reading diffs: what to look for as a PM","Writing technical issues & acceptance criteria","Semantic versioning & changelogs","GitHub Actions basics"] },
+  { id:"craft-2",track:"craft",   title:"CI/CD & DevOps Fundamentals",           week:"3\u20134",  time:"~5 hrs",  type:"structured", core:"Deploy pipelines, staging environments, feature flags. This is the scaffolding of safe, fast shipping. Know it well enough to push for good practices.", concepts:["GitHub Actions: pipelines, jobs, triggers","Feature flags: LaunchDarkly, Unleash","Environment strategy: dev/staging/prod","Database migrations: safe patterns","Rollback strategies for AI features"] },
+  { id:"craft-3",track:"craft",   title:"Security Fundamentals for PMs",         week:"5",    time:"~5 hrs",  type:"reference",  core:"Know the vocabulary, know the attack surface, know what questions to ask in a vendor review. Security is often a revenue-gating requirement in enterprise.", concepts:["OWASP Top 10 and AI-specific risks","Prompt injection: the new SQL injection","Secrets management","Dependency scanning & supply chain","SOC2 Type II: what it is and what it costs"] },
   { id:"str-1", track:"strategy", title:"AI Product Strategy & Positioning",      week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"Technical literacy alone doesn\u2019t make a great AI PM. You need frameworks for deciding what to build, how to differentiate, and how to talk about AI honestly with buyers.", concepts:["Build vs. buy vs. integrate","Defensibility: data flywheels, UX lock-in","AI feature taxonomy: copilots, agents, automation","AI ROI measurement frameworks","Communicating AI to non-technical stakeholders"] },
   { id:"str-2", track:"strategy", title:"Technical PM Interview Mastery",         week:"3",    time:"~6 hrs",  type:"project",    core:"Senior AI PM interviews test system design literacy, AI product judgment, and builder credibility. Know how to demonstrate all three.", concepts:["System design interviews: PM flavor","AI product sense questions","Technical depth questions decoded","Portfolio framing for builder PMs","\u2018How would you build X\u2019 frameworks"] },
 ];
@@ -649,7 +650,7 @@ function renderTrackGrid() {
     <div class="track-row" id="trow-${t.id}">
       <div class="track-header" onclick="toggleTrack('${t.id}')">
         <div class="track-check" id="tcheck-${t.id}"></div>
-        <span class="track-icon">${t.icon}</span>
+        <span class="track-icon" style="color:${t.color}">${t.icon}</span>
         <div class="track-info">
           <div class="track-name">${t.label}</div>
           <div class="track-desc">${t.desc} \u00b7 ${mods.length} modules</div>
@@ -720,7 +721,7 @@ function updateBtn() {
   const count = state.selectedMods.size;
   const ok    = count > 0 && document.getElementById("f-role").value.trim() && document.getElementById("f-work").value.trim();
   btn.disabled = !ok;
-  btn.textContent = ok ? `Build My Curriculum \u2014 ${count} modules \u2192` : count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above";
+  btn.textContent = ok ? `Build My Curriculum: ${count} modules \u2192` : count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above";
 }
 
 document.getElementById("f-role").addEventListener("input", updateBtn);
@@ -755,7 +756,7 @@ Side projects: ${profile.sideProjects || "None"}
 Technical gaps to close: ${profile.gaps || "Not specified"}
 
 For each module generate:
-1. "connection" (2-3 sentences): How does this module connect to THIS PM's actual work? Be specific \u2014 name their actual projects and challenges.
+1. "connection" (2-3 sentences): How does this module connect to THIS PM's actual work? Be specific. Name their actual projects and challenges.
 2. "project" (1-2 sentences): A hands-on project using THEIR actual work as the context. Immediately actionable.
 3. "quickwin" (1 sentence): One thing they can do in the next 30 minutes to start on this topic.
 
@@ -858,7 +859,7 @@ function renderModules() {
 
         ${pers ? `
         <div class="today-box">
-          <div class="box-label amber">\u26A1 Start today \u2014 30 min</div>
+          <div class="box-label amber">\u26A1 Start today: 30 min</div>
           <p>${pers.quickwin}</p>
         </div>` : ""}
       </div>
@@ -905,6 +906,83 @@ function resetApp() {
   updateBtn();
   setNav(1);
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────────────
+
+function exportCurriculum() {
+  const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
+  const role = document.getElementById("f-role").value.trim();
+
+  const moduleHTML = allSel.map(m => {
+    const track = TRACKS.find(t => t.id === m.track);
+    const tc = track ? track.color : "#5ab874";
+    const pers = state.personalizations[m.id];
+    const isDone = state.completedMods.has(m.id);
+
+    return `
+    <div style="border:1px solid #ddd;border-left:3px solid ${tc};border-radius:6px;margin-bottom:16px;padding:20px 24px;${isDone ? "opacity:0.5;" : ""}">
+      <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+        <span style="font-family:monospace;font-size:11px;padding:2px 8px;border-radius:3px;background:${tc}18;color:${tc};">${track.icon} ${track.label}</span>
+        <span style="font-family:monospace;font-size:11px;color:#888;">Wk ${m.week} \u00b7 ${m.time}</span>
+        ${isDone ? '<span style="font-family:monospace;font-size:11px;color:#5ab874;">COMPLETE</span>' : ""}
+      </div>
+      <h3 style="font-size:17px;font-weight:600;margin:0 0 12px;">${m.title}</h3>
+      <p style="color:#444;line-height:1.7;margin:0 0 16px;">${m.core}</p>
+      ${pers ? `<div style="background:${tc}0a;border:1px solid ${tc}25;border-left:3px solid ${tc};border-radius:4px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:${tc};margin-bottom:4px;">How this connects to your work</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers.connection}</p>
+      </div>` : ""}
+      <div style="margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:4px;">Core concepts</div>
+        <ul style="margin:0;padding-left:18px;">${m.concepts.map(c => `<li style="color:#555;line-height:1.6;margin-bottom:3px;font-size:14px;">${c}</li>`).join("")}</ul>
+      </div>
+      <div style="background:#eef6f8;border:1px solid #a8ccd8;border-left:3px solid #6aa0d8;border-radius:4px;padding:12px 14px;margin-bottom:8px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#6aa0d8;margin-bottom:4px;">${pers ? "Your project" : "Project"}</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers ? pers.project : "Design a project using your own work as the context."}</p>
+      </div>
+      ${pers ? `<div style="background:#fdf8ee;border:1px solid #e8d8b0;border-left:3px solid #c8a050;border-radius:4px;padding:12px 14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#c8a050;margin-bottom:4px;">Start today: 30 min</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers.quickwin}</p>
+      </div>` : ""}
+    </div>`;
+  }).join("");
+
+  const done = state.completedMods.size;
+  const total = allSel.length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical PM Curriculum${role ? " for " + role : ""}</title>
+<style>
+  body { font-family: -apple-system, system-ui, 'Segoe UI', sans-serif; max-width: 700px; margin: 0 auto; padding: 40px 24px; color: #222; line-height: 1.6; }
+  h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+  .progress { font-family: monospace; font-size: 13px; color: #888; margin-bottom: 24px; }
+  .progress strong { color: #5ab874; }
+  @media print { body { padding: 20px; } }
+</style>
+</head>
+<body>
+<h1>Technical PM Curriculum</h1>
+<p class="subtitle">${role ? "Built for: " + role + " | " : ""}${total} modules | Generated ${new Date().toLocaleDateString()}</p>
+<div class="progress"><strong>${pct}%</strong> complete (${done} / ${total})</div>
+${moduleHTML}
+<p style="color:#aaa;font-size:12px;font-family:monospace;margin-top:32px;text-align:center;">Built with chriseatonai.com/pm-technical-course</p>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "pm-technical-curriculum.html";
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 // ── START ─────────────────────────────────────────────────────────────────────

@@ -512,7 +512,7 @@
         </a>
         <p class="course-kicker">Free Course &middot; PM Craft Track</p>
         <h1>The PM Craft <em>Curriculum Builder</em></h1>
-        <p class="course-desc">The skills that make a great PM aren't taught in bootcamps. They're built through practice, reflection, and deliberate attention to the craft. Tell us what you're working on — get a curriculum that connects every module to your actual work.</p>
+        <p class="course-desc">The skills that make a great PM aren't taught in bootcamps. They're built through practice, reflection, and deliberate attention to the craft. Tell us what you're working on and get a curriculum that connects every module to your actual work.</p>
         <div class="course-stats">
           <div><span class="stat-n">20</span><span class="stat-l">Modules</span></div>
           <div><span class="stat-n">6</span><span class="stat-l">Tracks</span></div>
@@ -540,17 +540,17 @@
         </div>
 
         <div class="field">
-          <label>Current work projects <span>— the more specific the better</span></label>
+          <label>Current work projects <span>(the more specific the better)</span></label>
           <textarea id="f-work" rows="4" placeholder="e.g. Leading a natural language analytics interface on surgical workflow data. Building a multi-agent sales ROI tool. Owning the roadmap across two engineering teams serving 90+ hospitals..."></textarea>
         </div>
 
         <div class="field">
-          <label>Side projects <span>— optional, helps personalize further</span></label>
+          <label>Side projects <span>(optional, helps personalize further)</span></label>
           <textarea id="f-side" rows="2" placeholder="e.g. Soccer trading card marketplace built on Next.js + Supabase. Personal AI strategy newsletter..."></textarea>
         </div>
 
         <div class="field">
-          <label>PM qualities you want to build <span>— optional</span></label>
+          <label>PM qualities you want to build <span>(optional)</span></label>
           <textarea id="f-qualities" rows="2" placeholder="e.g. Better at saying no, stronger in exec presentations, more systematic in discovery, less anxious about shipping early..."></textarea>
         </div>
 
@@ -585,6 +585,7 @@
         <div class="filter-bar" id="filter-bar"></div>
         <div id="modules-list"></div>
 
+        <button class="btn-build" onclick="exportCurriculum()" style="margin-top:24px;">Export as HTML</button>
         <button class="btn-reset" onclick="resetApp()">&#8592; Start over with a new curriculum</button>
 
       </section>
@@ -615,26 +616,26 @@ const TRACKS = [
 ];
 
 const MODULES = [
-  { id:"emp-1",  track:"empathy",       title:"Desired Outcomes vs. Feature Requests",   week:"1",   time:"~5 hrs", type:"structured", origin:"ski-slopes",    quote:"Great products aren\u2019t built around feature requests. They\u2019re built around deeply understood desired outcomes.", core:"Users rarely know what they want in the abstract. They know what frustrates them and what success feels like. The PM\u2019s job is to bridge that gap \u2014 which requires getting past the feature layer to the underlying need.", concepts:["Jobs-to-be-done framework","How to hear \u2018give me a faster horse\u2019","Frustration mapping vs. feature logging","Outcome-based roadmapping","How desired outcomes differ by user segment"], practice:"Rewrite your last 5 feature requests as desired outcomes. Compare what changes." },
+  { id:"emp-1",  track:"empathy",       title:"Desired Outcomes vs. Feature Requests",   week:"1",   time:"~5 hrs", type:"structured", origin:"ski-slopes",    quote:"Great products aren\u2019t built around feature requests. They\u2019re built around deeply understood desired outcomes.", core:"Users rarely know what they want in the abstract. They know what frustrates them and what success feels like. The PM\u2019s job is to bridge that gap, which requires getting past the feature layer to the underlying need.", concepts:["Jobs-to-be-done framework","How to hear \u2018give me a faster horse\u2019","Frustration mapping vs. feature logging","Outcome-based roadmapping","How desired outcomes differ by user segment"], practice:"Rewrite your last 5 feature requests as desired outcomes. Compare what changes." },
   { id:"emp-2",  track:"empathy",       title:"Observation Before and After",             week:"2",   time:"~5 hrs", type:"project",    origin:"sprinter-van",  quote:"You can\u2019t fully understand how someone will use a product until they\u2019re using it.", core:"Pre-launch research is necessary but insufficient. Treat launch as the beginning of understanding, not the end of it. The gap between what people say they need and what they actually use is real even when you know your users as well as your own family.", concepts:["The limits of pre-launch assumptions","Observation frameworks (PURE, contextual inquiry)","Session recording analysis","How to structure post-launch discovery","When to trust the data vs. trust the user"], practice:"Pick one feature in production. Watch 3 session recordings. Write down 5 things users do that you didn\u2019t anticipate." },
-  { id:"emp-3",  track:"empathy",       title:"Discovery Interviews That Actually Work",  week:"3",   time:"~4 hrs", type:"structured", origin:null,            quote:null, core:"Most PM interviews collect opinions instead of evidence. The craft is asking about past behavior, not hypothetical preferences \u2014 and listening for what\u2019s not being said.", concepts:["The Mom Test principles","Past behavior vs. hypothetical questions","The 5 Whys in a discovery context","Synthesizing across contradictory signals","When to stop interviewing and start building"], practice:"Run one 30-minute discovery interview using only past-behavior questions. No hypotheticals." },
-  { id:"emp-4",  track:"empathy",       title:"Empathy at Scale",                         week:"4",   time:"~4 hrs", type:"reference",  origin:null,            quote:null, core:"Individual interviews build intuition. Analytics build patterns. The best PMs triangulate across both \u2014 and know when each is lying to them.", concepts:["Quantitative signals that proxy for user pain","Cohort analysis for behavioral patterns","NPS and CSAT: what they tell you and don\u2019t","When to override data with judgment","Building continuous discovery habits"], practice:"Identify one metric in your product you think is misleading. Write a one-paragraph argument for why." },
-  { id:"comm-1", track:"communication", title:"Translating Vision Across Audiences",      week:"1",   time:"~4 hrs", type:"structured", origin:"ski-slopes",    quote:"If you deliver the same message to every audience, you\u2019re not communicating. You\u2019re broadcasting.", core:"The underlying vision stays consistent \u2014 but the translation has to be precise for each audience. What engineers need to hear is different from what sales needs, which is different from what the board needs.", concepts:["Audience mapping before you write or present","The \u2018what do they need to decide?\u2019 test","Engineering vs. commercial framing","Writing executive summaries that actually get read","The briefing vs. the sell"], practice:"Take one initiative and write three one-paragraph summaries: one for engineers, one for sales, one for your CEO. Compare what changed." },
-  { id:"comm-2", track:"communication", title:"Influence Without Authority",               week:"2",   time:"~6 hrs", type:"structured", origin:null,            quote:null, core:"PMs own outcomes but rarely control the people who create them. Influence is the core PM skill \u2014 built on trust, clarity, and making it easy for people to say yes.", concepts:["Building credibility with engineering teams","When to persuade vs. align vs. decide","Navigating disagreement without creating enemies","Writing decisions that stick","The role of pre-wiring and 1:1s"], practice:"Map your three most important stakeholders. For each: what do they care about most, and what are they skeptical of about you?" },
-  { id:"comm-3", track:"communication", title:"Writing as a PM Superpower",                week:"3",   time:"~4 hrs", type:"project",    origin:null,            quote:null, core:"The best PMs write with unusual clarity \u2014 not because they\u2019re better writers, but because their thinking is more structured. Writing forces specificity. Vague writing exposes vague thinking.", concepts:["PRDs that engineers actually read","The one-page spec and when it beats the 10-page version","Writing decisions with context, not just conclusions","Async communication that reduces meetings","Writing for the person who wasn\u2019t in the room"], practice:"Find a recent decision that has no written record. Write it up: context, options, decision, reasoning, tradeoffs accepted." },
+  { id:"emp-3",  track:"empathy",       title:"Discovery Interviews That Actually Work",  week:"3",   time:"~4 hrs", type:"structured", origin:null,            quote:null, core:"Most PM interviews collect opinions instead of evidence. The craft is asking about past behavior, not hypothetical preferences, and listening for what\u2019s not being said.", concepts:["The Mom Test principles","Past behavior vs. hypothetical questions","The 5 Whys in a discovery context","Synthesizing across contradictory signals","When to stop interviewing and start building"], practice:"Run one 30-minute discovery interview using only past-behavior questions. No hypotheticals." },
+  { id:"emp-4",  track:"empathy",       title:"Empathy at Scale",                         week:"4",   time:"~4 hrs", type:"reference",  origin:null,            quote:null, core:"Individual interviews build intuition. Analytics build patterns. The best PMs triangulate across both, and know when each is lying to them.", concepts:["Quantitative signals that proxy for user pain","Cohort analysis for behavioral patterns","NPS and CSAT: what they tell you and don\u2019t","When to override data with judgment","Building continuous discovery habits"], practice:"Identify one metric in your product you think is misleading. Write a one-paragraph argument for why." },
+  { id:"comm-1", track:"communication", title:"Translating Vision Across Audiences",      week:"1",   time:"~4 hrs", type:"structured", origin:"ski-slopes",    quote:"If you deliver the same message to every audience, you\u2019re not communicating. You\u2019re broadcasting.", core:"The underlying vision stays consistent, but the translation has to be precise for each audience. What engineers need to hear is different from what sales needs, which is different from what the board needs.", concepts:["Audience mapping before you write or present","The \u2018what do they need to decide?\u2019 test","Engineering vs. commercial framing","Writing executive summaries that actually get read","The briefing vs. the sell"], practice:"Take one initiative and write three one-paragraph summaries: one for engineers, one for sales, one for your CEO. Compare what changed." },
+  { id:"comm-2", track:"communication", title:"Influence Without Authority",               week:"2",   time:"~6 hrs", type:"structured", origin:null,            quote:null, core:"PMs own outcomes but rarely control the people who create them. Influence is the core PM skill, built on trust, clarity, and making it easy for people to say yes.", concepts:["Building credibility with engineering teams","When to persuade vs. align vs. decide","Navigating disagreement without creating enemies","Writing decisions that stick","The role of pre-wiring and 1:1s"], practice:"Map your three most important stakeholders. For each: what do they care about most, and what are they skeptical of about you?" },
+  { id:"comm-3", track:"communication", title:"Writing as a PM Superpower",                week:"3",   time:"~4 hrs", type:"project",    origin:null,            quote:null, core:"The best PMs write with unusual clarity, not because they\u2019re better writers, but because their thinking is more structured. Writing forces specificity. Vague writing exposes vague thinking.", concepts:["PRDs that engineers actually read","The one-page spec and when it beats the 10-page version","Writing decisions with context, not just conclusions","Async communication that reduces meetings","Writing for the person who wasn\u2019t in the room"], practice:"Find a recent decision that has no written record. Write it up: context, options, decision, reasoning, tradeoffs accepted." },
   { id:"sys-1",  track:"systems",       title:"Systems Thinking for PMs",                 week:"1",   time:"~5 hrs", type:"structured", origin:"ski-slopes",    quote:"Optimizing individual steps isn\u2019t enough. You have to understand the whole system.", core:"Every product decision ripples outward into capacity, sequencing, behavior, and experience. Optimizing one step can create a bottleneck somewhere else. You have to hold the whole flow in your head, not just the feature you\u2019re shipping.", concepts:["Mapping user flows end-to-end","Identifying system bottlenecks (not just pain points)","Second-order consequences of feature decisions","The difference between a feature and a system change","Demand modeling: what happens when this scales?"], practice:"Pick your most-used feature. Draw the full system map. Find one thing that surprised you." },
-  { id:"sys-2",  track:"systems",       title:"Workflow Mapping & Bottleneck Analysis",   week:"2",   time:"~5 hrs", type:"project",    origin:null,            quote:null, core:"Before you can improve a workflow, you have to see it clearly. Most PMs optimize the parts they can see \u2014 which are usually not the bottleneck.", concepts:["Value stream mapping (simplified for product)","Where time actually goes vs. where it looks like it goes","Quantifying bottleneck cost","The 5 constraints framework (Theory of Constraints)","How bottleneck analysis shapes prioritization"], practice:"Map one end-to-end workflow your product touches. Identify the actual bottleneck, not the most complained-about one." },
+  { id:"sys-2",  track:"systems",       title:"Workflow Mapping & Bottleneck Analysis",   week:"2",   time:"~5 hrs", type:"project",    origin:null,            quote:null, core:"Before you can improve a workflow, you have to see it clearly. Most PMs optimize the parts they can see, which are usually not the bottleneck.", concepts:["Value stream mapping (simplified for product)","Where time actually goes vs. where it looks like it goes","Quantifying bottleneck cost","The 5 constraints framework (Theory of Constraints)","How bottleneck analysis shapes prioritization"], practice:"Map one end-to-end workflow your product touches. Identify the actual bottleneck, not the most complained-about one." },
   { id:"sys-3",  track:"systems",       title:"Building Products in Complex Systems",     week:"3",   time:"~4 hrs", type:"reference",  origin:"ultramarathon", quote:"A single AI feature might perform beautifully in isolation and create chaos in the broader clinical workflow.", core:"Someone needs to be looking at the full picture even when everyone else is deep in their valley. Product leadership means holding the whole context while others execute on the parts.", concepts:["Integration points as risk surfaces","How to audit cross-team dependencies","Designing for interoperability (not just functionality)","When local optimization hurts the system","The \u2018ridgeline view\u2019 in complex product environments"], practice:"List all external systems your product touches. For each: what breaks in your product if that system changes?" },
   { id:"dec-1",  track:"decisions",     title:"Reversible vs. Irreversible Decisions",    week:"1",   time:"~4 hrs", type:"structured", origin:"sprinter-van",  quote:"Once you drill a hole in the floor of a van, that hole is there forever. Every structural decision leaves a scar.", core:"Most teams have this exactly backwards: they agonize over reversible decisions and rush the irreversible ones. The discipline is sorting decisions before you decide how much process they need.", concepts:["Type 1 vs. Type 2 decision framework","Identifying what makes a decision hard to undo","API contracts, schema design, and other structural decisions","How to speed up reversible decisions","The cost of wrong reversible vs. wrong irreversible decisions"], practice:"List your last 10 product decisions. Categorize each as reversible or irreversible. Did your process match the category?" },
-  { id:"dec-2",  track:"decisions",     title:"Reading Conditions, Not Just Plans",       week:"2",   time:"~4 hrs", type:"structured", origin:"ski-slopes",    quote:"Roadmaps are hypotheses. The map is not the territory. Strategic pivots aren\u2019t failures \u2014 they\u2019re the job.", core:"Good PMs commit to plans and revise them without ego. The skill isn\u2019t just making the call \u2014 it\u2019s making it quickly when conditions change, without pretending the original plan was still right.", concepts:["How to tell signal from noise in early product data","Leading vs. lagging indicators","The \u2018pivot or persevere\u2019 decision framework","How to change direction without destroying team confidence","Pre-mortems: planning for what will change"], practice:"Review your current roadmap. For each item: what signal would tell you this was the wrong bet?" },
-  { id:"dec-3",  track:"decisions",     title:"Constraints as a Prioritization Tool",    week:"3",   time:"~4 hrs", type:"project",    origin:"sprinter-van",  quote:"The question isn\u2019t \u2018can we build this?\u2019 \u2014 it\u2019s \u2018what does building this cost us in terms of everything else?\u2019", core:"Unlimited scope produces mediocre products. Constraints force the clarity that most product planning never achieves. The consequence of over-building was immediate and physical in the van \u2014 in software it\u2019s just harder to see.", concepts:["Opportunity cost framing for the backlog","Time-boxing as a constraint tool","When to say no (and how)","Resource constraints as creative forcing function","The focus tax: what you lose by adding scope"], practice:"Apply a constraint to your current roadmap: cut it by 40%. What survives? What does that tell you?" },
+  { id:"dec-2",  track:"decisions",     title:"Reading Conditions, Not Just Plans",       week:"2",   time:"~4 hrs", type:"structured", origin:"ski-slopes",    quote:"Roadmaps are hypotheses. The map is not the territory. Strategic pivots aren\u2019t failures. They\u2019re the job.", core:"Good PMs commit to plans and revise them without ego. The skill isn\u2019t just making the call. It\u2019s making it quickly when conditions change, without pretending the original plan was still right.", concepts:["How to tell signal from noise in early product data","Leading vs. lagging indicators","The \u2018pivot or persevere\u2019 decision framework","How to change direction without destroying team confidence","Pre-mortems: planning for what will change"], practice:"Review your current roadmap. For each item: what signal would tell you this was the wrong bet?" },
+  { id:"dec-3",  track:"decisions",     title:"Constraints as a Prioritization Tool",    week:"3",   time:"~4 hrs", type:"project",    origin:"sprinter-van",  quote:"The question isn\u2019t \u2018can we build this?\u2019 It\u2019s \u2018what does building this cost us in terms of everything else?\u2019", core:"Unlimited scope produces mediocre products. Constraints force the clarity that most product planning never achieves. The consequence of over-building was immediate and physical in the van. In software it\u2019s just harder to see.", concepts:["Opportunity cost framing for the backlog","Time-boxing as a constraint tool","When to say no (and how)","Resource constraints as creative forcing function","The focus tax: what you lose by adding scope"], practice:"Apply a constraint to your current roadmap: cut it by 40%. What survives? What does that tell you?" },
   { id:"dec-4",  track:"decisions",     title:"Making Good Decisions with Bad Information", week:"4", time:"~4 hrs", type:"reference",  origin:null,            quote:null, core:"You will almost never have enough information to feel certain. The skill is calibrating confidence to evidence, making calls anyway, and being honest about what you don\u2019t know.", concepts:["Decision-making under uncertainty","How to surface assumptions before they surface you","Confidence levels in roadmap items","The role of gut feel (and when to trust it)","Post-mortems that actually improve future decisions"], practice:"Write up a decision you made in the last 6 months that turned out wrong. What would have changed it? Was that information available at the time?" },
-  { id:"exec-1", track:"execution",     title:"Knowing When to Ship",                     week:"1",   time:"~4 hrs", type:"structured", origin:"sprinter-van",  quote:"Most products could have shipped weeks earlier if the team had been honest about what was essential and what was anxiety disguised as polish.", core:"80% is standard advice. But the skill is knowing which 20% is load-bearing \u2014 what\u2019s actually essential vs. what\u2019s perfectionism in a trench coat.", concepts:["Essential vs. anxious polish","How to define MVP without making it useless","Identifying the minimum that validates your hypothesis","Staged rollouts and what they tell you","The cost of waiting vs. the cost of shipping early"], practice:"Look at the last feature your team shipped. What was the last thing added before launch? Was it essential or anxiety?" },
+  { id:"exec-1", track:"execution",     title:"Knowing When to Ship",                     week:"1",   time:"~4 hrs", type:"structured", origin:"sprinter-van",  quote:"Most products could have shipped weeks earlier if the team had been honest about what was essential and what was anxiety disguised as polish.", core:"80% is standard advice. But the skill is knowing which 20% is load-bearing, meaning what\u2019s actually essential vs. what\u2019s perfectionism in a trench coat.", concepts:["Essential vs. anxious polish","How to define MVP without making it useless","Identifying the minimum that validates your hypothesis","Staged rollouts and what they tell you","The cost of waiting vs. the cost of shipping early"], practice:"Look at the last feature your team shipped. What was the last thing added before launch? Was it essential or anxiety?" },
   { id:"exec-2", track:"execution",     title:"Building for Delight",                     week:"2",   time:"~5 hrs", type:"project",    origin:"sprinter-van",  quote:"Delight isn\u2019t a feature you ship. It\u2019s the cumulative result of a hundred small decisions made with the user actually in mind.", core:"Delight lives in the details nobody explicitly asked for: the default that\u2019s already right, the error message that tells you what to do, the empty state that doesn\u2019t make you feel dumb. These don\u2019t show up on roadmaps. They show up in retention.", concepts:["Taxonomy of delight moments","Empty states, error states, and loading states as PM responsibilities","Default settings as product decisions","How to budget time for craft in planning","Measuring delight: what proxies work"], practice:"Spend 20 minutes in a product you love but didn\u2019t build. List 5 small decisions that delighted you. Then do the same in your own product." },
   { id:"exec-3", track:"execution",     title:"Pacing and Sustainable Momentum",          week:"3",   time:"~4 hrs", type:"structured", origin:"ultramarathon", quote:"Sustainable pace isn\u2019t timidity. It\u2019s how you finish.", core:"Over-promising early is the product equivalent of going out too fast in a race. The excitement of a strong demo creates pressure that compresses the time for the hard work. The people who look slow at the start are often the ones passing you at the end.", concepts:["How to manage stakeholder expectations without underselling","Roadmap sequencing for sustainable pace","Technical debt as interest you\u2019re paying forward","Team capacity modeling (honest version)","How to say \u2018not yet\u2019 without losing trust"], practice:"Review your last major launch. At what point did external timeline pressure compress your quality work?" },
   { id:"lead-1", track:"leadership",    title:"Managing Through the Hard Middle",         week:"1",   time:"~4 hrs", type:"structured", origin:"ultramarathon", quote:"Miles 60 to 80 aren\u2019t a sign that you chose the wrong race. They\u2019re the race. The earlier miles were just the warmup.", core:"Every meaningful product goes through a phase where the early excitement is gone and the finish line isn\u2019t real yet. Teams that treat this as normal make it through. Teams that expect the second half to feel like the first half often quit in the gap.", concepts:["Recognizing the \u2018messy middle\u2019 in product development","How to maintain team momentum without false optimism","When to push through vs. when to genuinely reconsider","Communicating hard phases to stakeholders honestly","Leading by example in low-visibility phases"], practice:"Think of a product that hit a hard middle. What kept the team moving? What do you wish you\u2019d done differently?" },
-  { id:"lead-2", track:"leadership",    title:"Building Your Support System",             week:"2",   time:"~4 hrs", type:"project",    origin:"ultramarathon", quote:"No one finishes a 100-miler alone. No one ships a real AI product alone either.", core:"The internal champion, the honest customer, the engineer who tells you what\u2019s actually hard \u2014 these aren\u2019t support roles. They\u2019re how good products get finished. Build the infrastructure deliberately, not by accident.", concepts:["Identifying your product\u2019s \u2018pacers\u2019","The internal champion: finding and keeping them","Customer advisory structures (formal and informal)","Building honest feedback channels","Reciprocal support: what do you give back?"], practice:"Map your current product support system. Who are your pacers? Who is missing?" },
-  { id:"lead-3", track:"leadership",    title:"Setting Standards That Change Behavior",   week:"3",   time:"~4 hrs", type:"reference",  origin:"ultramarathon", quote:"The commitment to a specific standard is what matters, because it forces clarity downstream.", core:"Vague goals produce vague execution. Specific, meaningful standards change how every decision downstream gets made. Not arbitrary deadlines \u2014 but thresholds the team genuinely commits to and builds toward.", concepts:["How to set quality thresholds (not just timelines)","OKRs that change behavior vs. OKRs as reporting theater","How specificity unlocks team alignment","Communicating standards without micromanaging","Holding standards under pressure"], practice:"Write one standard \u2014 not a goal \u2014 that if hit would mean your team did something genuinely excellent this quarter. Is it specific enough to change a decision?" },
+  { id:"lead-2", track:"leadership",    title:"Building Your Support System",             week:"2",   time:"~4 hrs", type:"project",    origin:"ultramarathon", quote:"No one finishes a 100-miler alone. No one ships a real AI product alone either.", core:"The internal champion, the honest customer, the engineer who tells you what\u2019s actually hard. These aren\u2019t support roles. They\u2019re how good products get finished. Build the infrastructure deliberately, not by accident.", concepts:["Identifying your product\u2019s \u2018pacers\u2019","The internal champion: finding and keeping them","Customer advisory structures (formal and informal)","Building honest feedback channels","Reciprocal support: what do you give back?"], practice:"Map your current product support system. Who are your pacers? Who is missing?" },
+  { id:"lead-3", track:"leadership",    title:"Setting Standards That Change Behavior",   week:"3",   time:"~4 hrs", type:"reference",  origin:"ultramarathon", quote:"The commitment to a specific standard is what matters, because it forces clarity downstream.", core:"Vague goals produce vague execution. Specific, meaningful standards change how every decision downstream gets made. Not arbitrary deadlines, but thresholds the team genuinely commits to and builds toward.", concepts:["How to set quality thresholds (not just timelines)","OKRs that change behavior vs. OKRs as reporting theater","How specificity unlocks team alignment","Communicating standards without micromanaging","Holding standards under pressure"], practice:"Write one standard (not a goal) that if hit would mean your team did something genuinely excellent this quarter. Is it specific enough to change a decision?" },
 ];
 
 const ORIGIN_LABELS = {
@@ -669,7 +670,7 @@ function renderTrackGrid() {
     <div class="track-row" id="trow-${t.id}">
       <div class="track-header" onclick="toggleTrack('${t.id}')">
         <div class="track-check" id="tcheck-${t.id}"></div>
-        <span class="track-icon">${t.icon}</span>
+        <span class="track-icon" style="color:${t.color}">${t.icon}</span>
         <div class="track-info">
           <div class="track-name">${t.label}</div>
           <div class="track-desc">${t.desc} \u00b7 ${mods.length} modules</div>
@@ -757,7 +758,7 @@ function updateBuildBtn() {
   const work  = document.getElementById("f-work").value.trim();
   const ok    = count > 0 && role && work;
   btn.disabled = !ok;
-  btn.textContent = ok ? `Build My Curriculum \u2014 ${count} modules \u2192` : (count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above");
+  btn.textContent = ok ? `Build My Curriculum: ${count} modules \u2192` : (count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above");
 }
 
 document.getElementById("f-role").addEventListener("input", updateBuildBtn);
@@ -792,7 +793,7 @@ Side projects: ${profile.sideProjects || "None"}
 PM qualities to develop: ${profile.qualities || "Not specified"}
 
 For each module, generate:
-1. "connection" (2-3 sentences): How does this module connect directly to THIS PM's actual work? Be concrete \u2014 name their actual projects.
+1. "connection" (2-3 sentences): How does this module connect directly to THIS PM's actual work? Be concrete. Name their actual projects.
 2. "exercise" (1-2 sentences): A tailored practice exercise using THEIR actual work as the context. Make it immediately actionable.
 3. "today" (1 sentence): One thing they can do in the next 30 minutes to start on this topic.
 
@@ -912,7 +913,7 @@ function renderModules() {
 
         ${pers ? `
         <div class="today-box">
-          <div class="box-label rust">\u26A1 Start today \u2014 30 min</div>
+          <div class="box-label rust">\u26A1 Start today: 30 min</div>
           <p>${pers.today}</p>
         </div>` : ""}
       </div>
@@ -971,6 +972,84 @@ function resetApp() {
   updateBuildBtn();
   setStepNav(1);
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────────────
+
+function exportCurriculum() {
+  const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
+  const role = document.getElementById("f-role").value.trim();
+
+  const moduleHTML = allSel.map(m => {
+    const track = TRACKS.find(t => t.id === m.track);
+    const tc = track ? track.color : "#e8a735";
+    const pers = state.personalizations[m.id];
+    const isDone = state.completedMods.has(m.id);
+
+    return `
+    <div style="border:1px solid #ddd;border-left:3px solid ${tc};border-radius:6px;margin-bottom:16px;padding:20px 24px;${isDone ? "opacity:0.5;" : ""}">
+      <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+        <span style="font-family:monospace;font-size:11px;padding:2px 8px;border-radius:3px;background:${tc}18;color:${tc};">${track.icon} ${track.label}</span>
+        <span style="font-family:monospace;font-size:11px;color:#888;">Wk ${m.week} \u00b7 ${m.time}</span>
+        ${isDone ? '<span style="font-family:monospace;font-size:11px;color:#5ab874;">COMPLETE</span>' : ""}
+      </div>
+      <h3 style="font-size:17px;font-weight:600;margin:0 0 12px;">${m.title}</h3>
+      ${m.quote ? `<blockquote style="border-left:2px solid ${tc};padding-left:14px;margin:0 0 14px;font-style:italic;color:${tc};">\u201C${m.quote}\u201D</blockquote>` : ""}
+      <p style="color:#444;line-height:1.7;margin:0 0 16px;">${m.core}</p>
+      ${pers ? `<div style="background:${tc}0a;border:1px solid ${tc}25;border-left:3px solid ${tc};border-radius:4px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:${tc};margin-bottom:4px;">How this connects to your work</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers.connection}</p>
+      </div>` : ""}
+      <div style="margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:4px;">Core concepts</div>
+        <ul style="margin:0;padding-left:18px;">${m.concepts.map(c => `<li style="color:#555;line-height:1.6;margin-bottom:3px;font-size:14px;">${c}</li>`).join("")}</ul>
+      </div>
+      <div style="background:#f0f8f2;border:1px solid #d0e8d0;border-left:3px solid #5ab874;border-radius:4px;padding:12px 14px;margin-bottom:8px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#5ab874;margin-bottom:4px;">${pers ? "Your exercise" : "Practice"}</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers ? pers.exercise : m.practice}</p>
+      </div>
+      ${pers ? `<div style="background:#fdf8ee;border:1px solid #e8d8b0;border-left:3px solid #c8a050;border-radius:4px;padding:12px 14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#c8a050;margin-bottom:4px;">Start today: 30 min</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers.today}</p>
+      </div>` : ""}
+    </div>`;
+  }).join("");
+
+  const done = state.completedMods.size;
+  const total = allSel.length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Craft Curriculum${role ? " for " + role : ""}</title>
+<style>
+  body { font-family: -apple-system, system-ui, 'Segoe UI', sans-serif; max-width: 700px; margin: 0 auto; padding: 40px 24px; color: #222; line-height: 1.6; }
+  h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+  .progress { font-family: monospace; font-size: 13px; color: #888; margin-bottom: 24px; }
+  .progress strong { color: #e8a735; }
+  @media print { body { padding: 20px; } }
+</style>
+</head>
+<body>
+<h1>PM Craft Curriculum</h1>
+<p class="subtitle">${role ? "Built for: " + role + " | " : ""}${total} modules | Generated ${new Date().toLocaleDateString()}</p>
+<div class="progress"><strong>${pct}%</strong> complete (${done} / ${total})</div>
+${moduleHTML}
+<p style="color:#aaa;font-size:12px;font-family:monospace;margin-top:32px;text-align:center;">Built with chriseatonai.com/pm-craft-course</p>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "pm-craft-curriculum.html";
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 // ── START ─────────────────────────────────────────────────────────────────────
