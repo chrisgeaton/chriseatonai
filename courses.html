@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses | Chris Eaton</title>
+  <meta name="description" content="Free AI-personalized PM courses. Tell us what you're working on — get a curriculum built around your actual work.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PM Courses | Chris Eaton">
+  <meta property="og:description" content="Free AI-personalized PM courses. Tell us what you're working on — get a curriculum built around your actual work.">
+  <meta property="og:url" content="https://chriseatonai.com/courses">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .courses-hero {
+      padding: 80px 0 48px;
+    }
+    .courses-hero .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .courses-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+    .courses-hero p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 560px;
+    }
+
+    .course-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 48px 0 80px;
+    }
+
+    .course-card {
+      display: flex;
+      flex-direction: column;
+      padding: 28px 24px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+      cursor: pointer;
+    }
+    .course-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-hover);
+    }
+
+    .course-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .course-card-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding-top: 2px;
+    }
+    .course-card-label.craft { color: var(--accent); }
+    .course-card-label.technical { color: #5ab874; }
+
+    .course-card-tags {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .course-card h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    .course-card:hover h2 {
+      color: var(--accent);
+    }
+    .course-card.technical:hover h2 {
+      color: #5ab874;
+    }
+
+    .course-card p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .course-card-meta {
+      display: flex;
+      gap: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .course-card-stat {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-tertiary);
+    }
+    .course-card-stat strong {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .course-card .arrow-icon {
+      flex-shrink: 0;
+      color: var(--text-tertiary);
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: all 0.2s var(--ease);
+      align-self: flex-start;
+    }
+    .course-card:hover .arrow-icon {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    .how-it-works {
+      padding: 0 0 64px;
+    }
+    .how-it-works h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .step-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .step-num {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .step-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .step-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      .courses-hero { padding: 56px 0 40px; }
+      .course-card-meta { flex-wrap: wrap; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html#writing">Writing</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="courses.html" class="nav-active">Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="courses-hero">
+      <div class="container">
+        <p class="hero-tag">Free courses</p>
+        <h1>PM Curriculum Builders</h1>
+        <p>AI-personalized courses built around your actual work. Tell us what you're building and get a curriculum that connects every module to your real projects, decisions, and challenges.</p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section>
+      <div class="container">
+        <div class="course-grid">
+
+          <a href="pm-craft-course.html" class="course-card craft">
+            <div class="course-card-top">
+              <span class="course-card-label craft">PM Craft Track</span>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            </div>
+            <h2>The PM Craft Curriculum Builder</h2>
+            <p>The skills that make a great PM aren't taught in bootcamps. User empathy, communication, systems thinking, decision-making, execution, and leadership — built through practice and tied to your actual work.</p>
+            <div class="course-card-meta">
+              <span class="course-card-stat"><strong>20</strong> modules</span>
+              <span class="course-card-stat"><strong>6</strong> tracks</span>
+              <span class="course-card-stat"><strong>3</strong> source essays</span>
+              <span class="course-card-stat"><strong>~90</strong> hours</span>
+            </div>
+          </a>
+
+          <a href="pm-technical-course.html" class="course-card technical">
+            <div class="course-card-top">
+              <span class="course-card-label technical">Technical PM Track</span>
+              <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            </div>
+            <h2>The Technical PM Curriculum Builder</h2>
+            <p>For PMs who build with AI assistance and want to lead engineers more credibly. AI engineering, languages, infrastructure, data systems, engineering craft, and AI strategy — all grounded in your real projects.</p>
+            <div class="course-card-meta">
+              <span class="course-card-stat"><strong>20</strong> modules</span>
+              <span class="course-card-stat"><strong>6</strong> tracks</span>
+              <span class="course-card-stat"><strong>~90</strong> hours</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How it works</h2>
+        <div class="steps-list">
+          <div class="step-item">
+            <span class="step-num">01</span>
+            <p class="step-text"><strong>Tell us about your work.</strong> Your role, current projects, side projects, and what you want to get better at.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">02</span>
+            <p class="step-text"><strong>Pick your tracks.</strong> Choose full tracks or individual modules. Build the curriculum that fits your gaps.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">03</span>
+            <p class="step-text"><strong>Get a personalized curriculum.</strong> AI connects every module to your actual work — with exercises using your real projects and 30-minute quick starts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

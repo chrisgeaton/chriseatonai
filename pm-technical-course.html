@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical PM Curriculum Builder | Chris Eaton</title>
+  <meta name="description" content="Free AI-personalized technical PM curriculum. AI engineering, languages, infrastructure, and more — built around your actual work.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Technical PM Curriculum Builder | Chris Eaton">
+  <meta property="og:description" content="Free AI-personalized technical PM curriculum. Built around your actual work.">
+  <meta property="og:url" content="https://chriseatonai.com/pm-technical-course">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── Course-specific styles (green accent variant) ── */
+    :root {
+      --course-accent: #5ab874;
+      --course-accent-dim: rgba(90, 184, 116, 0.12);
+      --course-blue: #6aa0d8;
+      --course-blue-dim: rgba(106, 160, 216, 0.12);
+      --course-amber: #c8a050;
+      --course-amber-dim: rgba(200, 160, 80, 0.12);
+    }
+
+    /* Hero */
+    .course-hero {
+      padding: 80px 0 48px;
+    }
+    .course-kicker {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--course-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .course-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+    .course-hero h1 em {
+      font-style: italic;
+      color: var(--course-accent);
+    }
+    .course-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .course-stats {
+      display: flex;
+      gap: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-n {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--course-accent);
+      display: block;
+      line-height: 1.2;
+    }
+    .stat-l {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Step nav */
+    .step-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      margin-bottom: 40px;
+    }
+    .step-item {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      padding-right: 24px;
+    }
+    .step-item.active { color: var(--course-accent); }
+    .step-item:not(:last-child)::after {
+      content: '\2192';
+      margin-left: 12px;
+      color: var(--border);
+    }
+
+    /* Section labels */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+    }
+
+    /* Form fields */
+    .field { margin-bottom: 24px; }
+    .field label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .field label span {
+      font-family: var(--font);
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      text-transform: none;
+      letter-spacing: 0;
+      font-style: italic;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      outline: none;
+      transition: border-color 0.2s var(--ease);
+      resize: vertical;
+      appearance: none;
+    }
+    .field input:focus, .field textarea:focus {
+      border-color: var(--course-accent);
+    }
+    .field input::placeholder, .field textarea::placeholder {
+      color: var(--text-tertiary);
+      font-style: italic;
+    }
+
+    /* Track selector */
+    .track-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 36px; }
+    .track-row {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.15s var(--ease);
+    }
+    .track-row.selected { border-color: var(--course-accent); }
+    .track-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg-raised);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s var(--ease);
+    }
+    .track-header:hover { background: var(--bg-hover); }
+    .track-check {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--text-tertiary);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: var(--bg); flex-shrink: 0;
+      transition: all 0.15s var(--ease);
+    }
+    .track-check.on { background: var(--course-accent); border-color: var(--course-accent); }
+    .track-icon { font-size: 14px; flex-shrink: 0; color: var(--text-secondary); }
+    .track-info { flex: 1; }
+    .track-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+    .track-desc { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); }
+    .track-toggle {
+      font-family: var(--mono); font-size: 0.75rem; color: var(--text-tertiary);
+      padding: 4px 8px; background: none; border: none; cursor: pointer;
+    }
+    .track-modules {
+      border-top: 1px solid var(--border);
+      padding: 8px 14px 12px;
+      display: none;
+      background: var(--bg);
+    }
+    .track-modules.open { display: block; }
+    .mod-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+    .mod-row:last-child { border-bottom: none; }
+    .mod-check {
+      width: 14px; height: 14px;
+      border: 1px solid var(--text-tertiary);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; color: var(--bg); flex-shrink: 0;
+      transition: all 0.15s var(--ease);
+    }
+    .mod-check.on { background: var(--course-accent); border-color: var(--course-accent); }
+    .mod-title { font-size: 0.85rem; color: var(--text-secondary); flex: 1; }
+    .mod-time { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); }
+
+    /* Build button */
+    .btn-build {
+      width: 100%;
+      padding: 16px;
+      background: var(--course-accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s var(--ease);
+    }
+    .btn-build:hover:not(:disabled) { opacity: 0.9; }
+    .btn-build:disabled {
+      background: var(--bg-hover);
+      color: var(--text-tertiary);
+      cursor: not-allowed;
+    }
+
+    /* Generating state */
+    #step-generating {
+      display: none;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .gen-spinner {
+      width: 40px; height: 40px;
+      border: 2px solid var(--border);
+      border-top-color: var(--course-accent);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gen-status {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+    }
+
+    /* Curriculum output */
+    #step-curriculum { display: none; }
+
+    .progress-bar-wrap { margin-bottom: 28px; }
+    .progress-meta {
+      display: flex; justify-content: space-between;
+      font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .progress-meta span.pct { color: var(--course-accent); }
+    .progress-track { height: 2px; background: var(--border); border-radius: 1px; }
+    .progress-fill {
+      height: 100%; background: var(--course-accent); border-radius: 1px;
+      transition: width 0.4s ease; width: 0%;
+    }
+
+    /* Filter pills */
+    .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+    .filter-pill {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-raised);
+      color: var(--text-tertiary);
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+    }
+    .filter-pill:hover { border-color: var(--course-accent); color: var(--course-accent); }
+    .filter-pill.active {
+      background: var(--course-accent);
+      color: var(--bg);
+      border-color: var(--course-accent);
+    }
+
+    /* Module cards */
+    .module-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      transition: opacity 0.2s var(--ease), border-color 0.15s var(--ease);
+    }
+    .module-card.done { opacity: 0.45; }
+    .module-card.open { border-color: var(--course-accent); }
+
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-raised);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .module-card.open .card-header { border-radius: 6px 6px 0 0; }
+
+    .card-complete {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--text-tertiary);
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: var(--bg);
+      cursor: pointer; flex-shrink: 0;
+      transition: all 0.15s var(--ease);
+    }
+    .card-complete.done { background: var(--course-accent); border-color: var(--course-accent); }
+
+    .card-meta { flex: 1; min-width: 0; }
+    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 4px; align-items: center; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .tag-track { background: var(--course-accent-dim); color: var(--course-accent); }
+    .tag-structured { background: var(--course-blue-dim); color: var(--course-blue); }
+    .tag-project { background: var(--course-accent-dim); color: var(--course-accent); }
+    .tag-reference { background: var(--course-amber-dim); color: var(--course-amber); }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .card-chevron {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--text-tertiary); flex-shrink: 0;
+    }
+
+    .card-body {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 22px;
+      border-radius: 0 0 6px 6px;
+      animation: fadeIn 0.2s ease;
+    }
+    .card-body.open { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-core {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .connection-box {
+      background: var(--course-accent-dim);
+      border: 1px solid rgba(90, 184, 116, 0.2);
+      border-left: 3px solid var(--course-accent);
+      border-radius: 4px;
+      padding: 13px 15px;
+      margin-bottom: 16px;
+    }
+    .box-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .box-label.green { color: var(--course-accent); }
+    .box-label.blue { color: var(--course-blue); }
+    .box-label.amber { color: var(--course-amber); }
+    .connection-box p, .exercise-box p, .today-box p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .concepts-list { margin-bottom: 16px; }
+    .concepts-list ul { list-style: none; padding: 0; }
+    .concepts-list li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 5px 0 5px 16px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .concepts-list li:last-child { border-bottom: none; }
+    .concepts-list li::before {
+      content: '\2192';
+      position: absolute; left: 0;
+      color: var(--text-tertiary);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      top: 6px;
+    }
+
+    .exercise-box {
+      background: var(--course-blue-dim);
+      border: 1px solid rgba(106, 160, 216, 0.2);
+      border-left: 3px solid var(--course-blue);
+      border-radius: 4px;
+      padding: 13px 15px;
+      margin-bottom: 10px;
+    }
+    .today-box {
+      background: var(--course-amber-dim);
+      border: 1px solid rgba(200, 160, 80, 0.2);
+      border-left: 3px solid var(--course-amber);
+      border-radius: 4px;
+      padding: 12px 15px;
+    }
+
+    /* Reset button */
+    .btn-reset {
+      display: block;
+      width: 100%;
+      margin-top: 32px;
+      padding: 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-tertiary);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+    }
+    .btn-reset:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .course-hero { padding: 56px 0 40px; }
+      .course-stats { gap: 20px; }
+      .card-tags { gap: 3px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html#writing">Writing</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="courses.html" class="nav-active">Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- Hero -->
+      <section class="course-hero">
+        <a href="courses.html" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          All courses
+        </a>
+        <p class="course-kicker">Free Course &middot; Technical PM Track</p>
+        <h1>The Technical PM <em>Curriculum Builder</em></h1>
+        <p class="course-desc">For PMs who build with AI assistance and want to lead engineers more credibly, make smarter architecture tradeoffs, and ship AI products that hold up in production. Tell us what you're working on — get a curriculum tied to your actual work.</p>
+        <div class="course-stats">
+          <div><span class="stat-n">20</span><span class="stat-l">Modules</span></div>
+          <div><span class="stat-n">6</span><span class="stat-l">Tracks</span></div>
+          <div><span class="stat-n">~90</span><span class="stat-l">Hours total</span></div>
+        </div>
+      </section>
+
+      <hr class="divider" style="max-width:100%;padding:0;">
+
+      <!-- Step nav -->
+      <nav class="step-nav">
+        <span class="step-item active" id="nav-1">Your Context</span>
+        <span class="step-item" id="nav-2">Personalizing</span>
+        <span class="step-item" id="nav-3">Your Curriculum</span>
+      </nav>
+
+      <!-- Step 1: Onboarding -->
+      <section id="step-onboard">
+
+        <div class="section-label">About you</div>
+
+        <div class="field">
+          <label>Your current role</label>
+          <input type="text" id="f-role" placeholder="e.g. Senior PM at a healthcare SaaS startup" />
+        </div>
+
+        <div class="field">
+          <label>Current work projects <span>— be specific, this shapes every module</span></label>
+          <textarea id="f-work" rows="4" placeholder="e.g. Building an NL analytics interface on surgical workflow data. Leading an org-wide RAG system. Shipping a multi-agent sales ROI calculator. Serving 90+ hospitals..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Side projects <span>— optional</span></label>
+          <textarea id="f-side" rows="2" placeholder="e.g. Soccer trading card marketplace on Next.js + Supabase. Personal AI newsletter..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Technical gaps you want to close <span>— optional</span></label>
+          <textarea id="f-gaps" rows="2" placeholder="e.g. AWS architecture decisions, TypeScript beyond basics, understanding RAG quality..."></textarea>
+        </div>
+
+        <div class="section-label" style="margin-top: 36px;">Choose your tracks</div>
+        <p style="font-size:0.85rem; color:var(--text-tertiary); font-style:italic; margin-bottom:18px;">Select a track to include all modules, or expand to pick individually.</p>
+
+        <div class="track-grid" id="track-grid"></div>
+
+        <button class="btn-build" id="btn-build" disabled onclick="startGeneration()">
+          Select modules to build your curriculum
+        </button>
+
+      </section>
+
+      <!-- Step 2: Generating -->
+      <section id="step-generating">
+        <div class="gen-spinner"></div>
+        <div class="gen-status" id="gen-status">Reading your context...</div>
+      </section>
+
+      <!-- Step 3: Curriculum -->
+      <section id="step-curriculum">
+
+        <div class="progress-bar-wrap">
+          <div class="progress-meta">
+            <span id="progress-label">0 / 0 complete</span>
+            <span class="pct" id="progress-pct">0%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+
+        <div class="filter-bar" id="filter-bar"></div>
+        <div id="modules-list"></div>
+
+        <button class="btn-reset" onclick="resetApp()">&#8592; Start over with a new curriculum</button>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const TRACKS = [
+  { id:"ai",       label:"AI Engineering",     icon:"\u26A1", desc:"LLMs, RAG, agents, evals, fine-tuning",    color:"#5ab874" },
+  { id:"lang",     label:"Languages",           icon:"{ }", desc:"TypeScript, Python, SQL",                    color:"#6aa0d8" },
+  { id:"infra",    label:"Infrastructure",      icon:"\u2B21", desc:"AWS, containers, HIPAA, networking",      color:"#d87a6a" },
+  { id:"data",     label:"Data & Systems",      icon:"\u25C8", desc:"System design, pipelines, observability", color:"#c8a050" },
+  { id:"craft",    label:"Engineering Craft",   icon:"\u25CE", desc:"Git, CI/CD, security",                    color:"#4ab8a0" },
+  { id:"strategy", label:"AI Strategy",         icon:"\u25C7", desc:"Product positioning, interviews, ROI",    color:"#a080d0" },
+];
+
+const MODULES = [
+  { id:"ai-1",  track:"ai",       title:"LLM Internals for PMs",                  week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"You can\u2019t lead AI product decisions without knowing what\u2019s actually happening inside the model \u2014 tokens, context windows, hallucinations, and when RAG beats fine-tuning.", concepts:["Tokenization & context windows","Temperature / sampling parameters","Embeddings & vector similarity","Why RAG beats fine-tuning for most cases","Prompt caching & cost modeling"] },
+  { id:"ai-2",  track:"ai",       title:"RAG Architecture & Retrieval Quality",   week:"3\u20134",  time:"~8 hrs",  type:"project",    core:"RAG is the workhorse of enterprise AI. Understand chunking, retrieval quality, and how to evaluate whether your system is actually working.", concepts:["Chunking strategies (fixed, semantic, document-aware)","Embedding model selection","Hybrid search: BM25 + vector","Reranking with cross-encoders","RAGAS evaluation framework"] },
+  { id:"ai-3",  track:"ai",       title:"Agent Architecture & Orchestration",     week:"5\u20136",  time:"~8 hrs",  type:"project",    core:"Agents are where AI goes wrong at scale. Learn the patterns that govern reliability: tool design, loop control, memory strategies, and failure modes.", concepts:["ReAct / plan-and-execute patterns","Tool design principles","Memory: in-context vs. external vs. episodic","Multi-agent coordination patterns","Observability: traces, spans, LLM logging"] },
+  { id:"ai-4",  track:"ai",       title:"LLM Evaluation & Production Readiness",  week:"7\u20138",  time:"~6 hrs",  type:"structured", core:"This is what most AI PMs skip. You can\u2019t ship confidently without evals. Learn to design eval suites, interpret drift, and detect when a model change broke something.", concepts:["Eval taxonomy: unit, integration, human preference","LLM-as-judge patterns","Regression testing for prompts","Dataset curation & golden sets","Monitoring: latency, cost, quality drift"] },
+  { id:"ai-5",  track:"ai",       title:"Fine-tuning, LoRA & When to Use Them",   week:"9",    time:"~4 hrs",  type:"reference",  core:"You\u2019ll get asked about this constantly. Know when fine-tuning beats prompting, what LoRA is, and why most teams shouldn\u2019t fine-tune until they\u2019ve exhausted RAG and prompting.", concepts:["Full fine-tune vs. LoRA vs. QLoRA","Data requirements & quality","When fine-tuning wins (style, format, domain)","Cost/latency vs. hosted models","The case against premature fine-tuning"] },
+  { id:"lang-1",track:"lang",     title:"TypeScript That Actually Matters",        week:"1\u20132",  time:"~8 hrs",  type:"project",    core:"TypeScript is the contract language between you and your engineers. Understanding types means you can review PRs, catch design issues, and write glue code confidently.", concepts:["Types, unions, intersections, generics","Async/await, Promise.all, error handling","Zod for runtime validation","React hooks typing & component props","Reading TypeScript in PRs"] },
+  { id:"lang-2",track:"lang",     title:"Python for AI Builders",                 week:"3\u20135",  time:"~12 hrs", type:"project",    core:"Python is the native language of AI. FastAPI, LangChain, LlamaIndex \u2014 all Python. Read it fluently, write it for glue work and prototypes.", concepts:["Data structures & comprehensions","Pydantic models","FastAPI: routes, middleware, dependency injection","asyncio and httpx","Pandas basics for data wrangling"] },
+  { id:"lang-3",track:"lang",     title:"SQL at the PM Level",                    week:"6",    time:"~6 hrs",  type:"structured", core:"Every strategic product decision comes down to data. Write your own queries. Don\u2019t wait for analytics.", concepts:["Window functions (ROW_NUMBER, LAG, LEAD)","CTEs for readable complex queries","Aggregations & GROUP BY patterns","Reading explain plans & indexes","PostgreSQL / Supabase specifics"] },
+  { id:"infra-1",track:"infra",   title:"AWS Core Services (PM-Depth)",           week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"You don\u2019t need to provision servers. You need to understand what your engineers are building to make scope, cost, and risk tradeoffs in planning conversations.", concepts:["S3: object storage, presigned URLs, lifecycle","Lambda: serverless, cold starts, limits","RDS / Aurora: managed postgres","IAM: roles, policies, least privilege","CloudWatch: logs, alarms, dashboards"] },
+  { id:"infra-2",track:"infra",   title:"Containers, ECS & Deployment Patterns",  week:"3\u20134",  time:"~6 hrs",  type:"project",    core:"Most AI services ship as containers. Knowing Docker basics, ECS tradeoffs, and deployment strategies makes you a better partner in sprint planning and incident response.", concepts:["Docker: images, containers, Dockerfiles","ECS Fargate vs. EC2 launch types","Blue/green & canary deployments","Environment variables & secrets management","Vercel vs. self-hosted tradeoffs"] },
+  { id:"infra-3",track:"infra",   title:"HIPAA & Healthcare Cloud Compliance",    week:"5",    time:"~5 hrs",  type:"reference",  core:"In healthcare SaaS, this is the moat and the minefield. Know what makes an architecture BAA-eligible and how to lead these conversations with prospects.", concepts:["HIPAA technical safeguards","AWS BAA-eligible services","PHI data flows & what triggers HIPAA","Audit logging requirements","Evaluating AI vendor compliance"] },
+  { id:"infra-4",track:"infra",   title:"Networking, APIs & Web Fundamentals",    week:"6\u20137",  time:"~5 hrs",  type:"structured", core:"HTTP, REST, WebSockets \u2014 you use these every day but likely have gaps. Fill them. Makes architecture reviews and API design conversations sharper.", concepts:["HTTP verbs, status codes, headers","REST vs. GraphQL vs. tRPC","WebSockets & SSE for streaming AI responses","CDN, caching, Edge functions","Auth: OAuth2, JWT, session vs. token"] },
+  { id:"data-1",track:"data",     title:"System Design for Lead PMs",             week:"1\u20132",  time:"~8 hrs",  type:"project",    core:"This is the skill that separates strong technical PMs from weak ones \u2014 not to design systems yourself, but to participate meaningfully in the conversation.", concepts:["CAP theorem for healthcare SaaS","Queues & async processing (SQS, BullMQ)","Caching patterns: read-through, write-behind","Database scaling: read replicas, sharding concepts","Event-driven architecture & webhooks"] },
+  { id:"data-2",track:"data",     title:"Data Pipelines & Analytics Engineering", week:"3",    time:"~6 hrs",  type:"project",    core:"Understanding ETL/ELT, dbt, and pipeline reliability makes you dangerous in a good way when data is core to your product.", concepts:["ETL vs. ELT (why ELT won)","dbt: models, tests, lineage","Batch vs. streaming ingestion","Data quality & testing strategies","Supabase edge functions as lightweight pipeline"] },
+  { id:"data-3",track:"data",     title:"Observability & Production Monitoring",  week:"4",    time:"~5 hrs",  type:"reference",  core:"Know what to instrument before shipping and what to look at when something breaks. AI products need different monitoring than traditional software.", concepts:["Logs, metrics, traces (the three pillars)","OpenTelemetry standard","Alerting strategy: what to page vs. log","Error budgets & SLOs for PMs","AI-specific observability: cost, latency, quality"] },
+  { id:"craft-1",track:"craft",   title:"Git, PRs & Code Review as a PM",        week:"1\u20132",  time:"~4 hrs",  type:"structured", core:"You should be in the repo. Reading PRs, understanding diffs, writing technical issues \u2014 this is table stakes for a credible technical PM.", concepts:["Git: branching strategies, rebasing vs. merging","Reading diffs: what to look for as a PM","Writing technical issues & acceptance criteria","Semantic versioning & changelogs","GitHub Actions basics"] },
+  { id:"craft-2",track:"craft",   title:"CI/CD & DevOps Fundamentals",           week:"3\u20134",  time:"~5 hrs",  type:"structured", core:"Deploy pipelines, staging environments, feature flags \u2014 this is the scaffolding of safe, fast shipping. Know it well enough to push for good practices.", concepts:["GitHub Actions: pipelines, jobs, triggers","Feature flags: LaunchDarkly, Unleash","Environment strategy: dev/staging/prod","Database migrations: safe patterns","Rollback strategies for AI features"] },
+  { id:"craft-3",track:"craft",   title:"Security Fundamentals for PMs",         week:"5",    time:"~5 hrs",  type:"reference",  core:"Know the vocabulary, know the attack surface, know what questions to ask in a vendor review. Security is often a revenue-gating requirement in enterprise.", concepts:["OWASP Top 10 and AI-specific risks","Prompt injection \u2014 the new SQL injection","Secrets management","Dependency scanning & supply chain","SOC2 Type II \u2014 what it is and what it costs"] },
+  { id:"str-1", track:"strategy", title:"AI Product Strategy & Positioning",      week:"1\u20132",  time:"~6 hrs",  type:"structured", core:"Technical literacy alone doesn\u2019t make a great AI PM. You need frameworks for deciding what to build, how to differentiate, and how to talk about AI honestly with buyers.", concepts:["Build vs. buy vs. integrate","Defensibility: data flywheels, UX lock-in","AI feature taxonomy: copilots, agents, automation","AI ROI measurement frameworks","Communicating AI to non-technical stakeholders"] },
+  { id:"str-2", track:"strategy", title:"Technical PM Interview Mastery",         week:"3",    time:"~6 hrs",  type:"project",    core:"Senior AI PM interviews test system design literacy, AI product judgment, and builder credibility. Know how to demonstrate all three.", concepts:["System design interviews: PM flavor","AI product sense questions","Technical depth questions decoded","Portfolio framing for builder PMs","\u2018How would you build X\u2019 frameworks"] },
+];
+
+const TYPE_LABEL = { structured:"\uD83D\uDCDA Structured", project:"\uD83D\uDD28 Build it", reference:"\uD83D\uDCCB Reference" };
+const TYPE_CLASS = { structured:"tag-structured", project:"tag-project", reference:"tag-reference" };
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+
+let state = {
+  selectedTracks: new Set(),
+  selectedMods:   new Set(),
+  openTracks:     new Set(),
+  personalizations: {},
+  completedMods:  new Set(),
+  activeFilter:   "all",
+  openCard:       null,
+};
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+function init() { renderTrackGrid(); }
+
+function renderTrackGrid() {
+  document.getElementById("track-grid").innerHTML = TRACKS.map(t => {
+    const mods = MODULES.filter(m => m.track === t.id);
+    return `
+    <div class="track-row" id="trow-${t.id}">
+      <div class="track-header" onclick="toggleTrack('${t.id}')">
+        <div class="track-check" id="tcheck-${t.id}"></div>
+        <span class="track-icon">${t.icon}</span>
+        <div class="track-info">
+          <div class="track-name">${t.label}</div>
+          <div class="track-desc">${t.desc} \u00b7 ${mods.length} modules</div>
+        </div>
+        <button class="track-toggle" onclick="event.stopPropagation(); toggleTrackOpen('${t.id}')" id="ttoggle-${t.id}">\u25BC</button>
+      </div>
+      <div class="track-modules" id="tmods-${t.id}">
+        ${mods.map(m => `
+          <div class="mod-row" onclick="toggleMod('${m.id}','${t.id}')">
+            <div class="mod-check" id="mcheck-${m.id}"></div>
+            <span class="mod-title">${m.title}</span>
+            <span class="mod-time">${m.time}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleTrack(tid) {
+  const mids = MODULES.filter(m => m.track === tid).map(m => m.id);
+  if (state.selectedTracks.has(tid)) {
+    state.selectedTracks.delete(tid);
+    mids.forEach(id => state.selectedMods.delete(id));
+  } else {
+    state.selectedTracks.add(tid);
+    mids.forEach(id => state.selectedMods.add(id));
+  }
+  syncTrackUI(tid);
+  updateBtn();
+}
+
+function toggleTrackOpen(tid) {
+  if (state.openTracks.has(tid)) state.openTracks.delete(tid);
+  else state.openTracks.add(tid);
+  document.getElementById("tmods-" + tid).classList.toggle("open", state.openTracks.has(tid));
+  document.getElementById("ttoggle-" + tid).textContent = state.openTracks.has(tid) ? "\u25B2" : "\u25BC";
+}
+
+function toggleMod(mid, tid) {
+  if (state.selectedMods.has(mid)) state.selectedMods.delete(mid);
+  else state.selectedMods.add(mid);
+  const tMids = MODULES.filter(m => m.track === tid).map(m => m.id);
+  tMids.every(id => state.selectedMods.has(id)) ? state.selectedTracks.add(tid) : state.selectedTracks.delete(tid);
+  syncTrackUI(tid);
+  updateBtn();
+}
+
+function syncTrackUI(tid) {
+  const track = TRACKS.find(t => t.id === tid);
+  const tc    = track ? track.color : "";
+  const sel   = state.selectedTracks.has(tid);
+  const some  = MODULES.filter(m => m.track === tid).some(m => state.selectedMods.has(m.id));
+  const on    = sel || some;
+  const row   = document.getElementById("trow-" + tid);
+  const chk   = document.getElementById("tcheck-" + tid);
+  if (row) { row.classList.toggle("selected", on); row.style.borderColor = on && tc ? tc : ""; }
+  if (chk) { chk.classList.toggle("on", on); chk.textContent = on ? "\u2713" : ""; if (tc) { chk.style.background = on ? tc : ""; chk.style.borderColor = on ? tc : ""; } }
+  MODULES.filter(m => m.track === tid).forEach(m => {
+    const mc = document.getElementById("mcheck-" + m.id);
+    const mOn = state.selectedMods.has(m.id);
+    if (mc) { mc.classList.toggle("on", mOn); mc.textContent = mOn ? "\u2713" : ""; if (tc) { mc.style.background = mOn ? tc : ""; mc.style.borderColor = mOn ? tc : ""; } }
+  });
+}
+
+function updateBtn() {
+  const btn   = document.getElementById("btn-build");
+  const count = state.selectedMods.size;
+  const ok    = count > 0 && document.getElementById("f-role").value.trim() && document.getElementById("f-work").value.trim();
+  btn.disabled = !ok;
+  btn.textContent = ok ? `Build My Curriculum \u2014 ${count} modules \u2192` : count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above";
+}
+
+document.getElementById("f-role").addEventListener("input", updateBtn);
+document.getElementById("f-work").addEventListener("input", updateBtn);
+
+// ── GENERATION ────────────────────────────────────────────────────────────────
+
+async function startGeneration() {
+  const profile = {
+    role:        document.getElementById("f-role").value.trim(),
+    workProjects:document.getElementById("f-work").value.trim(),
+    sideProjects:document.getElementById("f-side").value.trim(),
+    gaps:        document.getElementById("f-gaps").value.trim(),
+  };
+
+  document.getElementById("step-onboard").style.display = "none";
+  document.getElementById("step-generating").style.display = "block";
+  setNav(2);
+
+  const statusEl = document.getElementById("gen-status");
+  const statuses = ["Reading your context...", "Mapping modules to your work...", "Writing your projects..."];
+  let si = 0;
+  const ticker = setInterval(() => { si = (si + 1) % statuses.length; statusEl.textContent = statuses[si]; }, 1800);
+
+  try {
+    const selected = MODULES.filter(m => state.selectedMods.has(m.id));
+    const prompt = `You are a technical PM curriculum designer. A PM has shared:
+
+Role: ${profile.role}
+Work projects: ${profile.workProjects}
+Side projects: ${profile.sideProjects || "None"}
+Technical gaps to close: ${profile.gaps || "Not specified"}
+
+For each module generate:
+1. "connection" (2-3 sentences): How does this module connect to THIS PM's actual work? Be specific \u2014 name their actual projects and challenges.
+2. "project" (1-2 sentences): A hands-on project using THEIR actual work as the context. Immediately actionable.
+3. "quickwin" (1 sentence): One thing they can do in the next 30 minutes to start on this topic.
+
+Return ONLY a JSON array. No markdown, no backticks, no preamble:
+[{"id":"module-id","connection":"...","project":"...","quickwin":"..."}]
+
+Modules:
+${selected.map(m => `id: ${m.id} | title: ${m.title} | core: ${m.core}`).join("\n")}`;
+
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!res.ok) throw new Error("API error " + res.status);
+    const data = await res.json();
+    const text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+    const clean = text.replace(/```json|```/g, "").trim();
+    JSON.parse(clean).forEach(p => { state.personalizations[p.id] = p; });
+
+  } catch (err) {
+    console.error("Generation error:", err);
+  }
+
+  clearInterval(ticker);
+  showCurriculum();
+}
+
+// ── CURRICULUM VIEW ───────────────────────────────────────────────────────────
+
+function showCurriculum() {
+  document.getElementById("step-generating").style.display = "none";
+  document.getElementById("step-curriculum").style.display = "block";
+  setNav(3);
+  renderFilterBar();
+  renderModules();
+}
+
+function renderFilterBar() {
+  const usedTracks = [...new Set(MODULES.filter(m => state.selectedMods.has(m.id)).map(m => m.track))];
+  const pills = [{ id:"all", label:"All Tracks", icon:"" }, ...TRACKS.filter(t => usedTracks.includes(t.id))];
+  document.getElementById("filter-bar").innerHTML = pills.map(t => {
+    const isActive = state.activeFilter === t.id;
+    const c = t.color || "";
+    const activeStyle = isActive && c ? `background:${c};border-color:${c};color:#1a1814;` : "";
+    const hoverAttr = !isActive && c ? `onmouseenter="this.style.borderColor='${c}';this.style.color='${c}'" onmouseleave="this.style.borderColor='';this.style.color=''"` : "";
+    return `<button class="filter-pill ${isActive ? "active" : ""}" style="${activeStyle}"
+      onclick="setFilter('${t.id}')" ${hoverAttr}>${t.id === "all" ? "All Tracks" : t.icon + " " + t.label}</button>`;
+  }).join("");
+}
+
+function setFilter(tid) { state.activeFilter = tid; renderFilterBar(); renderModules(); }
+
+function renderModules() {
+  const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
+  const shown  = state.activeFilter === "all" ? allSel : allSel.filter(m => m.track === state.activeFilter);
+
+  document.getElementById("modules-list").innerHTML = shown.map(m => {
+    const track  = TRACKS.find(t => t.id === m.track);
+    const pers   = state.personalizations[m.id];
+    const isDone = state.completedMods.has(m.id);
+    const isOpen = state.openCard === m.id;
+    const tc = track.color || "#5ab874";
+
+    return `
+    <div class="module-card ${isDone ? "done" : ""} ${isOpen ? "open" : ""}" id="card-${m.id}" style="${isOpen ? `border-color:${tc}` : ""}">
+      <div class="card-header" onclick="toggleCard('${m.id}')">
+        <button class="card-complete ${isDone ? "done" : ""}" onclick="event.stopPropagation(); toggleComplete('${m.id}')" title="Mark complete">
+          ${isDone ? "\u2713" : ""}
+        </button>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag tag-track" style="background:${tc}20;color:${tc}">${track.icon} ${track.label}</span>
+            <span class="tag ${TYPE_CLASS[m.type]}">${TYPE_LABEL[m.type]}</span>
+            <span class="tag" style="background:transparent;color:var(--text-tertiary);">Wk ${m.week} \u00b7 ${m.time}</span>
+          </div>
+          <div class="card-title">${m.title}</div>
+        </div>
+        <span class="card-chevron">${isOpen ? "\u2191" : "\u2193"}</span>
+      </div>
+      <div class="card-body ${isOpen ? "open" : ""}">
+        <p class="card-core">${m.core}</p>
+
+        ${pers ? `
+        <div class="connection-box" style="background:${tc}10;border-color:${tc}30;border-left-color:${tc};">
+          <div class="box-label" style="color:${tc}">\u26A1 How this connects to your work</div>
+          <p>${pers.connection}</p>
+        </div>` : ""}
+
+        <div class="concepts-list">
+          <div class="section-label" style="margin-bottom:10px;">Core concepts</div>
+          <ul>${m.concepts.map(c => `<li>${c}</li>`).join("")}</ul>
+        </div>
+
+        <div class="exercise-box">
+          <div class="box-label blue">\uD83D\uDD28 ${pers ? "Your project" : "Project"}</div>
+          <p>${pers ? pers.project : "Design a project using your own work as the context."}</p>
+        </div>
+
+        ${pers ? `
+        <div class="today-box">
+          <div class="box-label amber">\u26A1 Start today \u2014 30 min</div>
+          <p>${pers.quickwin}</p>
+        </div>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+
+  updateProgress(allSel.length);
+}
+
+function toggleCard(mid) { state.openCard = state.openCard === mid ? null : mid; renderModules(); }
+
+function toggleComplete(mid) {
+  if (state.completedMods.has(mid)) state.completedMods.delete(mid);
+  else state.completedMods.add(mid);
+  const card = document.getElementById("card-" + mid);
+  const btn  = card && card.querySelector(".card-complete");
+  if (card) card.classList.toggle("done", state.completedMods.has(mid));
+  if (btn)  { btn.classList.toggle("done", state.completedMods.has(mid)); btn.textContent = state.completedMods.has(mid) ? "\u2713" : ""; }
+  updateProgress(MODULES.filter(m => state.selectedMods.has(m.id)).length);
+}
+
+function updateProgress(total) {
+  const done = state.completedMods.size;
+  const pct  = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById("progress-label").textContent = `${done} / ${total} complete`;
+  document.getElementById("progress-pct").textContent   = `${pct}%`;
+  document.getElementById("progress-fill").style.width  = pct + "%";
+}
+
+function setNav(n) {
+  document.querySelectorAll(".step-item").forEach((el, i) => el.classList.toggle("active", i + 1 === n));
+}
+
+function resetApp() {
+  state = {
+    selectedTracks: new Set(), selectedMods: new Set(), openTracks: new Set(),
+    personalizations: {}, completedMods: new Set(), activeFilter: "all", openCard: null,
+  };
+  ["f-role", "f-work", "f-side", "f-gaps"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("step-curriculum").style.display = "none";
+  document.getElementById("step-generating").style.display = "none";
+  document.getElementById("step-onboard").style.display    = "block";
+  renderTrackGrid();
+  updateBtn();
+  setNav(1);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ── START ─────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

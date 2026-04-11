@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM Craft Curriculum Builder | Chris Eaton</title>
+  <meta name="description" content="Free AI-personalized PM craft curriculum. Built around your actual work, projects, and goals.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PM Craft Curriculum Builder | Chris Eaton">
+  <meta property="og:description" content="Free AI-personalized PM craft curriculum. Built around your actual work.">
+  <meta property="og:url" content="https://chriseatonai.com/pm-craft-course">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── Course-specific styles (extends site design system) ── */
+
+    /* Hero / Masthead */
+    .course-hero {
+      padding: 80px 0 48px;
+    }
+    .course-kicker {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .course-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.025em;
+      margin-bottom: 16px;
+    }
+    .course-hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .course-desc {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .course-stats {
+      display: flex;
+      gap: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-n {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: block;
+      line-height: 1.2;
+    }
+    .stat-l {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Step nav */
+    .step-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      margin-bottom: 40px;
+    }
+    .step-item {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      padding-right: 24px;
+    }
+    .step-item.active { color: var(--accent); }
+    .step-item:not(:last-child)::after {
+      content: '\2192';
+      margin-left: 12px;
+      color: var(--border);
+    }
+
+    /* Section labels */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+    }
+
+    /* Form fields */
+    .field { margin-bottom: 24px; }
+    .field label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .field label span {
+      font-family: var(--font);
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      text-transform: none;
+      letter-spacing: 0;
+      font-style: italic;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 11px 14px;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      outline: none;
+      transition: border-color 0.2s var(--ease);
+      resize: vertical;
+      appearance: none;
+    }
+    .field input:focus, .field textarea:focus {
+      border-color: var(--accent);
+    }
+    .field input::placeholder, .field textarea::placeholder {
+      color: var(--text-tertiary);
+      font-style: italic;
+    }
+
+    /* Track selector */
+    .track-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 36px; }
+    .track-row {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.15s var(--ease);
+    }
+    .track-row.selected { border-color: var(--accent); }
+    .track-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--bg-raised);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s var(--ease);
+    }
+    .track-header:hover { background: var(--bg-hover); }
+    .track-check {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--text-tertiary);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: var(--bg); flex-shrink: 0;
+      transition: all 0.15s var(--ease);
+    }
+    .track-check.on { background: var(--accent); border-color: var(--accent); }
+    .track-icon { font-size: 14px; flex-shrink: 0; color: var(--text-secondary); }
+    .track-info { flex: 1; }
+    .track-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+    .track-desc { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); }
+    .track-toggle {
+      font-family: var(--mono); font-size: 0.75rem; color: var(--text-tertiary);
+      padding: 4px 8px; background: none; border: none; cursor: pointer;
+    }
+    .track-modules {
+      border-top: 1px solid var(--border);
+      padding: 8px 14px 12px;
+      display: none;
+      background: var(--bg);
+    }
+    .track-modules.open { display: block; }
+    .mod-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+    .mod-row:last-child { border-bottom: none; }
+    .mod-check {
+      width: 14px; height: 14px;
+      border: 1px solid var(--text-tertiary);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; color: var(--bg); flex-shrink: 0;
+      transition: all 0.15s var(--ease);
+    }
+    .mod-check.on { background: var(--accent); border-color: var(--accent); }
+    .mod-title { font-size: 0.85rem; color: var(--text-secondary); flex: 1; }
+    .mod-time { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); }
+
+    /* Build button */
+    .btn-build {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s var(--ease);
+    }
+    .btn-build:hover:not(:disabled) { opacity: 0.9; }
+    .btn-build:disabled {
+      background: var(--bg-hover);
+      color: var(--text-tertiary);
+      cursor: not-allowed;
+    }
+
+    /* Generating state */
+    #step-generating {
+      display: none;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .gen-spinner {
+      width: 40px; height: 40px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gen-status {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+    }
+
+    /* Curriculum output */
+    #step-curriculum { display: none; }
+
+    .progress-bar-wrap { margin-bottom: 28px; }
+    .progress-meta {
+      display: flex; justify-content: space-between;
+      font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .progress-meta span.pct { color: var(--accent); }
+    .progress-track { height: 2px; background: var(--border); border-radius: 1px; }
+    .progress-fill {
+      height: 100%; background: var(--accent); border-radius: 1px;
+      transition: width 0.4s ease; width: 0%;
+    }
+
+    /* Filter pills */
+    .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+    .filter-pill {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-raised);
+      color: var(--text-tertiary);
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+    }
+    .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-pill.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    /* Module cards */
+    .module-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      transition: opacity 0.2s var(--ease), border-color 0.15s var(--ease);
+    }
+    .module-card.done { opacity: 0.45; }
+    .module-card.open { border-color: var(--accent); }
+
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      background: var(--bg-raised);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .module-card.open .card-header { border-radius: 6px 6px 0 0; }
+
+    .card-complete {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--text-tertiary);
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: var(--bg);
+      cursor: pointer; flex-shrink: 0;
+      transition: all 0.15s var(--ease);
+    }
+    .card-complete.done { background: #5ab874; border-color: #5ab874; }
+
+    .card-meta { flex: 1; min-width: 0; }
+    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 4px; align-items: center; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .tag-track { background: var(--accent-dim); color: var(--accent); }
+    .tag-type-structured { background: rgba(100, 160, 220, 0.12); color: #80b8e0; }
+    .tag-type-project { background: rgba(90, 184, 116, 0.12); color: #5ab874; }
+    .tag-type-reference { background: rgba(200, 160, 80, 0.12); color: #c8a050; }
+    .tag-origin { color: var(--text-tertiary); font-style: italic; background: none; }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+    .card-chevron {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--text-tertiary); flex-shrink: 0;
+    }
+
+    .card-body {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      padding: 22px;
+      border-radius: 0 0 6px 6px;
+      animation: fadeIn 0.2s ease;
+    }
+    .card-body.open { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .pullquote {
+      border-left: 2px solid var(--accent);
+      padding: 4px 0 4px 16px;
+      margin-bottom: 18px;
+    }
+    .pullquote p {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.6;
+    }
+    .pullquote cite {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      display: block;
+      margin-top: 6px;
+      font-style: normal;
+    }
+
+    .card-core {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .connection-box {
+      background: var(--accent-dim);
+      border: 1px solid rgba(232, 167, 53, 0.2);
+      border-left: 3px solid var(--accent);
+      border-radius: 4px;
+      padding: 13px 15px;
+      margin-bottom: 16px;
+    }
+    .box-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .box-label.gold { color: var(--accent); }
+    .box-label.sage { color: #5ab874; }
+    .box-label.rust { color: #c8a050; }
+    .connection-box p, .exercise-box p, .today-box p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .concepts-list { margin-bottom: 16px; }
+    .concepts-list ul { list-style: none; padding: 0; }
+    .concepts-list li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 5px 0 5px 16px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .concepts-list li:last-child { border-bottom: none; }
+    .concepts-list li::before {
+      content: '\2192';
+      position: absolute; left: 0;
+      color: var(--text-tertiary);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      top: 6px;
+    }
+
+    .exercise-box {
+      background: rgba(90, 184, 116, 0.08);
+      border: 1px solid rgba(90, 184, 116, 0.15);
+      border-left: 3px solid #5ab874;
+      border-radius: 4px;
+      padding: 13px 15px;
+      margin-bottom: 10px;
+    }
+    .today-box {
+      background: rgba(200, 160, 80, 0.08);
+      border: 1px solid rgba(200, 160, 80, 0.15);
+      border-left: 3px solid #c8a050;
+      border-radius: 4px;
+      padding: 12px 15px;
+    }
+
+    /* Reset button */
+    .btn-reset {
+      display: block;
+      width: 100%;
+      margin-top: 32px;
+      padding: 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-tertiary);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+    }
+    .btn-reset:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .course-hero { padding: 56px 0 40px; }
+      .course-stats { gap: 20px; }
+      .card-tags { gap: 3px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html#writing">Writing</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="courses.html" class="nav-active">Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <!-- Hero -->
+      <section class="course-hero">
+        <a href="courses.html" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          All courses
+        </a>
+        <p class="course-kicker">Free Course &middot; PM Craft Track</p>
+        <h1>The PM Craft <em>Curriculum Builder</em></h1>
+        <p class="course-desc">The skills that make a great PM aren't taught in bootcamps. They're built through practice, reflection, and deliberate attention to the craft. Tell us what you're working on — get a curriculum that connects every module to your actual work.</p>
+        <div class="course-stats">
+          <div><span class="stat-n">20</span><span class="stat-l">Modules</span></div>
+          <div><span class="stat-n">6</span><span class="stat-l">Tracks</span></div>
+          <div><span class="stat-n">3</span><span class="stat-l">Source essays</span></div>
+        </div>
+      </section>
+
+      <hr class="divider" style="max-width:100%;padding:0;">
+
+      <!-- Step nav -->
+      <nav class="step-nav" id="step-nav">
+        <span class="step-item active" id="nav-1">Your Context</span>
+        <span class="step-item" id="nav-2">Personalizing</span>
+        <span class="step-item" id="nav-3">Your Curriculum</span>
+      </nav>
+
+      <!-- Step 1: Onboarding -->
+      <section id="step-onboard">
+
+        <div class="section-label">About you</div>
+
+        <div class="field">
+          <label>Your current role</label>
+          <input type="text" id="f-role" placeholder="e.g. Senior PM at a healthcare SaaS startup" />
+        </div>
+
+        <div class="field">
+          <label>Current work projects <span>— the more specific the better</span></label>
+          <textarea id="f-work" rows="4" placeholder="e.g. Leading a natural language analytics interface on surgical workflow data. Building a multi-agent sales ROI tool. Owning the roadmap across two engineering teams serving 90+ hospitals..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>Side projects <span>— optional, helps personalize further</span></label>
+          <textarea id="f-side" rows="2" placeholder="e.g. Soccer trading card marketplace built on Next.js + Supabase. Personal AI strategy newsletter..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>PM qualities you want to build <span>— optional</span></label>
+          <textarea id="f-qualities" rows="2" placeholder="e.g. Better at saying no, stronger in exec presentations, more systematic in discovery, less anxious about shipping early..."></textarea>
+        </div>
+
+        <div class="section-label" style="margin-top: 36px;">Choose your tracks</div>
+        <p style="font-size:0.85rem; color:var(--text-tertiary); font-style:italic; margin-bottom:18px;">Select a track to include all its modules, or expand to pick individually.</p>
+
+        <div class="track-grid" id="track-grid"></div>
+
+        <button class="btn-build" id="btn-build" disabled onclick="startGeneration()">
+          Select modules to build your curriculum
+        </button>
+
+      </section>
+
+      <!-- Step 2: Generating -->
+      <section id="step-generating">
+        <div class="gen-spinner"></div>
+        <div class="gen-status" id="gen-status">Reading your context...</div>
+      </section>
+
+      <!-- Step 3: Curriculum -->
+      <section id="step-curriculum">
+
+        <div class="progress-bar-wrap">
+          <div class="progress-meta">
+            <span id="progress-label">0 / 0 complete</span>
+            <span class="pct" id="progress-pct">0%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+
+        <div class="filter-bar" id="filter-bar"></div>
+        <div id="modules-list"></div>
+
+        <button class="btn-reset" onclick="resetApp()">&#8592; Start over with a new curriculum</button>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const TRACKS = [
+  { id: "empathy",      label: "User Empathy",      icon: "\u25C9", desc: "Desired outcomes, observation, discovery",       color: "#e8a735" },
+  { id: "communication",label: "Communication",      icon: "\u25C8", desc: "Translating vision, audiences, influence",      color: "#6aa0d8" },
+  { id: "systems",      label: "Systems Thinking",   icon: "\u2B21", desc: "Flows, bottlenecks, downstream effects",        color: "#4ab8a0" },
+  { id: "decisions",    label: "Decision-Making",    icon: "\u25C7", desc: "Reversibility, constraints, reading conditions", color: "#d87a6a" },
+  { id: "execution",    label: "Craft & Execution",  icon: "\u25CE", desc: "Shipping, delight, pacing",                     color: "#5ab874" },
+  { id: "leadership",   label: "PM Leadership",      icon: "\u25B3", desc: "Resilience, support, standards, vision",        color: "#a080d0" },
+];
+
+const MODULES = [
+  { id:"emp-1",  track:"empathy",       title:"Desired Outcomes vs. Feature Requests",   week:"1",   time:"~5 hrs", type:"structured", origin:"ski-slopes",    quote:"Great products aren\u2019t built around feature requests. They\u2019re built around deeply understood desired outcomes.", core:"Users rarely know what they want in the abstract. They know what frustrates them and what success feels like. The PM\u2019s job is to bridge that gap \u2014 which requires getting past the feature layer to the underlying need.", concepts:["Jobs-to-be-done framework","How to hear \u2018give me a faster horse\u2019","Frustration mapping vs. feature logging","Outcome-based roadmapping","How desired outcomes differ by user segment"], practice:"Rewrite your last 5 feature requests as desired outcomes. Compare what changes." },
+  { id:"emp-2",  track:"empathy",       title:"Observation Before and After",             week:"2",   time:"~5 hrs", type:"project",    origin:"sprinter-van",  quote:"You can\u2019t fully understand how someone will use a product until they\u2019re using it.", core:"Pre-launch research is necessary but insufficient. Treat launch as the beginning of understanding, not the end of it. The gap between what people say they need and what they actually use is real even when you know your users as well as your own family.", concepts:["The limits of pre-launch assumptions","Observation frameworks (PURE, contextual inquiry)","Session recording analysis","How to structure post-launch discovery","When to trust the data vs. trust the user"], practice:"Pick one feature in production. Watch 3 session recordings. Write down 5 things users do that you didn\u2019t anticipate." },
+  { id:"emp-3",  track:"empathy",       title:"Discovery Interviews That Actually Work",  week:"3",   time:"~4 hrs", type:"structured", origin:null,            quote:null, core:"Most PM interviews collect opinions instead of evidence. The craft is asking about past behavior, not hypothetical preferences \u2014 and listening for what\u2019s not being said.", concepts:["The Mom Test principles","Past behavior vs. hypothetical questions","The 5 Whys in a discovery context","Synthesizing across contradictory signals","When to stop interviewing and start building"], practice:"Run one 30-minute discovery interview using only past-behavior questions. No hypotheticals." },
+  { id:"emp-4",  track:"empathy",       title:"Empathy at Scale",                         week:"4",   time:"~4 hrs", type:"reference",  origin:null,            quote:null, core:"Individual interviews build intuition. Analytics build patterns. The best PMs triangulate across both \u2014 and know when each is lying to them.", concepts:["Quantitative signals that proxy for user pain","Cohort analysis for behavioral patterns","NPS and CSAT: what they tell you and don\u2019t","When to override data with judgment","Building continuous discovery habits"], practice:"Identify one metric in your product you think is misleading. Write a one-paragraph argument for why." },
+  { id:"comm-1", track:"communication", title:"Translating Vision Across Audiences",      week:"1",   time:"~4 hrs", type:"structured", origin:"ski-slopes",    quote:"If you deliver the same message to every audience, you\u2019re not communicating. You\u2019re broadcasting.", core:"The underlying vision stays consistent \u2014 but the translation has to be precise for each audience. What engineers need to hear is different from what sales needs, which is different from what the board needs.", concepts:["Audience mapping before you write or present","The \u2018what do they need to decide?\u2019 test","Engineering vs. commercial framing","Writing executive summaries that actually get read","The briefing vs. the sell"], practice:"Take one initiative and write three one-paragraph summaries: one for engineers, one for sales, one for your CEO. Compare what changed." },
+  { id:"comm-2", track:"communication", title:"Influence Without Authority",               week:"2",   time:"~6 hrs", type:"structured", origin:null,            quote:null, core:"PMs own outcomes but rarely control the people who create them. Influence is the core PM skill \u2014 built on trust, clarity, and making it easy for people to say yes.", concepts:["Building credibility with engineering teams","When to persuade vs. align vs. decide","Navigating disagreement without creating enemies","Writing decisions that stick","The role of pre-wiring and 1:1s"], practice:"Map your three most important stakeholders. For each: what do they care about most, and what are they skeptical of about you?" },
+  { id:"comm-3", track:"communication", title:"Writing as a PM Superpower",                week:"3",   time:"~4 hrs", type:"project",    origin:null,            quote:null, core:"The best PMs write with unusual clarity \u2014 not because they\u2019re better writers, but because their thinking is more structured. Writing forces specificity. Vague writing exposes vague thinking.", concepts:["PRDs that engineers actually read","The one-page spec and when it beats the 10-page version","Writing decisions with context, not just conclusions","Async communication that reduces meetings","Writing for the person who wasn\u2019t in the room"], practice:"Find a recent decision that has no written record. Write it up: context, options, decision, reasoning, tradeoffs accepted." },
+  { id:"sys-1",  track:"systems",       title:"Systems Thinking for PMs",                 week:"1",   time:"~5 hrs", type:"structured", origin:"ski-slopes",    quote:"Optimizing individual steps isn\u2019t enough. You have to understand the whole system.", core:"Every product decision ripples outward into capacity, sequencing, behavior, and experience. Optimizing one step can create a bottleneck somewhere else. You have to hold the whole flow in your head, not just the feature you\u2019re shipping.", concepts:["Mapping user flows end-to-end","Identifying system bottlenecks (not just pain points)","Second-order consequences of feature decisions","The difference between a feature and a system change","Demand modeling: what happens when this scales?"], practice:"Pick your most-used feature. Draw the full system map. Find one thing that surprised you." },
+  { id:"sys-2",  track:"systems",       title:"Workflow Mapping & Bottleneck Analysis",   week:"2",   time:"~5 hrs", type:"project",    origin:null,            quote:null, core:"Before you can improve a workflow, you have to see it clearly. Most PMs optimize the parts they can see \u2014 which are usually not the bottleneck.", concepts:["Value stream mapping (simplified for product)","Where time actually goes vs. where it looks like it goes","Quantifying bottleneck cost","The 5 constraints framework (Theory of Constraints)","How bottleneck analysis shapes prioritization"], practice:"Map one end-to-end workflow your product touches. Identify the actual bottleneck, not the most complained-about one." },
+  { id:"sys-3",  track:"systems",       title:"Building Products in Complex Systems",     week:"3",   time:"~4 hrs", type:"reference",  origin:"ultramarathon", quote:"A single AI feature might perform beautifully in isolation and create chaos in the broader clinical workflow.", core:"Someone needs to be looking at the full picture even when everyone else is deep in their valley. Product leadership means holding the whole context while others execute on the parts.", concepts:["Integration points as risk surfaces","How to audit cross-team dependencies","Designing for interoperability (not just functionality)","When local optimization hurts the system","The \u2018ridgeline view\u2019 in complex product environments"], practice:"List all external systems your product touches. For each: what breaks in your product if that system changes?" },
+  { id:"dec-1",  track:"decisions",     title:"Reversible vs. Irreversible Decisions",    week:"1",   time:"~4 hrs", type:"structured", origin:"sprinter-van",  quote:"Once you drill a hole in the floor of a van, that hole is there forever. Every structural decision leaves a scar.", core:"Most teams have this exactly backwards: they agonize over reversible decisions and rush the irreversible ones. The discipline is sorting decisions before you decide how much process they need.", concepts:["Type 1 vs. Type 2 decision framework","Identifying what makes a decision hard to undo","API contracts, schema design, and other structural decisions","How to speed up reversible decisions","The cost of wrong reversible vs. wrong irreversible decisions"], practice:"List your last 10 product decisions. Categorize each as reversible or irreversible. Did your process match the category?" },
+  { id:"dec-2",  track:"decisions",     title:"Reading Conditions, Not Just Plans",       week:"2",   time:"~4 hrs", type:"structured", origin:"ski-slopes",    quote:"Roadmaps are hypotheses. The map is not the territory. Strategic pivots aren\u2019t failures \u2014 they\u2019re the job.", core:"Good PMs commit to plans and revise them without ego. The skill isn\u2019t just making the call \u2014 it\u2019s making it quickly when conditions change, without pretending the original plan was still right.", concepts:["How to tell signal from noise in early product data","Leading vs. lagging indicators","The \u2018pivot or persevere\u2019 decision framework","How to change direction without destroying team confidence","Pre-mortems: planning for what will change"], practice:"Review your current roadmap. For each item: what signal would tell you this was the wrong bet?" },
+  { id:"dec-3",  track:"decisions",     title:"Constraints as a Prioritization Tool",    week:"3",   time:"~4 hrs", type:"project",    origin:"sprinter-van",  quote:"The question isn\u2019t \u2018can we build this?\u2019 \u2014 it\u2019s \u2018what does building this cost us in terms of everything else?\u2019", core:"Unlimited scope produces mediocre products. Constraints force the clarity that most product planning never achieves. The consequence of over-building was immediate and physical in the van \u2014 in software it\u2019s just harder to see.", concepts:["Opportunity cost framing for the backlog","Time-boxing as a constraint tool","When to say no (and how)","Resource constraints as creative forcing function","The focus tax: what you lose by adding scope"], practice:"Apply a constraint to your current roadmap: cut it by 40%. What survives? What does that tell you?" },
+  { id:"dec-4",  track:"decisions",     title:"Making Good Decisions with Bad Information", week:"4", time:"~4 hrs", type:"reference",  origin:null,            quote:null, core:"You will almost never have enough information to feel certain. The skill is calibrating confidence to evidence, making calls anyway, and being honest about what you don\u2019t know.", concepts:["Decision-making under uncertainty","How to surface assumptions before they surface you","Confidence levels in roadmap items","The role of gut feel (and when to trust it)","Post-mortems that actually improve future decisions"], practice:"Write up a decision you made in the last 6 months that turned out wrong. What would have changed it? Was that information available at the time?" },
+  { id:"exec-1", track:"execution",     title:"Knowing When to Ship",                     week:"1",   time:"~4 hrs", type:"structured", origin:"sprinter-van",  quote:"Most products could have shipped weeks earlier if the team had been honest about what was essential and what was anxiety disguised as polish.", core:"80% is standard advice. But the skill is knowing which 20% is load-bearing \u2014 what\u2019s actually essential vs. what\u2019s perfectionism in a trench coat.", concepts:["Essential vs. anxious polish","How to define MVP without making it useless","Identifying the minimum that validates your hypothesis","Staged rollouts and what they tell you","The cost of waiting vs. the cost of shipping early"], practice:"Look at the last feature your team shipped. What was the last thing added before launch? Was it essential or anxiety?" },
+  { id:"exec-2", track:"execution",     title:"Building for Delight",                     week:"2",   time:"~5 hrs", type:"project",    origin:"sprinter-van",  quote:"Delight isn\u2019t a feature you ship. It\u2019s the cumulative result of a hundred small decisions made with the user actually in mind.", core:"Delight lives in the details nobody explicitly asked for: the default that\u2019s already right, the error message that tells you what to do, the empty state that doesn\u2019t make you feel dumb. These don\u2019t show up on roadmaps. They show up in retention.", concepts:["Taxonomy of delight moments","Empty states, error states, and loading states as PM responsibilities","Default settings as product decisions","How to budget time for craft in planning","Measuring delight: what proxies work"], practice:"Spend 20 minutes in a product you love but didn\u2019t build. List 5 small decisions that delighted you. Then do the same in your own product." },
+  { id:"exec-3", track:"execution",     title:"Pacing and Sustainable Momentum",          week:"3",   time:"~4 hrs", type:"structured", origin:"ultramarathon", quote:"Sustainable pace isn\u2019t timidity. It\u2019s how you finish.", core:"Over-promising early is the product equivalent of going out too fast in a race. The excitement of a strong demo creates pressure that compresses the time for the hard work. The people who look slow at the start are often the ones passing you at the end.", concepts:["How to manage stakeholder expectations without underselling","Roadmap sequencing for sustainable pace","Technical debt as interest you\u2019re paying forward","Team capacity modeling (honest version)","How to say \u2018not yet\u2019 without losing trust"], practice:"Review your last major launch. At what point did external timeline pressure compress your quality work?" },
+  { id:"lead-1", track:"leadership",    title:"Managing Through the Hard Middle",         week:"1",   time:"~4 hrs", type:"structured", origin:"ultramarathon", quote:"Miles 60 to 80 aren\u2019t a sign that you chose the wrong race. They\u2019re the race. The earlier miles were just the warmup.", core:"Every meaningful product goes through a phase where the early excitement is gone and the finish line isn\u2019t real yet. Teams that treat this as normal make it through. Teams that expect the second half to feel like the first half often quit in the gap.", concepts:["Recognizing the \u2018messy middle\u2019 in product development","How to maintain team momentum without false optimism","When to push through vs. when to genuinely reconsider","Communicating hard phases to stakeholders honestly","Leading by example in low-visibility phases"], practice:"Think of a product that hit a hard middle. What kept the team moving? What do you wish you\u2019d done differently?" },
+  { id:"lead-2", track:"leadership",    title:"Building Your Support System",             week:"2",   time:"~4 hrs", type:"project",    origin:"ultramarathon", quote:"No one finishes a 100-miler alone. No one ships a real AI product alone either.", core:"The internal champion, the honest customer, the engineer who tells you what\u2019s actually hard \u2014 these aren\u2019t support roles. They\u2019re how good products get finished. Build the infrastructure deliberately, not by accident.", concepts:["Identifying your product\u2019s \u2018pacers\u2019","The internal champion: finding and keeping them","Customer advisory structures (formal and informal)","Building honest feedback channels","Reciprocal support: what do you give back?"], practice:"Map your current product support system. Who are your pacers? Who is missing?" },
+  { id:"lead-3", track:"leadership",    title:"Setting Standards That Change Behavior",   week:"3",   time:"~4 hrs", type:"reference",  origin:"ultramarathon", quote:"The commitment to a specific standard is what matters, because it forces clarity downstream.", core:"Vague goals produce vague execution. Specific, meaningful standards change how every decision downstream gets made. Not arbitrary deadlines \u2014 but thresholds the team genuinely commits to and builds toward.", concepts:["How to set quality thresholds (not just timelines)","OKRs that change behavior vs. OKRs as reporting theater","How specificity unlocks team alignment","Communicating standards without micromanaging","Holding standards under pressure"], practice:"Write one standard \u2014 not a goal \u2014 that if hit would mean your team did something genuinely excellent this quarter. Is it specific enough to change a decision?" },
+];
+
+const ORIGIN_LABELS = {
+  "ski-slopes":    "\u2726 Ski Slopes & Rivers",
+  "sprinter-van":  "\u2726 Sprinter Van Build",
+  "ultramarathon": "\u2726 Running 100 Miles",
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+
+let state = {
+  selectedTracks: new Set(),
+  selectedMods:   new Set(),
+  openTracks:     new Set(),
+  personalizations: {},
+  completedMods:  new Set(),
+  activeFilter:   "all",
+  openCard:       null,
+};
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+
+function init() {
+  renderTrackGrid();
+}
+
+function renderTrackGrid() {
+  const grid = document.getElementById("track-grid");
+  grid.innerHTML = TRACKS.map(t => {
+    const mods = MODULES.filter(m => m.track === t.id);
+    return `
+    <div class="track-row" id="trow-${t.id}">
+      <div class="track-header" onclick="toggleTrack('${t.id}')">
+        <div class="track-check" id="tcheck-${t.id}"></div>
+        <span class="track-icon">${t.icon}</span>
+        <div class="track-info">
+          <div class="track-name">${t.label}</div>
+          <div class="track-desc">${t.desc} \u00b7 ${mods.length} modules</div>
+        </div>
+        <button class="track-toggle" onclick="event.stopPropagation(); toggleTrackOpen('${t.id}')" id="ttoggle-${t.id}">\u25BC</button>
+      </div>
+      <div class="track-modules" id="tmods-${t.id}">
+        ${mods.map(m => `
+          <div class="mod-row" onclick="toggleMod('${m.id}', '${t.id}')">
+            <div class="mod-check" id="mcheck-${m.id}"></div>
+            <span class="mod-title">${m.title}</span>
+            <span class="mod-time">${m.time}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleTrack(tid) {
+  const mids = MODULES.filter(m => m.track === tid).map(m => m.id);
+  if (state.selectedTracks.has(tid)) {
+    state.selectedTracks.delete(tid);
+    mids.forEach(id => state.selectedMods.delete(id));
+  } else {
+    state.selectedTracks.add(tid);
+    mids.forEach(id => state.selectedMods.add(id));
+  }
+  updateTrackUI(tid);
+  updateBuildBtn();
+}
+
+function toggleTrackOpen(tid) {
+  if (state.openTracks.has(tid)) {
+    state.openTracks.delete(tid);
+  } else {
+    state.openTracks.add(tid);
+  }
+  const el = document.getElementById("tmods-" + tid);
+  const btn = document.getElementById("ttoggle-" + tid);
+  el.classList.toggle("open", state.openTracks.has(tid));
+  btn.textContent = state.openTracks.has(tid) ? "\u25B2" : "\u25BC";
+}
+
+function toggleMod(mid, tid) {
+  if (state.selectedMods.has(mid)) {
+    state.selectedMods.delete(mid);
+  } else {
+    state.selectedMods.add(mid);
+  }
+  const trackMids = MODULES.filter(m => m.track === tid).map(m => m.id);
+  const allSelected = trackMids.every(id => state.selectedMods.has(id));
+  if (allSelected) state.selectedTracks.add(tid);
+  else state.selectedTracks.delete(tid);
+  updateTrackUI(tid);
+  const mcheck = document.getElementById("mcheck-" + mid);
+  if (mcheck) {
+    mcheck.classList.toggle("on", state.selectedMods.has(mid));
+    mcheck.textContent = state.selectedMods.has(mid) ? "\u2713" : "";
+  }
+  updateBuildBtn();
+}
+
+function updateTrackUI(tid) {
+  const track = TRACKS.find(t => t.id === tid);
+  const tc    = track ? track.color : "";
+  const row   = document.getElementById("trow-" + tid);
+  const check = document.getElementById("tcheck-" + tid);
+  const sel   = state.selectedTracks.has(tid);
+  const some  = MODULES.filter(m => m.track === tid).some(m => state.selectedMods.has(m.id));
+  const on    = sel || some;
+  if (row) { row.classList.toggle("selected", on); row.style.borderColor = on && tc ? tc : ""; }
+  if (check) { check.classList.toggle("on", on); check.textContent = on ? "\u2713" : ""; if (tc) { check.style.background = on ? tc : ""; check.style.borderColor = on ? tc : ""; } }
+  MODULES.filter(m => m.track === tid).forEach(m => {
+    const mc = document.getElementById("mcheck-" + m.id);
+    const mOn = state.selectedMods.has(m.id);
+    if (mc) { mc.classList.toggle("on", mOn); mc.textContent = mOn ? "\u2713" : ""; if (tc) { mc.style.background = mOn ? tc : ""; mc.style.borderColor = mOn ? tc : ""; } }
+  });
+}
+
+function updateBuildBtn() {
+  const btn   = document.getElementById("btn-build");
+  const count = state.selectedMods.size;
+  const role  = document.getElementById("f-role").value.trim();
+  const work  = document.getElementById("f-work").value.trim();
+  const ok    = count > 0 && role && work;
+  btn.disabled = !ok;
+  btn.textContent = ok ? `Build My Curriculum \u2014 ${count} modules \u2192` : (count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above");
+}
+
+document.getElementById("f-role").addEventListener("input", updateBuildBtn);
+document.getElementById("f-work").addEventListener("input", updateBuildBtn);
+
+// ── GENERATION ────────────────────────────────────────────────────────────────
+
+async function startGeneration() {
+  const profile = {
+    role:        document.getElementById("f-role").value.trim(),
+    workProjects:document.getElementById("f-work").value.trim(),
+    sideProjects:document.getElementById("f-side").value.trim(),
+    qualities:   document.getElementById("f-qualities").value.trim(),
+  };
+
+  document.getElementById("step-onboard").style.display = "none";
+  document.getElementById("step-generating").style.display = "block";
+  setStepNav(2);
+
+  const statusEl = document.getElementById("gen-status");
+  const statuses = ["Reading your context...", "Mapping modules to your work...", "Writing your exercises..."];
+  let si = 0;
+  const ticker = setInterval(() => { si = (si + 1) % statuses.length; statusEl.textContent = statuses[si]; }, 1800);
+
+  try {
+    const selected = MODULES.filter(m => state.selectedMods.has(m.id));
+    const prompt = `You are a PM coaching curriculum designer. A PM has shared:
+
+Role: ${profile.role}
+Work projects: ${profile.workProjects}
+Side projects: ${profile.sideProjects || "None"}
+PM qualities to develop: ${profile.qualities || "Not specified"}
+
+For each module, generate:
+1. "connection" (2-3 sentences): How does this module connect directly to THIS PM's actual work? Be concrete \u2014 name their actual projects.
+2. "exercise" (1-2 sentences): A tailored practice exercise using THEIR actual work as the context. Make it immediately actionable.
+3. "today" (1 sentence): One thing they can do in the next 30 minutes to start on this topic.
+
+Return ONLY a JSON array. No markdown, no preamble, no backticks:
+[{"id":"module-id","connection":"...","exercise":"...","today":"..."}]
+
+Modules to personalize:
+${selected.map(m => `id: ${m.id} | title: ${m.title} | core: ${m.core}`).join("\n")}`;
+
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!res.ok) throw new Error("API error " + res.status);
+    const data = await res.json();
+    const text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+    const clean = text.replace(/```json|```/g, "").trim();
+    const parsed = JSON.parse(clean);
+    parsed.forEach(p => { state.personalizations[p.id] = p; });
+
+  } catch (err) {
+    console.error("Generation error:", err);
+  }
+
+  clearInterval(ticker);
+  showCurriculum();
+}
+
+// ── CURRICULUM VIEW ───────────────────────────────────────────────────────────
+
+function showCurriculum() {
+  document.getElementById("step-generating").style.display = "none";
+  document.getElementById("step-curriculum").style.display = "block";
+  setStepNav(3);
+  renderFilterBar();
+  renderModules();
+}
+
+function renderFilterBar() {
+  const bar = document.getElementById("filter-bar");
+  const usedTracks = [...new Set(MODULES.filter(m => state.selectedMods.has(m.id)).map(m => m.track))];
+  const pills = [{ id: "all", label: "All" }, ...TRACKS.filter(t => usedTracks.includes(t.id))];
+  bar.innerHTML = pills.map(t => {
+    const isActive = state.activeFilter === t.id;
+    const c = t.color || "";
+    const activeStyle = isActive && c ? `background:${c};border-color:${c};color:#1a1814;` : "";
+    const hoverAttr = !isActive && c ? `onmouseenter="this.style.borderColor='${c}';this.style.color='${c}'" onmouseleave="this.style.borderColor='';this.style.color=''"` : "";
+    return `<button class="filter-pill ${isActive ? "active" : ""}" style="${activeStyle}"
+      onclick="setFilter('${t.id}')" ${hoverAttr}>${t.id === "all" ? "All Tracks" : t.icon + " " + t.label}</button>`;
+  }).join("");
+}
+
+function setFilter(tid) {
+  state.activeFilter = tid;
+  renderFilterBar();
+  renderModules();
+}
+
+function renderModules() {
+  const list    = document.getElementById("modules-list");
+  const allSel  = MODULES.filter(m => state.selectedMods.has(m.id));
+  const shown   = state.activeFilter === "all" ? allSel : allSel.filter(m => m.track === state.activeFilter);
+
+  list.innerHTML = shown.map(m => {
+    const track = TRACKS.find(t => t.id === m.track);
+    const pers  = state.personalizations[m.id];
+    const isDone = state.completedMods.has(m.id);
+    const isOpen = state.openCard === m.id;
+    const typeClass = "tag-type-" + m.type;
+    const typeLabel = m.type === "structured" ? "\uD83D\uDCDA Structured" : m.type === "project" ? "\uD83D\uDD28 Practice" : "\uD83D\uDCCB Reference";
+
+    const tc = track.color || "#e8a735";
+
+    return `
+    <div class="module-card ${isDone ? "done" : ""} ${isOpen ? "open" : ""}" id="card-${m.id}" style="${isOpen ? `border-color:${tc}` : ""}">
+      <div class="card-header" onclick="toggleCard('${m.id}')">
+        <button class="card-complete ${isDone ? "done" : ""}" onclick="event.stopPropagation(); toggleComplete('${m.id}')" title="Mark complete">
+          ${isDone ? "\u2713" : ""}
+        </button>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag tag-track" style="background:${tc}20;color:${tc}">${track.icon} ${track.label}</span>
+            <span class="tag ${typeClass}">${typeLabel}</span>
+            <span class="tag tag-origin">Wk ${m.week} \u00b7 ${m.time}</span>
+            ${m.origin ? `<span class="tag tag-origin">${ORIGIN_LABELS[m.origin]}</span>` : ""}
+          </div>
+          <div class="card-title">${m.title}</div>
+        </div>
+        <span class="card-chevron">${isOpen ? "\u2191" : "\u2193"}</span>
+      </div>
+      <div class="card-body ${isOpen ? "open" : ""}">
+        ${m.quote ? `
+        <div class="pullquote" style="border-left-color:${tc}">
+          <p style="color:${tc}">\u201C${m.quote}\u201D</p>
+          ${m.origin ? `<cite>${ORIGIN_LABELS[m.origin]}</cite>` : ""}
+        </div>` : ""}
+
+        <p class="card-core">${m.core}</p>
+
+        ${pers ? `
+        <div class="connection-box" style="background:${tc}10;border-color:${tc}30;border-left-color:${tc};">
+          <div class="box-label" style="color:${tc}">\u26A1 How this connects to your work</div>
+          <p>${pers.connection}</p>
+        </div>` : ""}
+
+        <div class="concepts-list">
+          <div class="section-label" style="margin-bottom:10px;">Core concepts</div>
+          <ul>${m.concepts.map(c => `<li>${c}</li>`).join("")}</ul>
+        </div>
+
+        <div class="exercise-box">
+          <div class="box-label sage">\uD83D\uDD28 ${pers ? "Your exercise" : "Practice"}</div>
+          <p>${pers ? pers.exercise : m.practice}</p>
+        </div>
+
+        ${pers ? `
+        <div class="today-box">
+          <div class="box-label rust">\u26A1 Start today \u2014 30 min</div>
+          <p>${pers.today}</p>
+        </div>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+
+  updateProgress(allSel.length);
+}
+
+function toggleCard(mid) {
+  state.openCard = state.openCard === mid ? null : mid;
+  renderModules();
+}
+
+function toggleComplete(mid) {
+  if (state.completedMods.has(mid)) {
+    state.completedMods.delete(mid);
+  } else {
+    state.completedMods.add(mid);
+  }
+  const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
+  updateProgress(allSel.length);
+  const card = document.getElementById("card-" + mid);
+  const btn  = card && card.querySelector(".card-complete");
+  if (card) card.classList.toggle("done", state.completedMods.has(mid));
+  if (btn)  { btn.classList.toggle("done", state.completedMods.has(mid)); btn.textContent = state.completedMods.has(mid) ? "\u2713" : ""; }
+}
+
+function updateProgress(total) {
+  const done = state.completedMods.size;
+  const pct  = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById("progress-label").textContent = `${done} / ${total} complete`;
+  document.getElementById("progress-pct").textContent   = `${pct}%`;
+  document.getElementById("progress-fill").style.width  = pct + "%";
+}
+
+function setStepNav(n) {
+  document.querySelectorAll(".step-item").forEach((el, i) => {
+    el.classList.toggle("active", i + 1 === n);
+  });
+}
+
+function resetApp() {
+  state = {
+    selectedTracks: new Set(), selectedMods: new Set(), openTracks: new Set(),
+    personalizations: {}, completedMods: new Set(), activeFilter: "all", openCard: null,
+  };
+  document.getElementById("f-role").value = "";
+  document.getElementById("f-work").value = "";
+  document.getElementById("f-side").value = "";
+  document.getElementById("f-qualities").value = "";
+  document.getElementById("step-curriculum").style.display = "none";
+  document.getElementById("step-generating").style.display = "none";
+  document.getElementById("step-onboard").style.display    = "block";
+  renderTrackGrid();
+  updateBuildBtn();
+  setStepNav(1);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ── START ─────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
