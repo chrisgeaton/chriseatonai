@@ -140,8 +140,16 @@
       transform: translate(0, 0);
     }
 
+    .courses-hero .hero-story {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin-top: 20px;
+    }
+
     .how-it-works {
-      padding: 0 0 64px;
+      padding: 48px 0;
     }
     .how-it-works h2 {
       font-size: 1.1rem;
@@ -176,6 +184,25 @@
       font-weight: 500;
     }
 
+    .suggestions {
+      padding: 0 0 64px;
+    }
+    .suggestions p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-tertiary);
+    }
+    .suggestions a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(232, 167, 53, 0.3);
+      transition: text-decoration-color 0.2s var(--ease);
+    }
+    .suggestions a:hover {
+      text-decoration-color: var(--accent);
+    }
+
     @media (max-width: 640px) {
       .courses-hero { padding: 56px 0 40px; }
       .course-card-meta { flex-wrap: wrap; gap: 12px; }
@@ -203,7 +230,30 @@
       <div class="container">
         <p class="hero-tag">Free courses</p>
         <h1>PM Curriculum Builders</h1>
-        <p>AI-personalized courses built around your actual work. Tell us what you're building and get a curriculum that connects every module to your real projects, decisions, and challenges.</p>
+        <p>I wanted to get better at the craft of product management, not in the abstract, but in ways connected to the work I was actually doing. I couldn't find that, so I built it. These courses pull from essays I've written about what I've learned building AI products, managing teams, and figuring things out the hard way. Each one uses AI to personalize every module to your real projects and challenges.</p>
+        <p class="hero-story">This is a work in progress. I keep updating the modules as I learn more, and I plan to add new courses over time. If you have ideas for what would be useful, I'd genuinely like to hear them.</p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2>How it works</h2>
+        <div class="steps-list">
+          <div class="step-item">
+            <span class="step-num">01</span>
+            <p class="step-text"><strong>Tell us about your work.</strong> Your role, current projects, side projects, and what you want to get better at.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">02</span>
+            <p class="step-text"><strong>Pick your tracks.</strong> Choose full tracks or individual modules. Build the curriculum that fits your gaps.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">03</span>
+            <p class="step-text"><strong>Get a personalized curriculum.</strong> AI connects every module to your actual work, with exercises using your real projects and 30-minute quick starts. Export it as HTML to work through offline.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -246,23 +296,9 @@
       </div>
     </section>
 
-    <section class="how-it-works">
+    <section class="suggestions">
       <div class="container">
-        <h2>How it works</h2>
-        <div class="steps-list">
-          <div class="step-item">
-            <span class="step-num">01</span>
-            <p class="step-text"><strong>Tell us about your work.</strong> Your role, current projects, side projects, and what you want to get better at.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">02</span>
-            <p class="step-text"><strong>Pick your tracks.</strong> Choose full tracks or individual modules. Build the curriculum that fits your gaps.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">03</span>
-            <p class="step-text"><strong>Get a personalized curriculum.</strong> AI connects every module to your actual work, with exercises using your real projects and 30-minute quick starts.</p>
-          </div>
-        </div>
+        <p>These courses are evolving. If you have suggestions for topics, better exercises, or entirely new courses you'd find useful, <a href="mailto:chris.g.eaton@gmail.com">reach out</a>. I'm building this in public and the feedback makes it better.</p>
       </div>
     </section>
 
