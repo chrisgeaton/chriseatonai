@@ -39,7 +39,7 @@ export async function onRequestPost(context) {
   }
 
   // Guard against abuse — cap prompt length
-  if (prompt.length > 12000) {
+  if (prompt.length > 24000) {
     return Response.json(
       { error: "Prompt too long" },
       { status: 400, headers: CORS_HEADERS }

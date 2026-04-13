@@ -374,8 +374,8 @@ const MODULES = [
       {title:"Anthropic: Claude model overview", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"ref"}
     ]},
   { id:"f-2", track:"foundations", title:"The Model Landscape", week:"2", time:"~3 hrs", type:"concepts",
-    core:"Claude, GPT, Gemini, Llama, Mistral. Each has real strengths and tradeoffs in quality, speed, cost, and safety. Knowing the landscape means you can recommend the right model for the job instead of defaulting to whatever your team used last.",
-    concepts:["Claude (Anthropic): reasoning, safety, long context, coding strength","GPT (OpenAI): broadest ecosystem, vision, function calling","Gemini (Google): large context windows, workspace integration","Llama (Meta) and Mistral: open-weight models you can self-host","Pricing models: per-token, subscription, and the real cost of each"],
+    core:"Claude, GPT, Gemini, Llama, Mistral. Each has real strengths and tradeoffs in quality, speed, cost, and safety. Knowing the landscape means you pick the right tool for the work you are actually doing instead of defaulting to whatever you tried first.",
+    concepts:["Claude (Anthropic): strong at reasoning, long documents, nuanced analysis, and coding","GPT (OpenAI): broadest ecosystem, good vision capabilities, strong at creative tasks","Gemini (Google): large context windows, deep integration with Google Workspace","Free tiers and trials: how to test each model without spending money","Matching models to PM tasks: which is best for summarizing, drafting, analyzing, brainstorming"],
     buildThis:"Run the same PM task through three different models (Claude, GPT, Gemini). Use free tiers. Try something you actually need to do: summarize a long document, draft a stakeholder email, analyze customer feedback. Compare the quality, speed, and how well each handles your specific context. Pick the one that works best for your day-to-day and start using it.",
     resources:[
       {title:"Anthropic model comparison", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"start"},
@@ -647,7 +647,7 @@ Return ONLY a JSON array. No markdown, no backticks, no preamble:
 [{"id":"module-id","connection":"...","project":"...","firstSteps":["Step 1...","Step 2...","Step 3..."],"today":"..."}]
 
 Modules:
-${selected.map(m => `id: ${m.id} | title: ${m.title} | core: ${m.core} | buildThis: ${m.buildThis}`).join("\n")}`;
+${selected.map(m => `id: ${m.id} | title: ${m.title} | core: ${m.core.slice(0, 200)}`).join("\n")}`;
 
     const res = await fetch("/api/generate", {
       method: "POST",
