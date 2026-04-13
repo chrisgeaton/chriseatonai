@@ -481,35 +481,35 @@ const MODULES = [
 
   // ── GOVERNANCE & SECURITY ──
   { id:"g-1", track:"governance", title:"AI Governance Frameworks", week:"13", time:"~4 hrs", type:"concepts",
-    core:"Responsible AI use is a product decision, not just a legal checkbox. As a PM, you own the user experience of AI features, including what happens when they go wrong. Understanding governance frameworks helps you build AI features that your users, your legal team, and your board can trust.",
-    concepts:["NIST AI Risk Management Framework: the standard reference for AI governance","EU AI Act: risk categories and what they mean for product decisions","Responsible use policies: what your company should have before shipping AI features","Bias auditing: how to check whether your AI feature treats users fairly","Transparency: when and how to tell users they are interacting with AI"],
-    buildThis:"Audit one AI feature in your product (or a planned one). Walk through the NIST AI RMF categories: what are the risks, who is affected, what controls exist, what is missing. Write a one-page governance brief that you could share with your legal team.",
+    core:"Responsible AI use starts with you. If you are putting customer data, internal documents, or competitive intelligence into AI tools, you need to know the rules. Understanding governance frameworks helps you use AI responsibly in your own work and ask the right questions when evaluating AI tools for your team.",
+    concepts:["NIST AI Risk Management Framework: the standard reference for AI governance","EU AI Act: risk categories and what they mean for your work","Responsible use policies: what your company should have before adopting AI tools","Evaluating AI tools: privacy policies, data handling, and compliance certifications","Transparency: knowing when and how AI is being used in your workflow and your product"],
+    buildThis:"Audit every AI tool you are currently using in your work. For each one, answer: what data am I putting in? Where does that data go? Does my company have a policy on this? Would I be comfortable if my legal team saw exactly what I shared? Write a one-page summary of your findings and one recommendation for your team.",
     resources:[
       {title:"NIST AI Risk Management Framework", url:"https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-artificial-intelligence", type:"start"},
       {title:"EU AI Act summary", url:"https://artificialintelligenceact.eu/", type:"deeper"},
       {title:"Google: Responsible AI practices", url:"https://ai.google/responsibility/responsible-ai-practices/", type:"ref"}
     ]},
   { id:"g-2", track:"governance", title:"Security for AI Products", week:"14", time:"~4 hrs", type:"concepts",
-    core:"Prompt injection is the SQL injection of the AI era. Data leakage through model outputs, PII in training data, and adversarial attacks are real risks that PMs need to understand. You do not need to implement the defenses, but you need to know what to require in your specs.",
-    concepts:["Prompt injection: how attackers manipulate AI through user input","Data leakage: sensitive information appearing in model outputs","PII handling: what happens when personal data enters an AI pipeline","OWASP Top 10 for LLM Applications: the standard threat list","What to include in AI feature specs: security requirements a PM should write"],
-    buildThis:"Take an AI feature in your product and red-team it. Try 10 prompt injection attacks. Try to get it to reveal system prompts, ignore instructions, or output inappropriate content. Document what worked and what did not. Write security requirements for the gaps you found.",
+    core:"If you paste a customer email into Claude, where does that data go? If you upload a financial report to ChatGPT, who else can see it? Prompt injection, data leakage, and PII exposure are real risks for anyone using AI tools with work data. Understanding these risks means you use AI tools safely and you know what questions to ask before your team adopts new ones.",
+    concepts:["Prompt injection: how it works and why it matters even when you are the user","Data leakage: where your work data goes when you use AI tools","PII handling: what happens when customer or patient data enters an AI tool","OWASP Top 10 for LLM Applications: the risks to know about","Safe AI habits: what data is OK to share, what is not, and how to tell"],
+    buildThis:"Test the AI tools you use daily for security risks. Try pasting in fake sensitive data and see if the tool warns you. Try prompt injection: ask Claude to ignore its instructions. Check each tool's data retention policy. Write up what you found and create a simple set of rules for yourself: what data is OK to share, what is never OK, and what needs anonymization first.",
     resources:[
       {title:"OWASP Top 10 for LLM Applications", url:"https://owasp.org/www-project-top-10-for-large-language-model-applications/", type:"start"},
       {title:"Simon Willison: Prompt injection explained", url:"https://simonwillison.net/2023/Apr/14/worst-that-can-happen/", type:"deeper"},
       {title:"Anthropic: Safety best practices", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/mitigate-misuse", type:"ref"}
     ]},
   { id:"g-3", track:"governance", title:"Evaluation and Quality", week:"15", time:"~4 hrs", type:"concepts",
-    core:"How do you know if your AI feature actually works? Not with vibes. Evaluation frameworks, human review loops, and quality metrics are what separate shipped AI features from demos that fell apart in production. This is the module most AI PMs skip, and it is the one that matters most.",
-    concepts:["Eval frameworks: defining what good looks like before you ship","Human review loops: when and how to keep humans in the decision chain","Quality metrics beyond accuracy: relevance, groundedness, safety, latency","A/B testing AI features: why standard A/B approaches need adjustment","Monitoring drift: detecting when model quality degrades over time"],
-    buildThis:"Define an eval framework for one AI feature. Write 20 test cases: 10 where the AI should succeed and 10 edge cases. Run them. Score the results. Calculate a quality metric. Decide whether the feature is ready to ship based on the numbers, not your gut feeling.",
+    core:"How do you know if the AI tools you are using are actually giving you good results? Not with vibes. If Claude summarizes a report for you, how do you know it got the numbers right? If you use AI to draft a stakeholder email, how do you verify the tone and accuracy? Building simple evaluation habits into your AI workflow is what separates people who use AI effectively from people who use it carelessly.",
+    concepts:["Spot-checking AI output: quick verification habits that catch mistakes","Verification frameworks: defining what good output looks like before you trust it","When to trust AI output vs. when to verify: a practical decision framework","Tracking AI accuracy over time: noticing when your tools get better or worse","Building a personal quality bar: the standard you hold AI output to before using it"],
+    buildThis:"Pick one PM task you have been using AI for (summarizing reports, drafting emails, analyzing data). Create 10 test cases where you know the right answer. Run them through your AI tool. Score the results honestly. How often did it get the key facts right? How often did it miss something important? Use this to calibrate your trust: what can you use AI output for directly, and what always needs a second look?",
     resources:[
       {title:"Anthropic: Evals overview", url:"https://docs.anthropic.com/en/docs/build-with-claude/develop-tests", type:"start"},
       {title:"Hamel Husain: Your AI product needs evals", url:"https://hamel.dev/blog/posts/evals/", type:"deeper"},
       {title:"LangSmith: Evaluation docs", url:"https://docs.smith.langchain.com/", type:"ref"}
     ]},
   { id:"g-4", track:"governance", title:"Auditability and Compliance", week:"16", time:"~4 hrs", type:"reference",
-    core:"When something goes wrong with an AI feature, you need to be able to explain what happened and why. Audit trails, decision logging, data lineage, and regulatory compliance are not afterthoughts. They are requirements that should be in your spec from day one.",
-    concepts:["Decision logging: recording what the AI recommended and what the user did","Data lineage: tracking what data went into an AI decision","Regulatory landscape: HIPAA, SOC2, GDPR intersections with AI features","Model cards: documenting what a model can and cannot do","Building compliance into specs: what to require from engineering upfront"],
+    core:"When your boss asks what data you have been putting into AI tools, you need a good answer. When a compliance audit asks how AI-assisted decisions were made, you need a trail. Tracking what data goes into your AI tools, what comes out, and how you use the results is not paranoia. It is basic professional hygiene, especially in regulated industries.",
+    concepts:["What to track: logging which AI tools you use, what data goes in, and what you do with the output","Data flow awareness: knowing where your information travels when you use AI","Regulatory landscape: HIPAA, SOC2, GDPR implications for using AI tools with work data","AI tool policies: helping your team adopt AI tools responsibly","Building good habits: simple tracking practices that protect you and your organization"],
     buildThis:"Pick any AI tool you are using in your work (Claude, a no-code builder, a transcription service). Map what data you are putting into it: what goes in, where it goes, whether it gets stored, who else could see it. Ask yourself: if your manager asked you to show every AI interaction you had this week, could you? Identify what you would need to start tracking and why.",
     resources:[
       {title:"Google: Model Cards for Model Reporting", url:"https://modelcards.withgoogle.com/about", type:"start"},
@@ -628,7 +628,7 @@ async function startGeneration() {
 
   try {
     const selected = MODULES.filter(m => state.selectedMods.has(m.id));
-    const prompt = `You are an AI tools curriculum designer for product managers. IMPORTANT CONTEXT: This course is about PMs using AI tools to be better at their own job, NOT about building AI features for their product or writing specs for engineering teams to build AI. The PM is the user of AI, not the commissioner of AI work.
+    const prompt = `You are an AI tools curriculum designer for product managers. IMPORTANT CONTEXT: This course is about PMs using AI tools to be better at their own job, NOT about building AI features for their product or writing specs for engineering teams to build AI. The PM is the user of AI, not the commissioner of AI work. Their product may or may not involve AI at all. Do not assume their product uses AI. Focus entirely on how the PM personally uses AI tools in their daily workflow: writing, analysis, communication, planning, and decision-making.
 
 A PM has shared:
 
