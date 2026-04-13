@@ -401,7 +401,7 @@ const MODULES = [
     resources:[
       {title:"Download Claude Desktop", url:"https://claude.ai/download", type:"start"},
       {title:"Anthropic: Claude Desktop overview", url:"https://www.anthropic.com/claude", type:"deeper"},
-      {title:"Anthropic: Using Projects effectively", url:"https://support.anthropic.com/en/articles/9517075-what-are-projects", type:"ref"}
+      {title:"Anthropic: Using Projects effectively", url:"https://support.claude.com/en/articles/9517075-what-are-projects", type:"ref"}
     ]},
   { id:"c-2", track:"claude", title:"MCP Connections", time:"~5 hrs", type:"hands-on",
     core:"Model Context Protocol lets Claude Desktop connect to your actual tools: databases, file systems, GitHub, Google Drive, Slack, and more. This turns Claude from a general assistant into one that knows your codebase, your tickets, your documents, and your data. For a PM, this is the single biggest force multiplier in this course.",
@@ -427,9 +427,9 @@ const MODULES = [
     concepts:["Skills: saved, repeatable workflows with built-in MCP connections and instructions","Tasks: background jobs Claude runs for you with periodic check-ins","Cowork: collaborative mode where Claude works alongside you on longer projects","Building a Skill: combining a system prompt, MCP tools, and specific instructions into a reusable package","When to use Skills vs. Tasks vs. a regular conversation"],
     buildThis:"Build one Claude Skill for a PM task you do every week. Pick something repeatable: weekly status updates, backlog prioritization, competitive monitoring, or stakeholder prep. Define the instructions, connect the relevant MCP servers (your project tracker, document storage, or communication tools), and test it on real work. Then set up a Task that runs your Skill on a schedule or trigger.",
     resources:[
-      {title:"Anthropic: Claude Skills overview", url:"https://www.anthropic.com/claude", type:"start"},
-      {title:"Claude: Getting started with Tasks", url:"https://support.anthropic.com/en/articles/10973498-how-can-i-use-claude-s-task-feature", type:"deeper"},
-      {title:"Model Context Protocol servers", url:"https://github.com/modelcontextprotocol/servers", type:"ref"}
+      {title:"What are Skills?", url:"https://support.claude.com/en/articles/12512176-what-are-skills", type:"start"},
+      {title:"Schedule recurring tasks in Cowork", url:"https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork", type:"deeper"},
+      {title:"Get started with Claude Cowork", url:"https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork", type:"ref"}
     ]},
 
   // ── NO-CODE AI BUILDING ──
@@ -496,7 +496,7 @@ const MODULES = [
     concepts:["NIST AI Risk Management Framework: the standard reference for AI governance","EU AI Act: risk categories and what they mean for your work","Responsible use policies: what your company should have before adopting AI tools","Evaluating AI tools: privacy policies, data handling, and compliance certifications","Transparency: knowing when and how AI is being used in your workflow and your product"],
     buildThis:"Audit every AI tool you are currently using in your work. For each one, answer: what data am I putting in? Where does that data go? Does my company have a policy on this? Would I be comfortable if my legal team saw exactly what I shared? Write a one-page summary of your findings and one recommendation for your team.",
     resources:[
-      {title:"NIST AI Risk Management Framework", url:"https://airc.nist.gov/AI_RMF_Interactivity/Playbook", type:"start"},
+      {title:"NIST AI Risk Management Framework", url:"https://www.nist.gov/itl/ai-risk-management-framework", type:"start"},
       {title:"EU AI Act summary", url:"https://artificialintelligenceact.eu/", type:"deeper"},
       {title:"Google: Responsible AI practices", url:"https://ai.google/responsibility/responsible-ai-practices/", type:"ref"}
     ]},
@@ -507,7 +507,7 @@ const MODULES = [
     resources:[
       {title:"OWASP Top 10 for LLM Applications", url:"https://owasp.org/www-project-top-10-for-large-language-model-applications/", type:"start"},
       {title:"Simon Willison: Prompt injection explained", url:"https://simonwillison.net/2023/Apr/14/worst-that-can-happen/", type:"deeper"},
-      {title:"Anthropic: Usage policy and safety", url:"https://www.anthropic.com/policies/aup", type:"ref"}
+      {title:"Anthropic: Usage policy", url:"https://www.anthropic.com/legal/aup", type:"ref"}
     ]},
   { id:"g-3", track:"governance", title:"Evaluation and Quality", time:"~4 hrs", type:"concepts",
     core:"How do you know if the AI tools you are using are actually giving you good results? Not with vibes. If Claude summarizes a report for you, how do you know it got the numbers right? If you use AI to draft a stakeholder email, how do you verify the tone and accuracy? Building simple evaluation habits into your AI workflow is what separates people who use AI effectively from people who use it carelessly.",
@@ -524,7 +524,7 @@ const MODULES = [
     buildThis:"Pick any AI tool you are using in your work (Claude, a no-code builder, a transcription service). Map what data you are putting into it: what goes in, where it goes, whether it gets stored, who else could see it. Ask yourself: if your manager asked you to show every AI interaction you had this week, could you? Identify what you would need to start tracking and why.",
     resources:[
       {title:"Google: Model Cards for Model Reporting", url:"https://modelcards.withgoogle.com/about", type:"start"},
-      {title:"Anthropic: Data privacy and security", url:"https://www.anthropic.com/policies/privacy", type:"deeper"},
+      {title:"Anthropic: Privacy policy", url:"https://www.anthropic.com/legal/privacy", type:"deeper"},
       {title:"OpenAI: Enterprise privacy", url:"https://openai.com/enterprise-privacy/", type:"ref"}
     ]},
 ];
