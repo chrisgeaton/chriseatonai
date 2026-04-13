@@ -247,6 +247,8 @@
       .card-tags { gap: 3px; }
     }
   </style>
+  <!-- Umami Analytics -->
+  <script defer src="https://umami-alpha-brown.vercel.app/script.js" data-website-id="5623afbe-7755-4744-8c79-21cf2cd84ef3"></script>
 </head>
 <body>
 
@@ -321,6 +323,7 @@
       <section id="step-generating">
         <div class="gen-spinner"></div>
         <div class="gen-status" id="gen-status">Reading your context...</div>
+        <p style="font-size:0.8rem; color:var(--text-tertiary); margin-top:16px;">This can take a minute. We're personalizing every module to your work.</p>
       </section>
 
       <!-- Step 3 -->
@@ -612,6 +615,8 @@ async function startGeneration() {
     goals: document.getElementById("f-goals").value.trim(),
   };
 
+  if (typeof umami !== "undefined") umami.track("curriculum-generated", { course: "ai-tools-pm", modules: state.selectedMods.size });
+
   document.getElementById("step-onboard").style.display = "none";
   document.getElementById("step-generating").style.display = "block";
   setNav(2);
@@ -764,7 +769,10 @@ function toggleCard(mid) { state.openCard = state.openCard === mid ? null : mid;
 
 function toggleComplete(mid) {
   if (state.completedMods.has(mid)) state.completedMods.delete(mid);
-  else state.completedMods.add(mid);
+  else {
+    state.completedMods.add(mid);
+    if (typeof umami !== "undefined") umami.track("module-completed", { course: "ai-tools-pm", module: mid });
+  }
   const card = document.getElementById("card-" + mid);
   const btn = card && card.querySelector(".card-complete");
   if (card) card.classList.toggle("done", state.completedMods.has(mid));
@@ -795,6 +803,7 @@ function resetApp() {
 }
 
 function exportCurriculum() {
+  if (typeof umami !== "undefined") umami.track("curriculum-exported", { course: "ai-tools-pm" });
   const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
   const role = document.getElementById("f-role").value.trim();
 
