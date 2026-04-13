@@ -628,20 +628,29 @@ async function startGeneration() {
 
   try {
     const selected = MODULES.filter(m => state.selectedMods.has(m.id));
-    const prompt = `You are an AI tools curriculum designer for product managers. IMPORTANT CONTEXT: This course is about PMs using AI tools to be better at their own job, NOT about building AI features for their product or writing specs for engineering teams to build AI. The PM is the user of AI, not the commissioner of AI work. Their product may or may not involve AI at all. Do not assume their product uses AI. Focus entirely on how the PM personally uses AI tools in their daily workflow: writing, analysis, communication, planning, and decision-making.
+    const prompt = `You are an AI tools curriculum designer for product managers.
+
+CRITICAL RULES:
+- This course teaches PMs to use AI tools for PM WORKFLOW tasks: writing tickets, managing backlogs, communicating with stakeholders, strategic planning, running meetings, competitive analysis, and similar PM activities.
+- "Work projects" describes what the PM is building. It is NOT what they want to use AI for. Do not create exercises about analyzing the PM's product domain data.
+- "AI goals" describes what the PM actually wants to use AI for. This is the most important field. Prioritize it above everything else.
+- WRONG: "Use Claude to analyze your perioperative financial data" (this uses AI on their product's data)
+- RIGHT: "Use Claude to draft better tickets for your perioperative dashboard backlog" (this uses AI for PM workflow)
+- WRONG: "Upload financial reports to get strategic insights" (analyzing product domain data)
+- RIGHT: "Upload your PRD and ask Claude to find gaps in your requirements" (PM workflow task)
 
 A PM has shared:
 
 Role: ${profile.role}
-Work projects: ${profile.workProjects}
+What they are building (context only, NOT what they want AI for): ${profile.workProjects}
 Side projects: ${profile.sideProjects || "None"}
-AI goals: ${profile.goals || "Not specified"}
+What they actually want to use AI tools for: ${profile.goals || "General PM workflow improvement"}
 
 For each module, generate:
-1. "connection" (2-3 sentences): How does this module help THIS PM do their own job better using AI tools? Be specific. Name their actual projects. Focus on how THEY will use the tool, not how their engineering team could build with it.
-2. "project" (2-3 sentences): A specific hands-on project where the PM personally uses an AI tool to accomplish something in their real work. Not a spec, not a brief for engineers. Something they open a tool, do the work, and get a result they can use.
-3. "firstSteps" (array of 3 strings): Three numbered concrete steps to start the project right now. Each step should be specific enough that they can do it without further research. Every step should start with the PM doing something, not delegating.
-4. "today" (1 sentence): One thing they can do in the next 30 minutes using an AI tool on their actual work.
+1. "connection" (2-3 sentences): How does this module help THIS PM with their stated AI goals? Reference their work projects as context but focus on PM workflow improvement, not product data analysis.
+2. "project" (2-3 sentences): A specific hands-on project where the PM uses an AI tool for a PM workflow task related to their work. Examples: drafting better tickets, preparing stakeholder updates, planning sprints, writing specs, competitive analysis, meeting prep. NOT analyzing their product's domain data.
+3. "firstSteps" (array of 3 strings): Three concrete steps to start the project. Each step should involve the PM opening an AI tool and doing a PM task.
+4. "today" (1 sentence): One PM workflow task they can do in the next 30 minutes using an AI tool.
 
 Return ONLY a JSON array. No markdown, no backticks, no preamble:
 [{"id":"module-id","connection":"...","project":"...","firstSteps":["Step 1...","Step 2...","Step 3..."],"today":"..."}]
