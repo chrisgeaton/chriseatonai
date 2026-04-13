@@ -365,18 +365,18 @@ const TRACKS = [
 const MODULES = [
   // ── FOUNDATIONS ──
   { id:"f-1", track:"foundations", title:"How LLMs Actually Work", week:"1", time:"~3 hrs", type:"concepts",
-    core:"You do not need to understand transformer architecture to be a good AI PM. But you do need to understand tokens, context windows, temperature, and hallucinations well enough to make good product decisions and have credible conversations with your engineering team.",
-    concepts:["Tokens and tokenization: why your prompt costs what it costs","Context windows: what fits, what gets cut, and why it matters for product design","Temperature and sampling: controlling randomness in outputs","Hallucinations: why they happen and what you can actually do about them","Embeddings: the concept behind semantic search and RAG"],
-    buildThis:"Pick a feature in your product that could use AI. Write a one-page brief that explains to your engineering team which LLM capability it needs (generation, classification, extraction, summarization) and why. Include the constraints: context window limits, latency requirements, cost ceiling.",
+    core:"Understanding how LLMs work makes you a better user of them. When you know about tokens, you understand why long documents get cut off. When you know about temperature, you know why the same prompt gives different results. When you know about hallucinations, you stop trusting outputs blindly and start verifying the right things. This is not about building AI. It is about using it well.",
+    concepts:["Tokens and tokenization: why long documents get cut off and why some prompts cost more than others","Context windows: the amount of information a model can consider at once, and how to work within that limit","Temperature and sampling: why the same prompt gives different answers, and when you want that","Hallucinations: why models make things up, how to spot it, and what to do about it","Models as tools: matching the right model to the right task (summarizing, drafting, analyzing, brainstorming)"],
+    buildThis:"Open Claude or ChatGPT and run the same work task three different ways. First, paste in a long document and ask for a summary. Second, ask the same question but include specific instructions about what to focus on. Third, give it a few examples of what a good output looks like before asking. Compare the results. Write down what you learned about how the way you ask changes what you get back.",
     resources:[
-      {title:"Anthropic: Intro to LLMs", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview", type:"start"},
-      {title:"OpenAI: Tokenizer tool", url:"https://platform.openai.com/tokenizer", type:"deeper"},
-      {title:"Vicki Boykis: What are embeddings?", url:"https://vickiboykis.com/what_are_embeddings/", type:"ref"}
+      {title:"Ethan Mollick: What people get wrong about AI", url:"https://www.oneusefulthing.org/p/what-people-ask-me-most-also-some", type:"start"},
+      {title:"OpenAI: Tokenizer tool (see how text becomes tokens)", url:"https://platform.openai.com/tokenizer", type:"deeper"},
+      {title:"Anthropic: Claude model overview", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"ref"}
     ]},
   { id:"f-2", track:"foundations", title:"The Model Landscape", week:"2", time:"~3 hrs", type:"concepts",
     core:"Claude, GPT, Gemini, Llama, Mistral. Each has real strengths and tradeoffs in quality, speed, cost, and safety. Knowing the landscape means you can recommend the right model for the job instead of defaulting to whatever your team used last.",
     concepts:["Claude (Anthropic): reasoning, safety, long context, coding strength","GPT (OpenAI): broadest ecosystem, vision, function calling","Gemini (Google): large context windows, workspace integration","Llama (Meta) and Mistral: open-weight models you can self-host","Pricing models: per-token, subscription, and the real cost of each"],
-    buildThis:"Run the same product task through three different models (Claude, GPT, Gemini). Use free tiers or trials. Compare: quality of output, speed, how well each handles ambiguity. Write up your recommendation for which model your team should default to and why.",
+    buildThis:"Run the same PM task through three different models (Claude, GPT, Gemini). Use free tiers. Try something you actually need to do: summarize a long document, draft a stakeholder email, analyze customer feedback. Compare the quality, speed, and how well each handles your specific context. Pick the one that works best for your day-to-day and start using it.",
     resources:[
       {title:"Anthropic model comparison", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"start"},
       {title:"Artificial Analysis: LLM benchmarks", url:"https://artificialanalysis.ai/", type:"deeper"},
@@ -452,25 +452,25 @@ const MODULES = [
 
   // ── AI BEYOND CHAT ──
   { id:"b-1", track:"beyond", title:"Vision and Image AI", week:"10", time:"~4 hrs", type:"concepts",
-    core:"When your product can see, entirely new features become possible. Document scanning, quality inspection, accessibility analysis, visual search, and content moderation all depend on computer vision. You do not need to build these from scratch. Managed APIs handle most use cases.",
-    concepts:["Google Cloud Vision and AWS Rekognition: managed APIs for OCR, labeling, face detection","Roboflow: custom object detection without ML expertise, drag-and-drop annotation","Hugging Face vision models: pre-trained models for classification and segmentation","Claude and GPT vision: feeding images directly to LLMs for analysis","Evaluating whether a vision feature is feasible for your product"],
-    buildThis:"Identify one place in your product where users deal with images or documents. Test whether a vision API can extract useful information from it. Upload 10 real examples to Claude with vision or Google Cloud Vision. Measure accuracy. Write a one-page feasibility assessment.",
+    core:"AI that can see images is one of the most immediately useful capabilities for a PM. Upload a screenshot and get a UX critique. Photograph a whiteboard and get structured notes. Feed in a competitor's UI and get a detailed comparison. You are probably already using text-based AI daily. Adding vision to your workflow opens up everything that is hard to type but easy to photograph.",
+    concepts:["Claude and GPT vision: feeding screenshots, photos, and documents directly to AI for analysis","Using vision for PM work: UI reviews, whiteboard capture, competitive teardowns, data extraction from charts","Google Cloud Vision and AWS Rekognition: managed APIs for OCR and document processing","When to use LLM vision vs. dedicated vision APIs","Limitations: what vision AI gets wrong and how to verify"],
+    buildThis:"Use Claude's vision capability on something in your actual work. Upload a screenshot of your product's UI and ask for a UX critique. Upload a whiteboard photo from your last planning session and ask Claude to extract the action items. Upload a competitor's pricing page and ask for a structured comparison. Try 5 different visual inputs from your real work and see which ones give you useful results.",
     resources:[
       {title:"Google Cloud Vision quickstart", url:"https://cloud.google.com/vision/docs/quickstart", type:"start"},
       {title:"Roboflow: train a custom model", url:"https://roboflow.com/", type:"deeper"},
       {title:"Hugging Face vision models", url:"https://huggingface.co/models?pipeline_tag=image-classification", type:"ref"}
     ]},
   { id:"b-2", track:"beyond", title:"Speech and Audio AI", week:"11", time:"~3 hrs", type:"concepts",
-    core:"Products that listen and speak open up entirely different interaction models. Whisper transcribes audio with remarkable accuracy. ElevenLabs generates natural-sounding speech. Deepgram and AssemblyAI handle real-time transcription. Knowing what is possible lets you propose features your competitors have not thought of.",
-    concepts:["Whisper (OpenAI): open-source speech-to-text, runs locally or via API","ElevenLabs: text-to-speech with voice cloning, natural output","Deepgram and AssemblyAI: real-time transcription with speaker identification","When voice features improve UX vs. when they add complexity","Accessibility implications: transcription as an inclusion feature"],
-    buildThis:"Record or collect 5 real audio samples relevant to your work (customer calls, meeting recordings, voice memos). Run them through Whisper or AssemblyAI. Evaluate the transcription quality. Write up whether automated transcription could solve a real problem in your product.",
+    core:"Meetings, customer calls, and voice memos contain some of the most valuable information in PM work, and most of it disappears. AI transcription and summarization turn spoken conversations into searchable, analyzable text. This module is about putting these tools into your actual workflow so you never lose an insight because you were too busy facilitating to take notes.",
+    concepts:["Whisper (OpenAI) and AssemblyAI: transcribing recordings into text you can search and analyze","Combining transcription with LLMs: turning a meeting recording into decisions, action items, and follow-ups","ElevenLabs: text-to-speech for creating audio versions of written content","Real-time transcription tools: live captions and notes during meetings","Building a habit: which meetings and calls to transcribe and how to process them"],
+    buildThis:"Take a real meeting recording or customer call from your work and transcribe it using a free tool (AssemblyAI free tier, or upload to ChatGPT and ask it to transcribe). Then paste the transcript into Claude and ask it to extract: key decisions, action items, open questions, and any commitments made. Compare that output to your own meeting notes. Start doing this for every important meeting for a week.",
     resources:[
       {title:"OpenAI Whisper on GitHub", url:"https://github.com/openai/whisper", type:"start"},
       {title:"ElevenLabs", url:"https://elevenlabs.io/", type:"deeper"},
       {title:"AssemblyAI docs", url:"https://www.assemblyai.com/docs", type:"ref"}
     ]},
   { id:"b-3", track:"beyond", title:"Image Generation for Product Work", week:"12", time:"~3 hrs", type:"concepts",
-    core:"AI-generated images are useful for PMs in ways that go beyond marketing assets. Generating placeholder content, visualizing feature concepts, creating demo data, and mocking up scenarios that would be expensive to photograph. The key is knowing which tool to use and when the output is good enough.",
+    core:"AI-generated images are useful for PMs in ways that go beyond marketing. Generate placeholder content for prototypes, visualize feature concepts for stakeholder conversations, create demo data that looks real, and mock up scenarios that would be expensive to photograph. The practical question is: which tool for which job, and when is the output good enough to use.",
     concepts:["Midjourney: highest aesthetic quality, Discord and web interface","DALL-E 3: best at following complex text prompts, integrated with ChatGPT","Stable Diffusion and Flux: open models, run locally or via Replicate","Adobe Firefly: commercially safe, trained on licensed content, built into Creative Cloud","When AI images are appropriate for production vs. internal use only"],
     buildThis:"Pick a feature in your product that needs visual content (empty states, onboarding illustrations, demo screenshots, marketing assets). Generate 10 options across two different tools. Test whether any are good enough to use as-is or as a starting point for a designer.",
     resources:[
@@ -510,7 +510,7 @@ const MODULES = [
   { id:"g-4", track:"governance", title:"Auditability and Compliance", week:"16", time:"~4 hrs", type:"reference",
     core:"When something goes wrong with an AI feature, you need to be able to explain what happened and why. Audit trails, decision logging, data lineage, and regulatory compliance are not afterthoughts. They are requirements that should be in your spec from day one.",
     concepts:["Decision logging: recording what the AI recommended and what the user did","Data lineage: tracking what data went into an AI decision","Regulatory landscape: HIPAA, SOC2, GDPR intersections with AI features","Model cards: documenting what a model can and cannot do","Building compliance into specs: what to require from engineering upfront"],
-    buildThis:"Pick an AI feature (yours or a competitor's). Map the data flow: what goes in, what the model does, what comes out, what gets stored. Identify every point where you would need an audit trail. Write the logging requirements you would add to your engineering spec.",
+    buildThis:"Pick any AI tool you are using in your work (Claude, a no-code builder, a transcription service). Map what data you are putting into it: what goes in, where it goes, whether it gets stored, who else could see it. Ask yourself: if your manager asked you to show every AI interaction you had this week, could you? Identify what you would need to start tracking and why.",
     resources:[
       {title:"Google: Model Cards for Model Reporting", url:"https://modelcards.withgoogle.com/about", type:"start"},
       {title:"NIST AI 100-1: Trustworthy AI", url:"https://csrc.nist.gov/pubs/ai/100/1/final", type:"deeper"},
@@ -628,7 +628,9 @@ async function startGeneration() {
 
   try {
     const selected = MODULES.filter(m => state.selectedMods.has(m.id));
-    const prompt = `You are an AI tools curriculum designer for product managers. A PM has shared:
+    const prompt = `You are an AI tools curriculum designer for product managers. IMPORTANT CONTEXT: This course is about PMs using AI tools to be better at their own job, NOT about building AI features for their product or writing specs for engineering teams to build AI. The PM is the user of AI, not the commissioner of AI work.
+
+A PM has shared:
 
 Role: ${profile.role}
 Work projects: ${profile.workProjects}
@@ -636,10 +638,10 @@ Side projects: ${profile.sideProjects || "None"}
 AI goals: ${profile.goals || "Not specified"}
 
 For each module, generate:
-1. "connection" (2-3 sentences): How does this module connect to THIS PM's actual work? Be specific. Name their actual projects and challenges.
-2. "project" (2-3 sentences): A specific hands-on project using THEIR actual work as context. Tell them exactly what to build or do. Make it immediately actionable with a real deliverable.
-3. "firstSteps" (array of 3 strings): Three numbered concrete steps to start the project right now. Each step should be specific enough that they can do it without further research.
-4. "today" (1 sentence): One thing they can do in the next 30 minutes.
+1. "connection" (2-3 sentences): How does this module help THIS PM do their own job better using AI tools? Be specific. Name their actual projects. Focus on how THEY will use the tool, not how their engineering team could build with it.
+2. "project" (2-3 sentences): A specific hands-on project where the PM personally uses an AI tool to accomplish something in their real work. Not a spec, not a brief for engineers. Something they open a tool, do the work, and get a result they can use.
+3. "firstSteps" (array of 3 strings): Three numbered concrete steps to start the project right now. Each step should be specific enough that they can do it without further research. Every step should start with the PM doing something, not delegating.
+4. "today" (1 sentence): One thing they can do in the next 30 minutes using an AI tool on their actual work.
 
 Return ONLY a JSON array. No markdown, no backticks, no preamble:
 [{"id":"module-id","connection":"...","project":"...","firstSteps":["Step 1...","Step 2...","Step 3..."],"today":"..."}]
