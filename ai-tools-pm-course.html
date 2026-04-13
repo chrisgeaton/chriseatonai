@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools for PMs | Chris Eaton</title>
+  <meta name="description" content="Free AI-personalized course for PMs who want to use AI tools effectively. Hands-on projects, curated resources, built around your actual work.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Tools for PMs | Chris Eaton">
+  <meta property="og:description" content="Hands-on AI tools course for product managers. Claude Desktop, MCP, no-code builders, and more.">
+  <meta property="og:url" content="https://chriseatonai.com/ai-tools-pm-course">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── Course-specific styles (extends site design system) ── */
+
+    .course-hero { padding: 80px 0 48px; }
+    .course-kicker {
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+      color: #6aa0d8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px;
+    }
+    .course-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600;
+      line-height: 1.3; letter-spacing: -0.025em; margin-bottom: 16px;
+    }
+    .course-hero h1 em { font-style: italic; color: #6aa0d8; }
+    .course-desc {
+      font-size: 1rem; line-height: 1.75; color: var(--text-secondary);
+      max-width: 560px; margin-bottom: 28px;
+    }
+    .course-stats { display: flex; gap: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .stat-n { font-size: 1.5rem; font-weight: 600; color: #6aa0d8; display: block; line-height: 1.2; }
+    .stat-l { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .step-nav {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      padding: 14px 0; margin-bottom: 40px;
+    }
+    .step-item {
+      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em;
+      color: var(--text-tertiary); text-transform: uppercase; padding-right: 24px;
+    }
+    .step-item.active { color: #6aa0d8; }
+    .step-item:not(:last-child)::after { content: '\2192'; margin-left: 12px; color: var(--border); }
+
+    .section-label {
+      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+      color: var(--text-tertiary); text-transform: uppercase;
+      border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 20px;
+    }
+
+    .field { margin-bottom: 24px; }
+    .field label {
+      display: block; font-family: var(--mono); font-size: 0.7rem;
+      letter-spacing: 0.08em; color: var(--text-secondary);
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .field label span {
+      font-family: var(--font); font-size: 0.8rem; color: var(--text-tertiary);
+      text-transform: none; letter-spacing: 0; font-style: italic;
+    }
+    .field input, .field textarea {
+      width: 100%; padding: 11px 14px; background: var(--bg-raised);
+      border: 1px solid var(--border); border-radius: 6px; color: var(--text);
+      font-family: var(--font); font-size: 0.9rem; line-height: 1.6;
+      outline: none; transition: border-color 0.2s var(--ease); resize: vertical; appearance: none;
+    }
+    .field input:focus, .field textarea:focus { border-color: #6aa0d8; }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-tertiary); font-style: italic; }
+
+    .track-grid { display: flex; flex-direction: column; gap: 6px; margin-bottom: 36px; }
+    .track-row { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; transition: border-color 0.15s var(--ease); }
+    .track-row.selected { border-color: #6aa0d8; }
+    .track-header {
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+      background: var(--bg-raised); cursor: pointer; user-select: none; transition: background 0.15s var(--ease);
+    }
+    .track-header:hover { background: var(--bg-hover); }
+    .track-check {
+      width: 18px; height: 18px; border: 1.5px solid var(--text-tertiary); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: var(--bg); flex-shrink: 0; transition: all 0.15s var(--ease);
+    }
+    .track-check.on { background: #6aa0d8; border-color: #6aa0d8; }
+    .track-icon { font-size: 14px; flex-shrink: 0; color: var(--text-secondary); }
+    .track-info { flex: 1; }
+    .track-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+    .track-desc { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); }
+    .track-toggle { font-family: var(--mono); font-size: 0.75rem; color: var(--text-tertiary); padding: 4px 8px; background: none; border: none; cursor: pointer; }
+    .track-modules { border-top: 1px solid var(--border); padding: 8px 14px 12px; display: none; background: var(--bg); }
+    .track-modules.open { display: block; }
+    .mod-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; border-bottom: 1px solid var(--border); }
+    .mod-row:last-child { border-bottom: none; }
+    .mod-check {
+      width: 14px; height: 14px; border: 1px solid var(--text-tertiary); border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; color: var(--bg); flex-shrink: 0; transition: all 0.15s var(--ease);
+    }
+    .mod-check.on { background: #6aa0d8; border-color: #6aa0d8; }
+    .mod-title { font-size: 0.85rem; color: var(--text-secondary); flex: 1; }
+    .mod-time { font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); }
+
+    .btn-build {
+      width: 100%; padding: 16px; background: #6aa0d8; color: var(--bg); border: none; border-radius: 6px;
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s var(--ease);
+    }
+    .btn-build:hover:not(:disabled) { opacity: 0.9; }
+    .btn-build:disabled { background: var(--bg-hover); color: var(--text-tertiary); cursor: not-allowed; }
+
+    #step-generating { display: none; text-align: center; padding: 80px 0; }
+    .gen-spinner {
+      width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: #6aa0d8;
+      border-radius: 50%; margin: 0 auto 24px; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .gen-status { font-family: var(--mono); font-size: 0.8rem; color: var(--text-tertiary); letter-spacing: 0.04em; }
+
+    #step-curriculum { display: none; }
+    .progress-bar-wrap { margin-bottom: 28px; }
+    .progress-meta { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.7rem; color: var(--text-tertiary); margin-bottom: 8px; }
+    .progress-meta span.pct { color: #6aa0d8; }
+    .progress-track { height: 2px; background: var(--border); border-radius: 1px; }
+    .progress-fill { height: 100%; background: #6aa0d8; border-radius: 1px; transition: width 0.4s ease; width: 0%; }
+
+    .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
+    .filter-pill {
+      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 5px 12px; border: 1px solid var(--border); border-radius: 4px;
+      background: var(--bg-raised); color: var(--text-tertiary); cursor: pointer; transition: all 0.15s var(--ease);
+    }
+    .filter-pill:hover { border-color: #6aa0d8; color: #6aa0d8; }
+    .filter-pill.active { background: #6aa0d8; color: var(--bg); border-color: #6aa0d8; }
+
+    .module-card {
+      border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px;
+      transition: opacity 0.2s var(--ease), border-color 0.15s var(--ease);
+    }
+    .module-card.done { opacity: 0.45; }
+    .module-card.open { border-color: #6aa0d8; }
+    .card-header {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+      background: var(--bg-raised); border-radius: 6px; cursor: pointer;
+    }
+    .module-card.open .card-header { border-radius: 6px 6px 0 0; }
+    .card-complete {
+      width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--text-tertiary);
+      background: transparent; display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: var(--bg); cursor: pointer; flex-shrink: 0; transition: all 0.15s var(--ease);
+    }
+    .card-complete.done { background: #5ab874; border-color: #5ab874; }
+    .card-meta { flex: 1; min-width: 0; }
+    .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 4px; align-items: center; }
+    .tag { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.04em; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; }
+    .tag-track { background: rgba(106,160,216,0.12); color: #6aa0d8; }
+    .tag-type-hands-on { background: rgba(90,184,116,0.12); color: #5ab874; }
+    .tag-type-concepts { background: rgba(232,167,53,0.12); color: #e8a735; }
+    .tag-type-reference { background: rgba(200,160,80,0.12); color: #c8a050; }
+    .tag-origin { color: var(--text-tertiary); font-style: italic; background: none; }
+    .card-title { font-size: 0.95rem; font-weight: 500; color: var(--text); line-height: 1.3; }
+    .card-chevron { font-family: var(--mono); font-size: 0.75rem; color: var(--text-tertiary); flex-shrink: 0; }
+
+    .card-body {
+      display: none; border-top: 1px solid var(--border); background: var(--bg);
+      padding: 22px; border-radius: 0 0 6px 6px; animation: fadeIn 0.2s ease;
+    }
+    .card-body.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card-core { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 20px; }
+
+    .connection-box {
+      background: rgba(106,160,216,0.08); border: 1px solid rgba(106,160,216,0.2);
+      border-left: 3px solid #6aa0d8; border-radius: 4px; padding: 13px 15px; margin-bottom: 16px;
+    }
+    .box-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .connection-box p, .build-box p, .steps-box p, .today-box p, .resource-item span {
+      font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65;
+    }
+
+    .concepts-list { margin-bottom: 16px; }
+    .concepts-list ul { list-style: none; padding: 0; }
+    .concepts-list li {
+      font-size: 0.85rem; color: var(--text-secondary); padding: 5px 0 5px 16px;
+      position: relative; border-bottom: 1px solid var(--border); line-height: 1.5;
+    }
+    .concepts-list li:last-child { border-bottom: none; }
+    .concepts-list li::before { content: '\2192'; position: absolute; left: 0; color: var(--text-tertiary); font-family: var(--mono); font-size: 0.7rem; top: 6px; }
+
+    .resources-box { margin-bottom: 16px; }
+    .resource-item {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .resource-item:last-child { border-bottom: none; }
+    .resource-type {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 2px 6px; border-radius: 3px;
+      flex-shrink: 0; min-width: 44px; text-align: center;
+    }
+    .resource-type.start { background: rgba(90,184,116,0.12); color: #5ab874; }
+    .resource-type.deeper { background: rgba(106,160,216,0.12); color: #6aa0d8; }
+    .resource-type.ref { background: rgba(200,160,80,0.12); color: #c8a050; }
+    .resource-item a {
+      font-size: 0.85rem; color: var(--text-secondary); text-decoration: underline;
+      text-underline-offset: 2px; text-decoration-color: var(--border);
+      transition: text-decoration-color 0.2s var(--ease), color 0.2s var(--ease);
+    }
+    .resource-item a:hover { color: var(--text); text-decoration-color: var(--text-secondary); }
+
+    .build-box {
+      background: rgba(90,184,116,0.08); border: 1px solid rgba(90,184,116,0.15);
+      border-left: 3px solid #5ab874; border-radius: 4px; padding: 13px 15px; margin-bottom: 10px;
+    }
+    .steps-box {
+      background: rgba(106,160,216,0.08); border: 1px solid rgba(106,160,216,0.15);
+      border-left: 3px solid #6aa0d8; border-radius: 4px; padding: 13px 15px; margin-bottom: 10px;
+    }
+    .steps-box ol { margin: 0; padding-left: 18px; }
+    .steps-box li { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 4px; }
+    .today-box {
+      background: rgba(200,160,80,0.08); border: 1px solid rgba(200,160,80,0.15);
+      border-left: 3px solid #c8a050; border-radius: 4px; padding: 12px 15px;
+    }
+
+    .btn-reset {
+      display: block; width: 100%; margin-top: 12px; padding: 12px; background: transparent;
+      border: 1px solid var(--border); border-radius: 6px; color: var(--text-tertiary);
+      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.15s var(--ease);
+    }
+    .btn-reset:hover { border-color: var(--border-hover); color: var(--text-secondary); }
+
+    @media (max-width: 640px) {
+      .course-hero { padding: 56px 0 40px; }
+      .course-stats { gap: 20px; }
+      .card-tags { gap: 3px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="index.html#writing">Writing</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="courses.html" class="nav-active">Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <section class="course-hero">
+        <a href="courses.html" class="back-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          All courses
+        </a>
+        <p class="course-kicker">Free Course &middot; AI Tools Track</p>
+        <h1>AI Tools <em>for PMs</em></h1>
+        <p class="course-desc">A hands-on course for product managers who want to use AI tools to work faster, prototype ideas, and make better decisions. No code required. Every module includes a real project, curated resources, and personalized steps tied to your actual work.</p>
+        <div class="course-stats">
+          <div><span class="stat-n">16</span><span class="stat-l">Modules</span></div>
+          <div><span class="stat-n">5</span><span class="stat-l">Tracks</span></div>
+          <div><span class="stat-n">~60</span><span class="stat-l">Hours total</span></div>
+        </div>
+      </section>
+
+      <hr class="divider" style="max-width:100%;padding:0;">
+
+      <nav class="step-nav">
+        <span class="step-item active" id="nav-1">Your Context</span>
+        <span class="step-item" id="nav-2">Personalizing</span>
+        <span class="step-item" id="nav-3">Your Curriculum</span>
+      </nav>
+
+      <!-- Step 1 -->
+      <section id="step-onboard">
+        <div class="section-label">About you</div>
+
+        <div class="field">
+          <label>Your current role</label>
+          <input type="text" id="f-role" placeholder="e.g. Senior PM at a healthcare SaaS startup" />
+        </div>
+        <div class="field">
+          <label>Current work projects <span>(the more specific the better)</span></label>
+          <textarea id="f-work" rows="4" placeholder="e.g. Leading a natural language analytics interface on surgical workflow data. Building a multi-agent sales ROI tool. Owning the roadmap across two engineering teams serving 90+ hospitals..."></textarea>
+        </div>
+        <div class="field">
+          <label>Side projects <span>(optional)</span></label>
+          <textarea id="f-side" rows="2" placeholder="e.g. Soccer trading card marketplace. Personal AI strategy newsletter..."></textarea>
+        </div>
+        <div class="field">
+          <label>What do you want to do with AI tools? <span>(optional)</span></label>
+          <textarea id="f-goals" rows="2" placeholder="e.g. Prototype feature ideas faster, automate repetitive PM tasks, build better demos for stakeholders, understand what my engineering team is building..."></textarea>
+        </div>
+
+        <div class="section-label" style="margin-top: 36px;">Choose your tracks</div>
+        <p style="font-size:0.85rem; color:var(--text-tertiary); font-style:italic; margin-bottom:18px;">Select a track to include all modules, or expand to pick individually.</p>
+
+        <div class="track-grid" id="track-grid"></div>
+        <button class="btn-build" id="btn-build" disabled onclick="startGeneration()">Select modules to build your curriculum</button>
+      </section>
+
+      <!-- Step 2 -->
+      <section id="step-generating">
+        <div class="gen-spinner"></div>
+        <div class="gen-status" id="gen-status">Reading your context...</div>
+      </section>
+
+      <!-- Step 3 -->
+      <section id="step-curriculum">
+        <div class="progress-bar-wrap">
+          <div class="progress-meta">
+            <span id="progress-label">0 / 0 complete</span>
+            <span class="pct" id="progress-pct">0%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+        <div class="filter-bar" id="filter-bar"></div>
+        <div id="modules-list"></div>
+        <button class="btn-build" onclick="exportCurriculum()" style="margin-top:24px;">Export as HTML</button>
+        <button class="btn-reset" onclick="resetApp()">&#8592; Start over with a new curriculum</button>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+<script>
+const TRACKS = [
+  { id:"foundations", label:"AI Foundations",       icon:"\u25C9", desc:"Models, prompting, how LLMs work",                  color:"#e8a735" },
+  { id:"claude",     label:"Claude Desktop & MCP", icon:"\u25C8", desc:"Your AI co-pilot, connected to your real tools",    color:"#6aa0d8" },
+  { id:"nocode",     label:"No-Code AI Building",  icon:"\u2B21", desc:"Ship prototypes without waiting for engineering",   color:"#5ab874" },
+  { id:"beyond",     label:"AI Beyond Chat",       icon:"\u25CE", desc:"Vision, speech, images, and what they unlock",      color:"#d87a6a" },
+  { id:"governance", label:"Governance & Security", icon:"\u25B3", desc:"Evaluation, compliance, auditability, responsible AI", color:"#a080d0" },
+];
+
+const MODULES = [
+  // ── FOUNDATIONS ──
+  { id:"f-1", track:"foundations", title:"How LLMs Actually Work", week:"1", time:"~3 hrs", type:"concepts",
+    core:"You do not need to understand transformer architecture to be a good AI PM. But you do need to understand tokens, context windows, temperature, and hallucinations well enough to make good product decisions and have credible conversations with your engineering team.",
+    concepts:["Tokens and tokenization: why your prompt costs what it costs","Context windows: what fits, what gets cut, and why it matters for product design","Temperature and sampling: controlling randomness in outputs","Hallucinations: why they happen and what you can actually do about them","Embeddings: the concept behind semantic search and RAG"],
+    buildThis:"Pick a feature in your product that could use AI. Write a one-page brief that explains to your engineering team which LLM capability it needs (generation, classification, extraction, summarization) and why. Include the constraints: context window limits, latency requirements, cost ceiling.",
+    resources:[
+      {title:"Anthropic: Intro to LLMs", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview", type:"start"},
+      {title:"OpenAI: Tokenizer tool", url:"https://platform.openai.com/tokenizer", type:"deeper"},
+      {title:"Vicki Boykis: What are embeddings?", url:"https://vickiboykis.com/what_are_embeddings/", type:"ref"}
+    ]},
+  { id:"f-2", track:"foundations", title:"The Model Landscape", week:"2", time:"~3 hrs", type:"concepts",
+    core:"Claude, GPT, Gemini, Llama, Mistral. Each has real strengths and tradeoffs in quality, speed, cost, and safety. Knowing the landscape means you can recommend the right model for the job instead of defaulting to whatever your team used last.",
+    concepts:["Claude (Anthropic): reasoning, safety, long context, coding strength","GPT (OpenAI): broadest ecosystem, vision, function calling","Gemini (Google): large context windows, workspace integration","Llama (Meta) and Mistral: open-weight models you can self-host","Pricing models: per-token, subscription, and the real cost of each"],
+    buildThis:"Run the same product task through three different models (Claude, GPT, Gemini). Use free tiers or trials. Compare: quality of output, speed, how well each handles ambiguity. Write up your recommendation for which model your team should default to and why.",
+    resources:[
+      {title:"Anthropic model comparison", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"start"},
+      {title:"Artificial Analysis: LLM benchmarks", url:"https://artificialanalysis.ai/", type:"deeper"},
+      {title:"Simon Willison: LLM model notes", url:"https://simonwillison.net/tags/llms/", type:"ref"}
+    ]},
+  { id:"f-3", track:"foundations", title:"Prompting as a PM Skill", week:"3", time:"~4 hrs", type:"hands-on",
+    core:"Prompting is the new spec writing. System prompts, few-shot examples, chain of thought, and structured output are not engineering concerns. They are product design decisions that directly shape user experience.",
+    concepts:["System prompts: setting context, persona, and constraints","Few-shot examples: teaching by showing, not telling","Chain of thought: making the model reason step by step","Structured output: getting JSON, tables, or specific formats reliably","Prompt versioning: treating prompts like product copy, not throwaway text"],
+    buildThis:"Take a repetitive PM task you do weekly (writing status updates, summarizing customer feedback, preparing meeting notes). Write a system prompt that handles it. Test it 5 times with real inputs. Iterate until the output is good enough to use without editing.",
+    resources:[
+      {title:"Anthropic prompt engineering guide", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview", type:"start"},
+      {title:"OpenAI prompt engineering docs", url:"https://platform.openai.com/docs/guides/prompt-engineering", type:"deeper"},
+      {title:"Brex: Prompt engineering guide", url:"https://github.com/brexhq/prompt-engineering", type:"ref"}
+    ]},
+
+  // ── CLAUDE DESKTOP & MCP ──
+  { id:"c-1", track:"claude", title:"Claude Desktop as Your PM Co-pilot", week:"4", time:"~3 hrs", type:"hands-on",
+    core:"Claude Desktop is not just a chat window. Projects let you maintain context across conversations. Artifacts generate documents, code, and diagrams inline. File uploads and vision let Claude read your actual specs, screenshots, and data. This is a thinking partner that remembers what you are working on.",
+    concepts:["Projects: persistent context for ongoing work streams","Artifacts: generating documents, spreadsheets, and diagrams inline","File uploads: feeding Claude your actual specs, data exports, and docs","Vision: screenshots, whiteboard photos, and UI reviews","Combining features: uploading competitor screenshots into a project with your PRD for analysis"],
+    buildThis:"Create a Claude Desktop project for your most important work stream. Upload your current PRD or spec, your latest analytics export, and a competitor screenshot. Ask Claude to identify the three biggest gaps between your spec and what the data says users actually need.",
+    resources:[
+      {title:"Download Claude Desktop", url:"https://claude.ai/download", type:"start"},
+      {title:"Claude Desktop features overview", url:"https://support.anthropic.com/en/collections/4775901-claude-desktop", type:"deeper"},
+      {title:"Anthropic: Using Projects effectively", url:"https://support.anthropic.com/en/articles/9517075-what-are-projects", type:"ref"}
+    ]},
+  { id:"c-2", track:"claude", title:"MCP Connections", week:"5", time:"~5 hrs", type:"hands-on",
+    core:"Model Context Protocol lets Claude Desktop connect to your actual tools: databases, file systems, GitHub, Google Drive, Slack, and more. This turns Claude from a general assistant into one that knows your codebase, your tickets, your documents, and your data. For a PM, this is the single biggest force multiplier in this course.",
+    concepts:["What MCP is: an open protocol for connecting AI to external tools","MCP servers: pre-built connectors for common tools","Setting up your first MCP connection: filesystem, Google Drive, or GitHub","Security and permissions: what data MCP can and cannot access","Combining multiple MCP connections for cross-tool intelligence"],
+    buildThis:"Install one MCP server that connects to a tool you use daily. If you use Google Drive, connect that. If your team uses GitHub, connect that. Once connected, ask Claude a question that requires information from that tool. Then ask a follow-up that combines the tool data with something in your Claude project.",
+    resources:[
+      {title:"Model Context Protocol docs", url:"https://modelcontextprotocol.io/introduction", type:"start"},
+      {title:"MCP server directory", url:"https://github.com/modelcontextprotocol/servers", type:"deeper"},
+      {title:"Anthropic: MCP quickstart", url:"https://modelcontextprotocol.io/quickstart/user", type:"ref"}
+    ]},
+  { id:"c-3", track:"claude", title:"PM Workflows with AI", week:"6", time:"~4 hrs", type:"hands-on",
+    core:"The real value is not in any single Claude feature. It is in combining projects, MCP connections, file uploads, and good prompting into workflows that save you hours every week. Discovery synthesis, competitive analysis, spec writing, stakeholder prep, and sprint planning all get faster when Claude has access to your actual context.",
+    concepts:["Discovery synthesis: feeding interview notes into a project and extracting patterns","Competitive analysis: uploading competitor screenshots and docs for structured comparison","Spec writing: using your data and context to draft PRDs that start 80% complete","Stakeholder prep: generating exec summaries, objection responses, and talking points","Sprint planning: connecting to your project tracker and helping prioritize based on real data"],
+    buildThis:"Pick one PM workflow you do at least twice a month. Map the steps. Build a Claude Desktop setup that handles it: the right project, the right MCP connections, the right uploaded context, and a tested prompt. Run it once for real. Measure how long it took vs. your usual process.",
+    resources:[
+      {title:"Anthropic: Claude for work", url:"https://www.anthropic.com/claude", type:"start"},
+      {title:"Ethan Mollick: Co-intelligence (practical AI workflows)", url:"https://www.oneusefulthing.org/", type:"deeper"},
+      {title:"Lenny Rachitsky: AI for PMs", url:"https://www.lennysnewsletter.com/", type:"ref"}
+    ]},
+
+  // ── NO-CODE AI BUILDING ──
+  { id:"n-1", track:"nocode", title:"Lovable: Prompt to Prototype", week:"7", time:"~4 hrs", type:"hands-on",
+    core:"Lovable generates full-stack applications from natural language prompts. React frontend, Supabase backend, authentication, and deployment. For a PM, this means you can build a working prototype of your next feature idea in an afternoon instead of writing a spec and waiting two sprints.",
+    concepts:["How Lovable works: prompt to React + Supabase app","Writing effective prompts: specificity about layout, data model, and user flows","Iterating on generated apps: editing prompts vs. editing code","When Lovable output is good enough to show stakeholders","Limitations: what it handles well and where it falls short"],
+    buildThis:"Take a feature idea that is sitting in your backlog. Describe it to Lovable in enough detail to generate a working prototype. Iterate until it is demo-ready. Show it to one stakeholder and capture their reaction.",
+    resources:[
+      {title:"Lovable: Get started", url:"https://lovable.dev", type:"start"},
+      {title:"Lovable docs", url:"https://docs.lovable.dev", type:"deeper"},
+      {title:"Supabase quickstart (the backend Lovable uses)", url:"https://supabase.com/docs/guides/getting-started", type:"ref"}
+    ]},
+  { id:"n-2", track:"nocode", title:"v0, Bolt.new, and Base44", week:"8", time:"~4 hrs", type:"hands-on",
+    core:"Different builders for different jobs. v0 generates production-quality React components from prompts. Bolt.new runs full Node.js in the browser for quick prototypes. Base44 builds internal tools and business apps. Knowing which to reach for saves you from fighting the wrong tool.",
+    concepts:["v0 by Vercel: generating UI components with shadcn/ui, best for frontend pieces","Bolt.new: browser-based full-stack prototyping with WebContainers, best for quick demos","Base44: internal tools and CRUD apps, best for operations and team tools","Choosing the right builder: matching the tool to the job","Combining builders: using v0 for UI components inside a Lovable or Bolt project"],
+    buildThis:"Build three things with three tools. Use v0 to generate a dashboard component for a metric you track. Use Bolt.new to prototype a simple internal tool. Use Base44 to build a tracker for something your team manages manually. Compare what each tool did well.",
+    resources:[
+      {title:"v0 by Vercel", url:"https://v0.dev", type:"start"},
+      {title:"Bolt.new", url:"https://bolt.new", type:"deeper"},
+      {title:"Base44", url:"https://base44.com", type:"ref"}
+    ]},
+  { id:"n-3", track:"nocode", title:"AI Design Tools", week:"9", time:"~3 hrs", type:"hands-on",
+    core:"Figma AI, Galileo, and Uizard let you generate mockups, explore layouts, and go from rough ideas to polished visuals without waiting for a designer. This is not about replacing designers. It is about getting to a visual starting point faster so conversations are more productive.",
+    concepts:["Figma AI: auto-layout suggestions, asset search, prototype generation within your existing workflow","Galileo AI: prompt-to-UI generation for high-fidelity mockups","Uizard: wireframing from text or screenshots, lowest barrier to entry","When AI design tools help vs. when they produce generic output","Using AI-generated mockups as conversation starters, not final designs"],
+    buildThis:"Take a feature you are currently spec-ing. Generate three different UI approaches using AI design tools. Bring all three to your next design review as starting points. Track how the conversation differs from reviews where you only brought written descriptions.",
+    resources:[
+      {title:"Figma AI features", url:"https://www.figma.com/ai/", type:"start"},
+      {title:"Galileo AI", url:"https://www.usegalileo.ai/", type:"deeper"},
+      {title:"Uizard", url:"https://uizard.io/", type:"ref"}
+    ]},
+
+  // ── AI BEYOND CHAT ──
+  { id:"b-1", track:"beyond", title:"Vision and Image AI", week:"10", time:"~4 hrs", type:"concepts",
+    core:"When your product can see, entirely new features become possible. Document scanning, quality inspection, accessibility analysis, visual search, and content moderation all depend on computer vision. You do not need to build these from scratch. Managed APIs handle most use cases.",
+    concepts:["Google Cloud Vision and AWS Rekognition: managed APIs for OCR, labeling, face detection","Roboflow: custom object detection without ML expertise, drag-and-drop annotation","Hugging Face vision models: pre-trained models for classification and segmentation","Claude and GPT vision: feeding images directly to LLMs for analysis","Evaluating whether a vision feature is feasible for your product"],
+    buildThis:"Identify one place in your product where users deal with images or documents. Test whether a vision API can extract useful information from it. Upload 10 real examples to Claude with vision or Google Cloud Vision. Measure accuracy. Write a one-page feasibility assessment.",
+    resources:[
+      {title:"Google Cloud Vision quickstart", url:"https://cloud.google.com/vision/docs/quickstart", type:"start"},
+      {title:"Roboflow: train a custom model", url:"https://roboflow.com/", type:"deeper"},
+      {title:"Hugging Face vision models", url:"https://huggingface.co/models?pipeline_tag=image-classification", type:"ref"}
+    ]},
+  { id:"b-2", track:"beyond", title:"Speech and Audio AI", week:"11", time:"~3 hrs", type:"concepts",
+    core:"Products that listen and speak open up entirely different interaction models. Whisper transcribes audio with remarkable accuracy. ElevenLabs generates natural-sounding speech. Deepgram and AssemblyAI handle real-time transcription. Knowing what is possible lets you propose features your competitors have not thought of.",
+    concepts:["Whisper (OpenAI): open-source speech-to-text, runs locally or via API","ElevenLabs: text-to-speech with voice cloning, natural output","Deepgram and AssemblyAI: real-time transcription with speaker identification","When voice features improve UX vs. when they add complexity","Accessibility implications: transcription as an inclusion feature"],
+    buildThis:"Record or collect 5 real audio samples relevant to your work (customer calls, meeting recordings, voice memos). Run them through Whisper or AssemblyAI. Evaluate the transcription quality. Write up whether automated transcription could solve a real problem in your product.",
+    resources:[
+      {title:"OpenAI Whisper on GitHub", url:"https://github.com/openai/whisper", type:"start"},
+      {title:"ElevenLabs", url:"https://elevenlabs.io/", type:"deeper"},
+      {title:"AssemblyAI docs", url:"https://www.assemblyai.com/docs", type:"ref"}
+    ]},
+  { id:"b-3", track:"beyond", title:"Image Generation for Product Work", week:"12", time:"~3 hrs", type:"concepts",
+    core:"AI-generated images are useful for PMs in ways that go beyond marketing assets. Generating placeholder content, visualizing feature concepts, creating demo data, and mocking up scenarios that would be expensive to photograph. The key is knowing which tool to use and when the output is good enough.",
+    concepts:["Midjourney: highest aesthetic quality, Discord and web interface","DALL-E 3: best at following complex text prompts, integrated with ChatGPT","Stable Diffusion and Flux: open models, run locally or via Replicate","Adobe Firefly: commercially safe, trained on licensed content, built into Creative Cloud","When AI images are appropriate for production vs. internal use only"],
+    buildThis:"Pick a feature in your product that needs visual content (empty states, onboarding illustrations, demo screenshots, marketing assets). Generate 10 options across two different tools. Test whether any are good enough to use as-is or as a starting point for a designer.",
+    resources:[
+      {title:"Midjourney", url:"https://www.midjourney.com/", type:"start"},
+      {title:"DALL-E via ChatGPT", url:"https://chatgpt.com/", type:"deeper"},
+      {title:"Replicate (run Flux/SD via API)", url:"https://replicate.com/", type:"ref"}
+    ]},
+
+  // ── GOVERNANCE & SECURITY ──
+  { id:"g-1", track:"governance", title:"AI Governance Frameworks", week:"13", time:"~4 hrs", type:"concepts",
+    core:"Responsible AI use is a product decision, not just a legal checkbox. As a PM, you own the user experience of AI features, including what happens when they go wrong. Understanding governance frameworks helps you build AI features that your users, your legal team, and your board can trust.",
+    concepts:["NIST AI Risk Management Framework: the standard reference for AI governance","EU AI Act: risk categories and what they mean for product decisions","Responsible use policies: what your company should have before shipping AI features","Bias auditing: how to check whether your AI feature treats users fairly","Transparency: when and how to tell users they are interacting with AI"],
+    buildThis:"Audit one AI feature in your product (or a planned one). Walk through the NIST AI RMF categories: what are the risks, who is affected, what controls exist, what is missing. Write a one-page governance brief that you could share with your legal team.",
+    resources:[
+      {title:"NIST AI Risk Management Framework", url:"https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-artificial-intelligence", type:"start"},
+      {title:"EU AI Act summary", url:"https://artificialintelligenceact.eu/", type:"deeper"},
+      {title:"Google: Responsible AI practices", url:"https://ai.google/responsibility/responsible-ai-practices/", type:"ref"}
+    ]},
+  { id:"g-2", track:"governance", title:"Security for AI Products", week:"14", time:"~4 hrs", type:"concepts",
+    core:"Prompt injection is the SQL injection of the AI era. Data leakage through model outputs, PII in training data, and adversarial attacks are real risks that PMs need to understand. You do not need to implement the defenses, but you need to know what to require in your specs.",
+    concepts:["Prompt injection: how attackers manipulate AI through user input","Data leakage: sensitive information appearing in model outputs","PII handling: what happens when personal data enters an AI pipeline","OWASP Top 10 for LLM Applications: the standard threat list","What to include in AI feature specs: security requirements a PM should write"],
+    buildThis:"Take an AI feature in your product and red-team it. Try 10 prompt injection attacks. Try to get it to reveal system prompts, ignore instructions, or output inappropriate content. Document what worked and what did not. Write security requirements for the gaps you found.",
+    resources:[
+      {title:"OWASP Top 10 for LLM Applications", url:"https://owasp.org/www-project-top-10-for-large-language-model-applications/", type:"start"},
+      {title:"Simon Willison: Prompt injection explained", url:"https://simonwillison.net/2023/Apr/14/worst-that-can-happen/", type:"deeper"},
+      {title:"Anthropic: Safety best practices", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/mitigate-misuse", type:"ref"}
+    ]},
+  { id:"g-3", track:"governance", title:"Evaluation and Quality", week:"15", time:"~4 hrs", type:"concepts",
+    core:"How do you know if your AI feature actually works? Not with vibes. Evaluation frameworks, human review loops, and quality metrics are what separate shipped AI features from demos that fell apart in production. This is the module most AI PMs skip, and it is the one that matters most.",
+    concepts:["Eval frameworks: defining what good looks like before you ship","Human review loops: when and how to keep humans in the decision chain","Quality metrics beyond accuracy: relevance, groundedness, safety, latency","A/B testing AI features: why standard A/B approaches need adjustment","Monitoring drift: detecting when model quality degrades over time"],
+    buildThis:"Define an eval framework for one AI feature. Write 20 test cases: 10 where the AI should succeed and 10 edge cases. Run them. Score the results. Calculate a quality metric. Decide whether the feature is ready to ship based on the numbers, not your gut feeling.",
+    resources:[
+      {title:"Anthropic: Evals overview", url:"https://docs.anthropic.com/en/docs/build-with-claude/develop-tests", type:"start"},
+      {title:"Hamel Husain: Your AI product needs evals", url:"https://hamel.dev/blog/posts/evals/", type:"deeper"},
+      {title:"LangSmith: Evaluation docs", url:"https://docs.smith.langchain.com/", type:"ref"}
+    ]},
+  { id:"g-4", track:"governance", title:"Auditability and Compliance", week:"16", time:"~4 hrs", type:"reference",
+    core:"When something goes wrong with an AI feature, you need to be able to explain what happened and why. Audit trails, decision logging, data lineage, and regulatory compliance are not afterthoughts. They are requirements that should be in your spec from day one.",
+    concepts:["Decision logging: recording what the AI recommended and what the user did","Data lineage: tracking what data went into an AI decision","Regulatory landscape: HIPAA, SOC2, GDPR intersections with AI features","Model cards: documenting what a model can and cannot do","Building compliance into specs: what to require from engineering upfront"],
+    buildThis:"Pick an AI feature (yours or a competitor's). Map the data flow: what goes in, what the model does, what comes out, what gets stored. Identify every point where you would need an audit trail. Write the logging requirements you would add to your engineering spec.",
+    resources:[
+      {title:"Google: Model Cards for Model Reporting", url:"https://modelcards.withgoogle.com/about", type:"start"},
+      {title:"NIST AI 100-1: Trustworthy AI", url:"https://csrc.nist.gov/pubs/ai/100/1/final", type:"deeper"},
+      {title:"Anthropic: Usage policy", url:"https://www.anthropic.com/policies/aup", type:"ref"}
+    ]},
+];
+
+const TYPE_LABEL = { "hands-on":"\uD83D\uDD28 Hands-on", concepts:"\uD83D\uDCDA Concepts", reference:"\uD83D\uDCCB Reference" };
+const TYPE_CLASS = { "hands-on":"tag-type-hands-on", concepts:"tag-type-concepts", reference:"tag-type-reference" };
+const RES_LABEL = { start:"Start", deeper:"Deeper", ref:"Ref" };
+const RES_CLASS = { start:"start", deeper:"deeper", ref:"ref" };
+
+let state = {
+  selectedTracks: new Set(), selectedMods: new Set(), openTracks: new Set(),
+  personalizations: {}, completedMods: new Set(), activeFilter: "all", openCard: null,
+};
+
+function init() { renderTrackGrid(); }
+
+function renderTrackGrid() {
+  document.getElementById("track-grid").innerHTML = TRACKS.map(t => {
+    const mods = MODULES.filter(m => m.track === t.id);
+    return `
+    <div class="track-row" id="trow-${t.id}">
+      <div class="track-header" onclick="toggleTrack('${t.id}')">
+        <div class="track-check" id="tcheck-${t.id}"></div>
+        <span class="track-icon" style="color:${t.color}">${t.icon}</span>
+        <div class="track-info">
+          <div class="track-name">${t.label}</div>
+          <div class="track-desc">${t.desc} \u00b7 ${mods.length} modules</div>
+        </div>
+        <button class="track-toggle" onclick="event.stopPropagation(); toggleTrackOpen('${t.id}')" id="ttoggle-${t.id}">\u25BC</button>
+      </div>
+      <div class="track-modules" id="tmods-${t.id}">
+        ${mods.map(m => `
+          <div class="mod-row" onclick="toggleMod('${m.id}', '${t.id}')">
+            <div class="mod-check" id="mcheck-${m.id}"></div>
+            <span class="mod-title">${m.title}</span>
+            <span class="mod-time">${m.time}</span>
+          </div>
+        `).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleTrack(tid) {
+  const mids = MODULES.filter(m => m.track === tid).map(m => m.id);
+  if (state.selectedTracks.has(tid)) { state.selectedTracks.delete(tid); mids.forEach(id => state.selectedMods.delete(id)); }
+  else { state.selectedTracks.add(tid); mids.forEach(id => state.selectedMods.add(id)); }
+  syncTrackUI(tid); updateBtn();
+}
+
+function toggleTrackOpen(tid) {
+  if (state.openTracks.has(tid)) state.openTracks.delete(tid);
+  else state.openTracks.add(tid);
+  document.getElementById("tmods-" + tid).classList.toggle("open", state.openTracks.has(tid));
+  document.getElementById("ttoggle-" + tid).textContent = state.openTracks.has(tid) ? "\u25B2" : "\u25BC";
+}
+
+function toggleMod(mid, tid) {
+  if (state.selectedMods.has(mid)) state.selectedMods.delete(mid);
+  else state.selectedMods.add(mid);
+  const tMids = MODULES.filter(m => m.track === tid).map(m => m.id);
+  tMids.every(id => state.selectedMods.has(id)) ? state.selectedTracks.add(tid) : state.selectedTracks.delete(tid);
+  syncTrackUI(tid); updateBtn();
+}
+
+function syncTrackUI(tid) {
+  const track = TRACKS.find(t => t.id === tid);
+  const tc = track ? track.color : "";
+  const sel = state.selectedTracks.has(tid);
+  const some = MODULES.filter(m => m.track === tid).some(m => state.selectedMods.has(m.id));
+  const on = sel || some;
+  const row = document.getElementById("trow-" + tid);
+  const chk = document.getElementById("tcheck-" + tid);
+  if (row) { row.classList.toggle("selected", on); row.style.borderColor = on && tc ? tc : ""; }
+  if (chk) { chk.classList.toggle("on", on); chk.textContent = on ? "\u2713" : ""; if (tc) { chk.style.background = on ? tc : ""; chk.style.borderColor = on ? tc : ""; } }
+  MODULES.filter(m => m.track === tid).forEach(m => {
+    const mc = document.getElementById("mcheck-" + m.id);
+    const mOn = state.selectedMods.has(m.id);
+    if (mc) { mc.classList.toggle("on", mOn); mc.textContent = mOn ? "\u2713" : ""; if (tc) { mc.style.background = mOn ? tc : ""; mc.style.borderColor = mOn ? tc : ""; } }
+  });
+}
+
+function updateBtn() {
+  const btn = document.getElementById("btn-build");
+  const count = state.selectedMods.size;
+  const ok = count > 0 && document.getElementById("f-role").value.trim() && document.getElementById("f-work").value.trim();
+  btn.disabled = !ok;
+  btn.textContent = ok ? `Build My Curriculum: ${count} modules \u2192` : count === 0 ? "Select modules to build your curriculum" : "Add your role & projects above";
+}
+
+document.getElementById("f-role").addEventListener("input", updateBtn);
+document.getElementById("f-work").addEventListener("input", updateBtn);
+
+async function startGeneration() {
+  const profile = {
+    role: document.getElementById("f-role").value.trim(),
+    workProjects: document.getElementById("f-work").value.trim(),
+    sideProjects: document.getElementById("f-side").value.trim(),
+    goals: document.getElementById("f-goals").value.trim(),
+  };
+
+  document.getElementById("step-onboard").style.display = "none";
+  document.getElementById("step-generating").style.display = "block";
+  setNav(2);
+
+  const statusEl = document.getElementById("gen-status");
+  const statuses = ["Reading your context...", "Designing your projects...", "Writing your first steps..."];
+  let si = 0;
+  const ticker = setInterval(() => { si = (si + 1) % statuses.length; statusEl.textContent = statuses[si]; }, 1800);
+
+  try {
+    const selected = MODULES.filter(m => state.selectedMods.has(m.id));
+    const prompt = `You are an AI tools curriculum designer for product managers. A PM has shared:
+
+Role: ${profile.role}
+Work projects: ${profile.workProjects}
+Side projects: ${profile.sideProjects || "None"}
+AI goals: ${profile.goals || "Not specified"}
+
+For each module, generate:
+1. "connection" (2-3 sentences): How does this module connect to THIS PM's actual work? Be specific. Name their actual projects and challenges.
+2. "project" (2-3 sentences): A specific hands-on project using THEIR actual work as context. Tell them exactly what to build or do. Make it immediately actionable with a real deliverable.
+3. "firstSteps" (array of 3 strings): Three numbered concrete steps to start the project right now. Each step should be specific enough that they can do it without further research.
+4. "today" (1 sentence): One thing they can do in the next 30 minutes.
+
+Return ONLY a JSON array. No markdown, no backticks, no preamble:
+[{"id":"module-id","connection":"...","project":"...","firstSteps":["Step 1...","Step 2...","Step 3..."],"today":"..."}]
+
+Modules:
+${selected.map(m => `id: ${m.id} | title: ${m.title} | core: ${m.core} | buildThis: ${m.buildThis}`).join("\n")}`;
+
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!res.ok) throw new Error("API error " + res.status);
+    const data = await res.json();
+    const text = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("");
+    const clean = text.replace(/```json|```/g, "").trim();
+    JSON.parse(clean).forEach(p => { state.personalizations[p.id] = p; });
+  } catch (err) {
+    console.error("Generation error:", err);
+  }
+
+  clearInterval(ticker);
+  showCurriculum();
+}
+
+function showCurriculum() {
+  document.getElementById("step-generating").style.display = "none";
+  document.getElementById("step-curriculum").style.display = "block";
+  setNav(3);
+  renderFilterBar();
+  renderModules();
+}
+
+function renderFilterBar() {
+  const usedTracks = [...new Set(MODULES.filter(m => state.selectedMods.has(m.id)).map(m => m.track))];
+  const pills = [{ id:"all", label:"All Tracks", icon:"" }, ...TRACKS.filter(t => usedTracks.includes(t.id))];
+  document.getElementById("filter-bar").innerHTML = pills.map(t => {
+    const isActive = state.activeFilter === t.id;
+    const c = t.color || "";
+    const activeStyle = isActive && c ? `background:${c};border-color:${c};color:#1a1814;` : "";
+    const hoverAttr = !isActive && c ? `onmouseenter="this.style.borderColor='${c}';this.style.color='${c}'" onmouseleave="this.style.borderColor='';this.style.color=''"` : "";
+    return `<button class="filter-pill ${isActive ? "active" : ""}" style="${activeStyle}"
+      onclick="setFilter('${t.id}')" ${hoverAttr}>${t.id === "all" ? "All Tracks" : t.icon + " " + t.label}</button>`;
+  }).join("");
+}
+
+function setFilter(tid) { state.activeFilter = tid; renderFilterBar(); renderModules(); }
+
+function renderModules() {
+  const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
+  const shown = state.activeFilter === "all" ? allSel : allSel.filter(m => m.track === state.activeFilter);
+
+  document.getElementById("modules-list").innerHTML = shown.map(m => {
+    const track = TRACKS.find(t => t.id === m.track);
+    const tc = track ? track.color : "#6aa0d8";
+    const pers = state.personalizations[m.id];
+    const isDone = state.completedMods.has(m.id);
+    const isOpen = state.openCard === m.id;
+
+    const resourcesHTML = (m.resources || []).map(r => `
+      <div class="resource-item">
+        <span class="resource-type ${RES_CLASS[r.type]}">${RES_LABEL[r.type]}</span>
+        <a href="${r.url}" target="_blank" rel="noopener noreferrer">${r.title}</a>
+      </div>
+    `).join("");
+
+    return `
+    <div class="module-card ${isDone ? "done" : ""} ${isOpen ? "open" : ""}" id="card-${m.id}" style="${isOpen ? `border-color:${tc}` : ""}">
+      <div class="card-header" onclick="toggleCard('${m.id}')">
+        <button class="card-complete ${isDone ? "done" : ""}" onclick="event.stopPropagation(); toggleComplete('${m.id}')" title="Mark complete">
+          ${isDone ? "\u2713" : ""}
+        </button>
+        <div class="card-meta">
+          <div class="card-tags">
+            <span class="tag tag-track" style="background:${tc}20;color:${tc}">${track.icon} ${track.label}</span>
+            <span class="tag ${TYPE_CLASS[m.type]}">${TYPE_LABEL[m.type]}</span>
+            <span class="tag tag-origin">Wk ${m.week} \u00b7 ${m.time}</span>
+          </div>
+          <div class="card-title">${m.title}</div>
+        </div>
+        <span class="card-chevron">${isOpen ? "\u2191" : "\u2193"}</span>
+      </div>
+      <div class="card-body ${isOpen ? "open" : ""}">
+        <p class="card-core">${m.core}</p>
+
+        ${pers ? `
+        <div class="connection-box" style="background:${tc}10;border-color:${tc}30;border-left-color:${tc};">
+          <div class="box-label" style="color:${tc}">\u26A1 How this connects to your work</div>
+          <p>${pers.connection}</p>
+        </div>` : ""}
+
+        <div class="concepts-list">
+          <div class="section-label" style="margin-bottom:10px;">Key concepts</div>
+          <ul>${m.concepts.map(c => `<li>${c}</li>`).join("")}</ul>
+        </div>
+
+        <div class="resources-box">
+          <div class="section-label" style="margin-bottom:10px;">Resources</div>
+          ${resourcesHTML}
+        </div>
+
+        <div class="build-box">
+          <div class="box-label" style="color:#5ab874;">\uD83D\uDD28 ${pers ? "Your project" : "Build this"}</div>
+          <p>${pers ? pers.project : m.buildThis}</p>
+        </div>
+
+        ${pers && pers.firstSteps ? `
+        <div class="steps-box">
+          <div class="box-label" style="color:#6aa0d8;">First steps</div>
+          <ol>${pers.firstSteps.map(s => `<li>${s}</li>`).join("")}</ol>
+        </div>` : ""}
+
+        ${pers ? `
+        <div class="today-box">
+          <div class="box-label" style="color:#c8a050;">\u26A1 Start today: 30 min</div>
+          <p>${pers.today}</p>
+        </div>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+
+  updateProgress(allSel.length);
+}
+
+function toggleCard(mid) { state.openCard = state.openCard === mid ? null : mid; renderModules(); }
+
+function toggleComplete(mid) {
+  if (state.completedMods.has(mid)) state.completedMods.delete(mid);
+  else state.completedMods.add(mid);
+  const card = document.getElementById("card-" + mid);
+  const btn = card && card.querySelector(".card-complete");
+  if (card) card.classList.toggle("done", state.completedMods.has(mid));
+  if (btn) { btn.classList.toggle("done", state.completedMods.has(mid)); btn.textContent = state.completedMods.has(mid) ? "\u2713" : ""; }
+  updateProgress(MODULES.filter(m => state.selectedMods.has(m.id)).length);
+}
+
+function updateProgress(total) {
+  const done = state.completedMods.size;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById("progress-label").textContent = `${done} / ${total} complete`;
+  document.getElementById("progress-pct").textContent = `${pct}%`;
+  document.getElementById("progress-fill").style.width = pct + "%";
+}
+
+function setNav(n) {
+  document.querySelectorAll(".step-item").forEach((el, i) => el.classList.toggle("active", i + 1 === n));
+}
+
+function resetApp() {
+  state = { selectedTracks: new Set(), selectedMods: new Set(), openTracks: new Set(), personalizations: {}, completedMods: new Set(), activeFilter: "all", openCard: null };
+  ["f-role", "f-work", "f-side", "f-goals"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("step-curriculum").style.display = "none";
+  document.getElementById("step-generating").style.display = "none";
+  document.getElementById("step-onboard").style.display = "block";
+  renderTrackGrid(); updateBtn(); setNav(1);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function exportCurriculum() {
+  const allSel = MODULES.filter(m => state.selectedMods.has(m.id));
+  const role = document.getElementById("f-role").value.trim();
+
+  const moduleHTML = allSel.map(m => {
+    const track = TRACKS.find(t => t.id === m.track);
+    const tc = track ? track.color : "#6aa0d8";
+    const pers = state.personalizations[m.id];
+    const isDone = state.completedMods.has(m.id);
+
+    return `
+    <div style="border:1px solid #ddd;border-left:3px solid ${tc};border-radius:6px;margin-bottom:16px;padding:20px 24px;${isDone ? "opacity:0.5;" : ""}">
+      <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+        <span style="font-family:monospace;font-size:11px;padding:2px 8px;border-radius:3px;background:${tc}18;color:${tc};">${track.icon} ${track.label}</span>
+        <span style="font-family:monospace;font-size:11px;color:#888;">Wk ${m.week} \u00b7 ${m.time}</span>
+        ${isDone ? '<span style="font-family:monospace;font-size:11px;color:#5ab874;">COMPLETE</span>' : ""}
+      </div>
+      <h3 style="font-size:17px;font-weight:600;margin:0 0 12px;">${m.title}</h3>
+      <p style="color:#444;line-height:1.7;margin:0 0 16px;">${m.core}</p>
+      ${pers ? `<div style="background:${tc}0a;border:1px solid ${tc}25;border-left:3px solid ${tc};border-radius:4px;padding:12px 14px;margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:${tc};margin-bottom:4px;">How this connects to your work</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers.connection}</p>
+      </div>` : ""}
+      <div style="margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:4px;">Key concepts</div>
+        <ul style="margin:0;padding-left:18px;">${m.concepts.map(c => `<li style="color:#555;line-height:1.6;margin-bottom:3px;font-size:14px;">${c}</li>`).join("")}</ul>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#888;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:4px;">Resources</div>
+        ${(m.resources||[]).map(r => `<div style="margin-bottom:4px;"><a href="${r.url}" style="color:#6aa0d8;font-size:14px;">${r.title}</a></div>`).join("")}
+      </div>
+      <div style="background:#f0f8f2;border:1px solid #d0e8d0;border-left:3px solid #5ab874;border-radius:4px;padding:12px 14px;margin-bottom:8px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#5ab874;margin-bottom:4px;">${pers ? "Your project" : "Build this"}</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers ? pers.project : m.buildThis}</p>
+      </div>
+      ${pers && pers.firstSteps ? `<div style="background:#eef4fa;border:1px solid #c0d4e8;border-left:3px solid #6aa0d8;border-radius:4px;padding:12px 14px;margin-bottom:8px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#6aa0d8;margin-bottom:4px;">First steps</div>
+        <ol style="margin:0;padding-left:18px;">${pers.firstSteps.map(s => `<li style="color:#444;line-height:1.6;font-size:14px;">${s}</li>`).join("")}</ol>
+      </div>` : ""}
+      ${pers ? `<div style="background:#fdf8ee;border:1px solid #e8d8b0;border-left:3px solid #c8a050;border-radius:4px;padding:12px 14px;">
+        <div style="font-family:monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#c8a050;margin-bottom:4px;">Start today: 30 min</div>
+        <p style="color:#444;line-height:1.6;margin:0;font-size:14px;">${pers.today}</p>
+      </div>` : ""}
+    </div>`;
+  }).join("");
+
+  const done = state.completedMods.size;
+  const total = allSel.length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  const html = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools for PMs${role ? " - " + role : ""}</title>
+<style>body{font-family:-apple-system,system-ui,'Segoe UI',sans-serif;max-width:700px;margin:0 auto;padding:40px 24px;color:#222;line-height:1.6;}h1{font-size:24px;font-weight:600;margin-bottom:4px;}.subtitle{color:#888;font-size:14px;margin-bottom:32px;}.progress{font-family:monospace;font-size:13px;color:#888;margin-bottom:24px;}.progress strong{color:#6aa0d8;}@media print{body{padding:20px;}}</style>
+</head><body>
+<h1>AI Tools for PMs</h1>
+<p class="subtitle">${role ? "Built for: " + role + " | " : ""}${total} modules | Generated ${new Date().toLocaleDateString()}</p>
+<div class="progress"><strong>${pct}%</strong> complete (${done} / ${total})</div>
+${moduleHTML}
+<p style="color:#aaa;font-size:12px;font-family:monospace;margin-top:32px;text-align:center;">Built with chriseatonai.com/ai-tools-pm-course</p>
+</body></html>`;
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ai-tools-pm-curriculum.html";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>
