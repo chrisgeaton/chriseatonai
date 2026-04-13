@@ -276,8 +276,9 @@
         <p class="course-kicker">Free Course &middot; AI Tools Track</p>
         <h1>AI Tools <em>for PMs</em></h1>
         <p class="course-desc">A hands-on course for product managers who want to use AI tools to work faster, prototype ideas, and make better decisions. No code required. Every module includes a real project, curated resources, and personalized steps tied to your actual work.</p>
+        <p style="font-size:0.8rem; color:var(--text-tertiary); margin-top:12px; margin-bottom:20px; max-width:560px;">A note on tools: I use Claude heavily in my own PM workflow, so this course leans toward Claude, Claude Desktop, and the Anthropic ecosystem. The principles apply across tools, but you will notice the bias. I think it is earned, but you should try everything and decide for yourself.</p>
         <div class="course-stats">
-          <div><span class="stat-n">16</span><span class="stat-l">Modules</span></div>
+          <div><span class="stat-n">17</span><span class="stat-l">Modules</span></div>
           <div><span class="stat-n">5</span><span class="stat-l">Tracks</span></div>
           <div><span class="stat-n">~60</span><span class="stat-l">Hours total</span></div>
         </div>
@@ -364,7 +365,7 @@ const TRACKS = [
 
 const MODULES = [
   // ── FOUNDATIONS ──
-  { id:"f-1", track:"foundations", title:"How LLMs Actually Work", week:"1", time:"~3 hrs", type:"concepts",
+  { id:"f-1", track:"foundations", title:"How LLMs Actually Work", time:"~3 hrs", type:"concepts",
     core:"Understanding how LLMs work makes you a better user of them. When you know about tokens, you understand why long documents get cut off. When you know about temperature, you know why the same prompt gives different results. When you know about hallucinations, you stop trusting outputs blindly and start verifying the right things. This is not about building AI. It is about using it well.",
     concepts:["Tokens and tokenization: why long documents get cut off and why some prompts cost more than others","Context windows: the amount of information a model can consider at once, and how to work within that limit","Temperature and sampling: why the same prompt gives different answers, and when you want that","Hallucinations: why models make things up, how to spot it, and what to do about it","Models as tools: matching the right model to the right task (summarizing, drafting, analyzing, brainstorming)"],
     buildThis:"Open Claude or ChatGPT and run the same work task three different ways. First, paste in a long document and ask for a summary. Second, ask the same question but include specific instructions about what to focus on. Third, give it a few examples of what a good output looks like before asking. Compare the results. Write down what you learned about how the way you ask changes what you get back.",
@@ -373,36 +374,36 @@ const MODULES = [
       {title:"OpenAI: Tokenizer tool (see how text becomes tokens)", url:"https://platform.openai.com/tokenizer", type:"deeper"},
       {title:"Anthropic: Claude model overview", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"ref"}
     ]},
-  { id:"f-2", track:"foundations", title:"The Model Landscape", week:"2", time:"~3 hrs", type:"concepts",
+  { id:"f-2", track:"foundations", title:"The Model Landscape", time:"~3 hrs", type:"concepts",
     core:"Claude, GPT, Gemini, Llama, Mistral. Each has real strengths and tradeoffs in quality, speed, cost, and safety. Knowing the landscape means you pick the right tool for the work you are actually doing instead of defaulting to whatever you tried first.",
     concepts:["Claude (Anthropic): strong at reasoning, long documents, nuanced analysis, and coding","GPT (OpenAI): broadest ecosystem, good vision capabilities, strong at creative tasks","Gemini (Google): large context windows, deep integration with Google Workspace","Free tiers and trials: how to test each model without spending money","Matching models to PM tasks: which is best for summarizing, drafting, analyzing, brainstorming"],
     buildThis:"Run the same PM task through three different models (Claude, GPT, Gemini). Use free tiers. Try something you actually need to do: summarize a long document, draft a stakeholder email, analyze customer feedback. Compare the quality, speed, and how well each handles your specific context. Pick the one that works best for your day-to-day and start using it.",
     resources:[
       {title:"Anthropic model comparison", url:"https://docs.anthropic.com/en/docs/about-claude/models", type:"start"},
       {title:"Artificial Analysis: LLM benchmarks", url:"https://artificialanalysis.ai/", type:"deeper"},
-      {title:"Simon Willison: LLM model notes", url:"https://simonwillison.net/tags/llms/", type:"ref"}
+      {title:"LMSYS Chatbot Arena: crowdsourced model rankings", url:"https://lmarena.ai/", type:"ref"}
     ]},
-  { id:"f-3", track:"foundations", title:"Prompting as a PM Skill", week:"3", time:"~4 hrs", type:"hands-on",
+  { id:"f-3", track:"foundations", title:"Prompting as a PM Skill", time:"~4 hrs", type:"hands-on",
     core:"Prompting is the new spec writing. System prompts, few-shot examples, chain of thought, and structured output are not engineering concerns. They are product design decisions that directly shape user experience.",
     concepts:["System prompts: setting context, persona, and constraints","Few-shot examples: teaching by showing, not telling","Chain of thought: making the model reason step by step","Structured output: getting JSON, tables, or specific formats reliably","Prompt versioning: treating prompts like product copy, not throwaway text"],
     buildThis:"Take a repetitive PM task you do weekly (writing status updates, summarizing customer feedback, preparing meeting notes). Write a system prompt that handles it. Test it 5 times with real inputs. Iterate until the output is good enough to use without editing.",
     resources:[
       {title:"Anthropic prompt engineering guide", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview", type:"start"},
-      {title:"OpenAI prompt engineering docs", url:"https://platform.openai.com/docs/guides/prompt-engineering", type:"deeper"},
+      {title:"Ethan Mollick: How to use AI to do practical stuff", url:"https://www.oneusefulthing.org/p/how-to-use-ai-to-do-practical-stuff", type:"deeper"},
       {title:"Brex: Prompt engineering guide", url:"https://github.com/brexhq/prompt-engineering", type:"ref"}
     ]},
 
   // ── CLAUDE DESKTOP & MCP ──
-  { id:"c-1", track:"claude", title:"Claude Desktop as Your PM Co-pilot", week:"4", time:"~3 hrs", type:"hands-on",
+  { id:"c-1", track:"claude", title:"Claude Desktop as Your PM Co-pilot", time:"~3 hrs", type:"hands-on",
     core:"Claude Desktop is not just a chat window. Projects let you maintain context across conversations. Artifacts generate documents, code, and diagrams inline. File uploads and vision let Claude read your actual specs, screenshots, and data. This is a thinking partner that remembers what you are working on.",
     concepts:["Projects: persistent context for ongoing work streams","Artifacts: generating documents, spreadsheets, and diagrams inline","File uploads: feeding Claude your actual specs, data exports, and docs","Vision: screenshots, whiteboard photos, and UI reviews","Combining features: uploading competitor screenshots into a project with your PRD for analysis"],
     buildThis:"Create a Claude Desktop project for your most important work stream. Upload your current PRD or spec, your latest analytics export, and a competitor screenshot. Ask Claude to identify the three biggest gaps between your spec and what the data says users actually need.",
     resources:[
       {title:"Download Claude Desktop", url:"https://claude.ai/download", type:"start"},
-      {title:"Claude Desktop features overview", url:"https://support.anthropic.com/en/collections/4775901-claude-desktop", type:"deeper"},
+      {title:"Anthropic: Claude Desktop overview", url:"https://www.anthropic.com/claude", type:"deeper"},
       {title:"Anthropic: Using Projects effectively", url:"https://support.anthropic.com/en/articles/9517075-what-are-projects", type:"ref"}
     ]},
-  { id:"c-2", track:"claude", title:"MCP Connections", week:"5", time:"~5 hrs", type:"hands-on",
+  { id:"c-2", track:"claude", title:"MCP Connections", time:"~5 hrs", type:"hands-on",
     core:"Model Context Protocol lets Claude Desktop connect to your actual tools: databases, file systems, GitHub, Google Drive, Slack, and more. This turns Claude from a general assistant into one that knows your codebase, your tickets, your documents, and your data. For a PM, this is the single biggest force multiplier in this course.",
     concepts:["What MCP is: an open protocol for connecting AI to external tools","MCP servers: pre-built connectors for common tools","Setting up your first MCP connection: filesystem, Google Drive, or GitHub","Security and permissions: what data MCP can and cannot access","Combining multiple MCP connections for cross-tool intelligence"],
     buildThis:"Install one MCP server that connects to a tool you use daily. If you use Google Drive, connect that. If your team uses GitHub, connect that. Once connected, ask Claude a question that requires information from that tool. Then ask a follow-up that combines the tool data with something in your Claude project.",
@@ -411,7 +412,7 @@ const MODULES = [
       {title:"MCP server directory", url:"https://github.com/modelcontextprotocol/servers", type:"deeper"},
       {title:"Anthropic: MCP quickstart", url:"https://modelcontextprotocol.io/quickstart/user", type:"ref"}
     ]},
-  { id:"c-3", track:"claude", title:"PM Workflows with AI", week:"6", time:"~4 hrs", type:"hands-on",
+  { id:"c-3", track:"claude", title:"PM Workflows with AI", time:"~4 hrs", type:"hands-on",
     core:"The real value is not in any single Claude feature. It is in combining projects, MCP connections, file uploads, and good prompting into workflows that save you hours every week. Discovery synthesis, competitive analysis, spec writing, stakeholder prep, and sprint planning all get faster when Claude has access to your actual context.",
     concepts:["Discovery synthesis: feeding interview notes into a project and extracting patterns","Competitive analysis: uploading competitor screenshots and docs for structured comparison","Spec writing: using your data and context to draft PRDs that start 80% complete","Stakeholder prep: generating exec summaries, objection responses, and talking points","Sprint planning: connecting to your project tracker and helping prioritize based on real data"],
     buildThis:"Pick one PM workflow you do at least twice a month. Map the steps. Build a Claude Desktop setup that handles it: the right project, the right MCP connections, the right uploaded context, and a tested prompt. Run it once for real. Measure how long it took vs. your usual process.",
@@ -421,8 +422,18 @@ const MODULES = [
       {title:"Lenny Rachitsky: AI for PMs", url:"https://www.lennysnewsletter.com/", type:"ref"}
     ]},
 
+  { id:"c-4", track:"claude", title:"Claude Skills, Tasks, and Cowork", time:"~4 hrs", type:"hands-on",
+    core:"Skills and Tasks in Claude turn one-off prompts into repeatable processes. A Skill is a saved workflow that includes your instructions, MCP connections, and tool access. A Task is a job you hand off to Claude that runs in the background. Cowork lets Claude work alongside you, checking in as needed. For PMs who do the same things every week (status updates, backlog grooming, stakeholder prep), this is the difference between using AI occasionally and having it built into how you work.",
+    concepts:["Skills: saved, repeatable workflows with built-in MCP connections and instructions","Tasks: background jobs Claude runs for you with periodic check-ins","Cowork: collaborative mode where Claude works alongside you on longer projects","Building a Skill: combining a system prompt, MCP tools, and specific instructions into a reusable package","When to use Skills vs. Tasks vs. a regular conversation"],
+    buildThis:"Build one Claude Skill for a PM task you do every week. Pick something repeatable: weekly status updates, backlog prioritization, competitive monitoring, or stakeholder prep. Define the instructions, connect the relevant MCP servers (your project tracker, document storage, or communication tools), and test it on real work. Then set up a Task that runs your Skill on a schedule or trigger.",
+    resources:[
+      {title:"Anthropic: Claude Skills overview", url:"https://www.anthropic.com/claude", type:"start"},
+      {title:"Claude: Getting started with Tasks", url:"https://support.anthropic.com/en/articles/10973498-how-can-i-use-claude-s-task-feature", type:"deeper"},
+      {title:"Model Context Protocol servers", url:"https://github.com/modelcontextprotocol/servers", type:"ref"}
+    ]},
+
   // ── NO-CODE AI BUILDING ──
-  { id:"n-1", track:"nocode", title:"Lovable: Prompt to Prototype", week:"7", time:"~4 hrs", type:"hands-on",
+  { id:"n-1", track:"nocode", title:"Lovable: Prompt to Prototype", time:"~4 hrs", type:"hands-on",
     core:"Lovable generates full-stack applications from natural language prompts. React frontend, Supabase backend, authentication, and deployment. For a PM, this means you can build a working prototype of your next feature idea in an afternoon instead of writing a spec and waiting two sprints.",
     concepts:["How Lovable works: prompt to React + Supabase app","Writing effective prompts: specificity about layout, data model, and user flows","Iterating on generated apps: editing prompts vs. editing code","When Lovable output is good enough to show stakeholders","Limitations: what it handles well and where it falls short"],
     buildThis:"Take a feature idea that is sitting in your backlog. Describe it to Lovable in enough detail to generate a working prototype. Iterate until it is demo-ready. Show it to one stakeholder and capture their reaction.",
@@ -431,7 +442,7 @@ const MODULES = [
       {title:"Lovable docs", url:"https://docs.lovable.dev", type:"deeper"},
       {title:"Supabase quickstart (the backend Lovable uses)", url:"https://supabase.com/docs/guides/getting-started", type:"ref"}
     ]},
-  { id:"n-2", track:"nocode", title:"v0, Bolt.new, and Base44", week:"8", time:"~4 hrs", type:"hands-on",
+  { id:"n-2", track:"nocode", title:"v0, Bolt.new, and Base44", time:"~4 hrs", type:"hands-on",
     core:"Different builders for different jobs. v0 generates production-quality React components from prompts. Bolt.new runs full Node.js in the browser for quick prototypes. Base44 builds internal tools and business apps. Knowing which to reach for saves you from fighting the wrong tool.",
     concepts:["v0 by Vercel: generating UI components with shadcn/ui, best for frontend pieces","Bolt.new: browser-based full-stack prototyping with WebContainers, best for quick demos","Base44: internal tools and CRUD apps, best for operations and team tools","Choosing the right builder: matching the tool to the job","Combining builders: using v0 for UI components inside a Lovable or Bolt project"],
     buildThis:"Build three things with three tools. Use v0 to generate a dashboard component for a metric you track. Use Bolt.new to prototype a simple internal tool. Use Base44 to build a tracker for something your team manages manually. Compare what each tool did well.",
@@ -440,7 +451,7 @@ const MODULES = [
       {title:"Bolt.new", url:"https://bolt.new", type:"deeper"},
       {title:"Base44", url:"https://base44.com", type:"ref"}
     ]},
-  { id:"n-3", track:"nocode", title:"AI Design Tools", week:"9", time:"~3 hrs", type:"hands-on",
+  { id:"n-3", track:"nocode", title:"AI Design Tools", time:"~3 hrs", type:"hands-on",
     core:"Figma AI, Galileo, and Uizard let you generate mockups, explore layouts, and go from rough ideas to polished visuals without waiting for a designer. This is not about replacing designers. It is about getting to a visual starting point faster so conversations are more productive.",
     concepts:["Figma AI: auto-layout suggestions, asset search, prototype generation within your existing workflow","Galileo AI: prompt-to-UI generation for high-fidelity mockups","Uizard: wireframing from text or screenshots, lowest barrier to entry","When AI design tools help vs. when they produce generic output","Using AI-generated mockups as conversation starters, not final designs"],
     buildThis:"Take a feature you are currently spec-ing. Generate three different UI approaches using AI design tools. Bring all three to your next design review as starting points. Track how the conversation differs from reviews where you only brought written descriptions.",
@@ -451,7 +462,7 @@ const MODULES = [
     ]},
 
   // ── AI BEYOND CHAT ──
-  { id:"b-1", track:"beyond", title:"Vision and Image AI", week:"10", time:"~4 hrs", type:"concepts",
+  { id:"b-1", track:"beyond", title:"Vision and Image AI", time:"~4 hrs", type:"concepts",
     core:"AI that can see images is one of the most immediately useful capabilities for a PM. Upload a screenshot and get a UX critique. Photograph a whiteboard and get structured notes. Feed in a competitor's UI and get a detailed comparison. You are probably already using text-based AI daily. Adding vision to your workflow opens up everything that is hard to type but easy to photograph.",
     concepts:["Claude and GPT vision: feeding screenshots, photos, and documents directly to AI for analysis","Using vision for PM work: UI reviews, whiteboard capture, competitive teardowns, data extraction from charts","Google Cloud Vision and AWS Rekognition: managed APIs for OCR and document processing","When to use LLM vision vs. dedicated vision APIs","Limitations: what vision AI gets wrong and how to verify"],
     buildThis:"Use Claude's vision capability on something in your actual work. Upload a screenshot of your product's UI and ask for a UX critique. Upload a whiteboard photo from your last planning session and ask Claude to extract the action items. Upload a competitor's pricing page and ask for a structured comparison. Try 5 different visual inputs from your real work and see which ones give you useful results.",
@@ -460,7 +471,7 @@ const MODULES = [
       {title:"Roboflow: train a custom model", url:"https://roboflow.com/", type:"deeper"},
       {title:"Hugging Face vision models", url:"https://huggingface.co/models?pipeline_tag=image-classification", type:"ref"}
     ]},
-  { id:"b-2", track:"beyond", title:"Speech and Audio AI", week:"11", time:"~3 hrs", type:"concepts",
+  { id:"b-2", track:"beyond", title:"Speech and Audio AI", time:"~3 hrs", type:"concepts",
     core:"Meetings, customer calls, and voice memos contain some of the most valuable information in PM work, and most of it disappears. AI transcription and summarization turn spoken conversations into searchable, analyzable text. This module is about putting these tools into your actual workflow so you never lose an insight because you were too busy facilitating to take notes.",
     concepts:["Whisper (OpenAI) and AssemblyAI: transcribing recordings into text you can search and analyze","Combining transcription with LLMs: turning a meeting recording into decisions, action items, and follow-ups","ElevenLabs: text-to-speech for creating audio versions of written content","Real-time transcription tools: live captions and notes during meetings","Building a habit: which meetings and calls to transcribe and how to process them"],
     buildThis:"Take a real meeting recording or customer call from your work and transcribe it using a free tool (AssemblyAI free tier, or upload to ChatGPT and ask it to transcribe). Then paste the transcript into Claude and ask it to extract: key decisions, action items, open questions, and any commitments made. Compare that output to your own meeting notes. Start doing this for every important meeting for a week.",
@@ -469,36 +480,36 @@ const MODULES = [
       {title:"ElevenLabs", url:"https://elevenlabs.io/", type:"deeper"},
       {title:"AssemblyAI docs", url:"https://www.assemblyai.com/docs", type:"ref"}
     ]},
-  { id:"b-3", track:"beyond", title:"Image Generation for Product Work", week:"12", time:"~3 hrs", type:"concepts",
+  { id:"b-3", track:"beyond", title:"Image Generation for Product Work", time:"~3 hrs", type:"concepts",
     core:"AI-generated images are useful for PMs in ways that go beyond marketing. Generate placeholder content for prototypes, visualize feature concepts for stakeholder conversations, create demo data that looks real, and mock up scenarios that would be expensive to photograph. The practical question is: which tool for which job, and when is the output good enough to use.",
     concepts:["Midjourney: highest aesthetic quality, Discord and web interface","DALL-E 3: best at following complex text prompts, integrated with ChatGPT","Stable Diffusion and Flux: open models, run locally or via Replicate","Adobe Firefly: commercially safe, trained on licensed content, built into Creative Cloud","When AI images are appropriate for production vs. internal use only"],
     buildThis:"Pick a feature in your product that needs visual content (empty states, onboarding illustrations, demo screenshots, marketing assets). Generate 10 options across two different tools. Test whether any are good enough to use as-is or as a starting point for a designer.",
     resources:[
       {title:"Midjourney", url:"https://www.midjourney.com/", type:"start"},
       {title:"DALL-E via ChatGPT", url:"https://chatgpt.com/", type:"deeper"},
-      {title:"Replicate (run Flux/SD via API)", url:"https://replicate.com/", type:"ref"}
+      {title:"Google Gemini image generation", url:"https://gemini.google.com/", type:"ref"}
     ]},
 
   // ── GOVERNANCE & SECURITY ──
-  { id:"g-1", track:"governance", title:"AI Governance Frameworks", week:"13", time:"~4 hrs", type:"concepts",
+  { id:"g-1", track:"governance", title:"AI Governance Frameworks", time:"~4 hrs", type:"concepts",
     core:"Responsible AI use starts with you. If you are putting customer data, internal documents, or competitive intelligence into AI tools, you need to know the rules. Understanding governance frameworks helps you use AI responsibly in your own work and ask the right questions when evaluating AI tools for your team.",
     concepts:["NIST AI Risk Management Framework: the standard reference for AI governance","EU AI Act: risk categories and what they mean for your work","Responsible use policies: what your company should have before adopting AI tools","Evaluating AI tools: privacy policies, data handling, and compliance certifications","Transparency: knowing when and how AI is being used in your workflow and your product"],
     buildThis:"Audit every AI tool you are currently using in your work. For each one, answer: what data am I putting in? Where does that data go? Does my company have a policy on this? Would I be comfortable if my legal team saw exactly what I shared? Write a one-page summary of your findings and one recommendation for your team.",
     resources:[
-      {title:"NIST AI Risk Management Framework", url:"https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-artificial-intelligence", type:"start"},
+      {title:"NIST AI Risk Management Framework", url:"https://airc.nist.gov/AI_RMF_Interactivity/Playbook", type:"start"},
       {title:"EU AI Act summary", url:"https://artificialintelligenceact.eu/", type:"deeper"},
       {title:"Google: Responsible AI practices", url:"https://ai.google/responsibility/responsible-ai-practices/", type:"ref"}
     ]},
-  { id:"g-2", track:"governance", title:"Security for AI Products", week:"14", time:"~4 hrs", type:"concepts",
+  { id:"g-2", track:"governance", title:"Security for AI Products", time:"~4 hrs", type:"concepts",
     core:"If you paste a customer email into Claude, where does that data go? If you upload a financial report to ChatGPT, who else can see it? Prompt injection, data leakage, and PII exposure are real risks for anyone using AI tools with work data. Understanding these risks means you use AI tools safely and you know what questions to ask before your team adopts new ones.",
     concepts:["Prompt injection: how it works and why it matters even when you are the user","Data leakage: where your work data goes when you use AI tools","PII handling: what happens when customer or patient data enters an AI tool","OWASP Top 10 for LLM Applications: the risks to know about","Safe AI habits: what data is OK to share, what is not, and how to tell"],
     buildThis:"Test the AI tools you use daily for security risks. Try pasting in fake sensitive data and see if the tool warns you. Try prompt injection: ask Claude to ignore its instructions. Check each tool's data retention policy. Write up what you found and create a simple set of rules for yourself: what data is OK to share, what is never OK, and what needs anonymization first.",
     resources:[
       {title:"OWASP Top 10 for LLM Applications", url:"https://owasp.org/www-project-top-10-for-large-language-model-applications/", type:"start"},
       {title:"Simon Willison: Prompt injection explained", url:"https://simonwillison.net/2023/Apr/14/worst-that-can-happen/", type:"deeper"},
-      {title:"Anthropic: Safety best practices", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/mitigate-misuse", type:"ref"}
+      {title:"Anthropic: Usage policy and safety", url:"https://www.anthropic.com/policies/aup", type:"ref"}
     ]},
-  { id:"g-3", track:"governance", title:"Evaluation and Quality", week:"15", time:"~4 hrs", type:"concepts",
+  { id:"g-3", track:"governance", title:"Evaluation and Quality", time:"~4 hrs", type:"concepts",
     core:"How do you know if the AI tools you are using are actually giving you good results? Not with vibes. If Claude summarizes a report for you, how do you know it got the numbers right? If you use AI to draft a stakeholder email, how do you verify the tone and accuracy? Building simple evaluation habits into your AI workflow is what separates people who use AI effectively from people who use it carelessly.",
     concepts:["Spot-checking AI output: quick verification habits that catch mistakes","Verification frameworks: defining what good output looks like before you trust it","When to trust AI output vs. when to verify: a practical decision framework","Tracking AI accuracy over time: noticing when your tools get better or worse","Building a personal quality bar: the standard you hold AI output to before using it"],
     buildThis:"Pick one PM task you have been using AI for (summarizing reports, drafting emails, analyzing data). Create 10 test cases where you know the right answer. Run them through your AI tool. Score the results honestly. How often did it get the key facts right? How often did it miss something important? Use this to calibrate your trust: what can you use AI output for directly, and what always needs a second look?",
@@ -507,14 +518,14 @@ const MODULES = [
       {title:"Hamel Husain: Your AI product needs evals", url:"https://hamel.dev/blog/posts/evals/", type:"deeper"},
       {title:"LangSmith: Evaluation docs", url:"https://docs.smith.langchain.com/", type:"ref"}
     ]},
-  { id:"g-4", track:"governance", title:"Auditability and Compliance", week:"16", time:"~4 hrs", type:"reference",
+  { id:"g-4", track:"governance", title:"Auditability and Compliance", time:"~4 hrs", type:"reference",
     core:"When your boss asks what data you have been putting into AI tools, you need a good answer. When a compliance audit asks how AI-assisted decisions were made, you need a trail. Tracking what data goes into your AI tools, what comes out, and how you use the results is not paranoia. It is basic professional hygiene, especially in regulated industries.",
     concepts:["What to track: logging which AI tools you use, what data goes in, and what you do with the output","Data flow awareness: knowing where your information travels when you use AI","Regulatory landscape: HIPAA, SOC2, GDPR implications for using AI tools with work data","AI tool policies: helping your team adopt AI tools responsibly","Building good habits: simple tracking practices that protect you and your organization"],
     buildThis:"Pick any AI tool you are using in your work (Claude, a no-code builder, a transcription service). Map what data you are putting into it: what goes in, where it goes, whether it gets stored, who else could see it. Ask yourself: if your manager asked you to show every AI interaction you had this week, could you? Identify what you would need to start tracking and why.",
     resources:[
       {title:"Google: Model Cards for Model Reporting", url:"https://modelcards.withgoogle.com/about", type:"start"},
-      {title:"NIST AI 100-1: Trustworthy AI", url:"https://csrc.nist.gov/pubs/ai/100/1/final", type:"deeper"},
-      {title:"Anthropic: Usage policy", url:"https://www.anthropic.com/policies/aup", type:"ref"}
+      {title:"Anthropic: Data privacy and security", url:"https://www.anthropic.com/policies/privacy", type:"deeper"},
+      {title:"OpenAI: Enterprise privacy", url:"https://openai.com/enterprise-privacy/", type:"ref"}
     ]},
 ];
 
@@ -735,7 +746,7 @@ function renderModules() {
           <div class="card-tags">
             <span class="tag tag-track" style="background:${tc}20;color:${tc}">${track.icon} ${track.label}</span>
             <span class="tag ${TYPE_CLASS[m.type]}">${TYPE_LABEL[m.type]}</span>
-            <span class="tag tag-origin">Wk ${m.week} \u00b7 ${m.time}</span>
+            <span class="tag tag-origin">${m.time}</span>
           </div>
           <div class="card-title">${m.title}</div>
         </div>
@@ -835,7 +846,7 @@ function exportCurriculum() {
     <div style="border:1px solid #ddd;border-left:3px solid ${tc};border-radius:6px;margin-bottom:16px;padding:20px 24px;${isDone ? "opacity:0.5;" : ""}">
       <div style="display:flex;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
         <span style="font-family:monospace;font-size:11px;padding:2px 8px;border-radius:3px;background:${tc}18;color:${tc};">${track.icon} ${track.label}</span>
-        <span style="font-family:monospace;font-size:11px;color:#888;">Wk ${m.week} \u00b7 ${m.time}</span>
+        <span style="font-family:monospace;font-size:11px;color:#888;">${m.time}</span>
         ${isDone ? '<span style="font-family:monospace;font-size:11px;color:#5ab874;">COMPLETE</span>' : ""}
       </div>
       <h3 style="font-size:17px;font-weight:600;margin:0 0 12px;">${m.title}</h3>
