@@ -2,13 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://chriseatonai.com/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://chriseatonai.com/about.html</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-07-20</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://chriseatonai.com/writing/passed-over-to-vp-of-product.html</loc>
+    <lastmod>2026-07-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chriseatonai.com/writing/pitchpack-8-year-old-pm.html</loc>
+    <lastmod>2026-05-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://chriseatonai.com/writing/mud-season-ai-framework.html</loc>
+    <lastmod>2026-05-04</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://chriseatonai.com/writing/ultramarathons-and-ai-products.html</loc>

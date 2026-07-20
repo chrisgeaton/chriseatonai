@@ -8,27 +8,51 @@
     <atom:link href="https://chriseatonai.com/feed.xml" rel="self" type="application/rss+xml"/>
 
     <item>
-      <title>The Future of AI Assistants</title>
-      <link>https://chriseatonai.com/#</link>
-      <description>How AI agents are evolving beyond chat interfaces into genuinely capable collaborators — and what that means for how we work.</description>
+      <title>From Passed Over to VP of Product</title>
+      <link>https://chriseatonai.com/writing/passed-over-to-vp-of-product.html</link>
+      <description>A year ago I was passed over for the top product role at LiveData. This month I started it. The difference was a year of building.</description>
+      <pubDate>Mon, 20 Jul 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/passed-over-to-vp-of-product.html</guid>
+    </item>
+
+    <item>
+      <title>I Don't Write Code. My 8-Year-Old Is the PM. We Shipped Anyway.</title>
+      <link>https://chriseatonai.com/writing/pitchpack-8-year-old-pm.html</link>
+      <description>I'm a product manager who doesn't write code. My son Harley is 8. Together we built pitchpackcards.com in a month using AI. Here's what he taught me about product.</description>
+      <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/pitchpack-8-year-old-pm.html</guid>
+    </item>
+
+    <item>
+      <title>Mud Season in Vermont: Your AI Teams Don't Need a Strategy, They Need a Road</title>
+      <link>https://chriseatonai.com/writing/mud-season-ai-framework.html</link>
+      <description>You don't need to pave every road. You need to pave the ones your teams need to move fast on.</description>
+      <pubDate>Mon, 04 May 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/mud-season-ai-framework.html</guid>
+    </item>
+
+    <item>
+      <title>What Running 100 Miles Taught Me About Building AI Products</title>
+      <link>https://chriseatonai.com/writing/ultramarathons-and-ai-products.html</link>
+      <description>At mile 70 of the Vermont 100, everything hurts and nothing makes sense. That experience maps almost perfectly onto what it feels like to build and ship AI products.</description>
       <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
-      <guid>https://chriseatonai.com/writing/future-of-ai-assistants</guid>
+      <guid>https://chriseatonai.com/writing/ultramarathons-and-ai-products.html</guid>
     </item>
 
     <item>
-      <title>Building in Public</title>
-      <link>https://chriseatonai.com/#</link>
-      <description>Why I believe in sharing progress openly, learning from the community, and the unexpected benefits of working with the garage door up.</description>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
-      <guid>https://chriseatonai.com/writing/building-in-public</guid>
-    </item>
-
-    <item>
-      <title>Lessons from Shipping Fast</title>
-      <link>https://chriseatonai.com/#</link>
-      <description>What I've learned about velocity, quality, and the art of knowing when something is good enough to share with the world.</description>
+      <title>What Building Out a Sprinter Van Taught Me About Product Management</title>
+      <link>https://chriseatonai.com/writing/sprinter-van-product-management.html</link>
+      <description>I bought a used Sprinter 2500 and turned it into a family adventure vehicle. It was the best product management education I've had since guiding fly fishing trips.</description>
       <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
-      <guid>https://chriseatonai.com/writing/lessons-from-shipping-fast</guid>
+      <guid>https://chriseatonai.com/writing/sprinter-van-product-management.html</guid>
+    </item>
+
+    <item>
+      <title>From Ski Slopes and Rivers to Product Strategy</title>
+      <link>https://chriseatonai.com/writing/ski-slopes-to-product-strategy.html</link>
+      <description>How working in Colorado's outdoor industry taught me everything I needed to know about product leadership.</description>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/ski-slopes-to-product-strategy.html</guid>
     </item>
 
   </channel>

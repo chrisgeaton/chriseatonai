@@ -3,3 +3,7 @@ og.html
 .env
 .env.local
 .vercel
+
+# Internal planning docs and drafts: never commit, the site deploys from repo root
+content-plan.md
+drafts/
