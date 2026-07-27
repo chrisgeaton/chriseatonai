@@ -8,6 +8,14 @@
     <atom:link href="https://chriseatonai.com/feed.xml" rel="self" type="application/rss+xml"/>
 
     <item>
+      <title>The Builder: What Changes When Anyone Can Ship</title>
+      <link>https://chriseatonai.com/writing/the-builder-pm.html</link>
+      <description>A Builder is anyone whose default artifact is working software. Why it's agile's original promise finally kept, and what Product becomes when anyone can build.</description>
+      <pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/the-builder-pm.html</guid>
+    </item>
+
+    <item>
       <title>From Passed Over to VP of Product</title>
       <link>https://chriseatonai.com/writing/passed-over-to-vp-of-product.html</link>
       <description>A year ago I was passed over for the top product role at LiveData. This month I started it. The difference was a year of building.</description>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Builder: What Changes When Anyone Can Ship | Chris Eaton</title>
+  <meta name="description" content="A Builder is anyone whose default artifact is working software. Why it's agile's original promise finally kept, and what Product becomes when anyone can build.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Chris Eaton" href="../feed.xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Builder: What Changes When Anyone Can Ship">
+  <meta property="og:description" content="A Builder is anyone whose default artifact is working software. Why it's agile's original promise finally kept, and what Product becomes when anyone can build.">
+  <meta property="og:url" content="https://chriseatonai.com/writing/the-builder-pm">
+  <meta property="og:image" content="https://chriseatonai.com/og-builder.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Builder: What Changes When Anyone Can Ship">
+  <meta name="twitter:description" content="A Builder is anyone whose default artifact is working software. Why it's agile's original promise finally kept, and what Product becomes when anyone can build.">
+  <meta name="twitter:image" content="https://chriseatonai.com/og-builder.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <!-- Umami Analytics -->
+  <script defer src="https://umami-alpha-brown.vercel.app/script.js" data-website-id="5623afbe-7755-4744-8c79-21cf2cd84ef3"></script>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="../about.html">About</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#links">Links</a>
+        <a href="../courses.html">Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article">
+      <div class="container">
+
+        <header class="article-header">
+          <a href="../index.html#writing" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            All writing
+          </a>
+          <h1 class="article-title">The Builder: What Changes When Anyone Can Ship</h1>
+          <div class="article-meta">
+            <time>July 2026</time>
+            <span class="meta-sep">&middot;</span>
+            <span>9 min read</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+
+          <p class="article-lede">For most of my career, the output of my job was documents. Roadmaps, specs, strategy memos, tickets: the paper trail of a person whose value was judgment about software other people would build. I was good at the documents. I believed in them.</p>
+
+          <p>Last year, the paper trail started compiling.</p>
+
+          <p>I told that story <a href="passed-over-to-vp-of-product.html">last week</a>. This week I want to define the word I used for what I became, because the product world is mid-argument about what it means, and now that I run a product org, I have a stake in where the definition lands.</p>
+
+          <hr>
+
+          <h2>A Spec That Runs</h2>
+
+          <p>A Builder is anyone in a software company whose default artifact is working software.</p>
+
+          <p>I came to it through product management, so that's the version I described last week: the PM whose arguments you can click. But the definition was never about my job title, and treating it as a PM trend would miss most of what's actually happening.</p>
+
+          <p>I didn't coin the term, and it's past the trend-piece stage. Figma has been arguing that <a href="https://www.figma.com/blog/prototypes-are-the-new-prds/" target="_blank" rel="noopener noreferrer">prototypes are the new PRDs</a>. LinkedIn retired its Associate Product Manager program outright and now trains <a href="https://www.lennysnewsletter.com/p/why-linkedin-is-replacing-pms" target="_blank" rel="noopener noreferrer">Associate Product Builders</a>: not junior PMs with a coding class bolted on, but people expected to carry an idea from concept to shipped without waiting for a handoff. The role isn't just being renamed. The handoffs between roles are being deleted.</p>
+
+          <p>Here's the definition I'm planting a flag on: a Builder closes the distance between having judgment and demonstrating it. The idea that used to travel through documents, meetings, and tickets now travels as running software. People stop debating what you meant and start debating what they saw.</p>
+
+          <hr>
+
+          <h2>This Is What Agile Promised</h2>
+
+          <p>When I say anyone, the group I most want to hear it is engineers.</p>
+
+          <p>The engineer version of a Builder looks like this: grab an item off the roadmap, put a working POC in front of real people within a week, collect the feedback, review it together, iterate or kill it. No discovery phase that outlives the idea it was meant to test. No translation exercise that takes longer than the software.</p>
+
+          <p>If that sounds radical, go reread the second value of the <a href="https://agilemanifesto.org/" target="_blank" rel="noopener noreferrer">Agile Manifesto</a>: working software over comprehensive documentation. That was the deal in 2001. We mostly didn't keep it. Not because anyone lied, but because building stayed expensive, and organizations wrap expensive things in ceremony to keep from wasting them. So we kept the standups and the retros and called ourselves agile, while the actual promise, working software early and often, stayed rationed.</p>
+
+          <p>The rationing is over. An engineer with current AI tooling can produce the first honest version of most ideas in days, a shift the best engineering writers are <a href="https://newsletter.pragmaticengineer.com/p/the-impact-of-ai-on-software-engineers-2026" target="_blank" rel="noopener noreferrer">documenting in real time</a>. Which means the loop agile described, build, show, learn, adjust, can finally run at the speed it was written for. A Builder culture isn't a new methodology. It's the old one, finally affordable.</p>
+
+          <p>And it's arriving from both directions at once. Product engineers, engineers who own product decisions, are the mirror image of PMs like me reaching toward the keyboard. The translation layer between deciding and building is dissolving, and everyone standing near it can feel the pull.</p>
+
+          <hr>
+
+          <h2>What a Builder Is Not</h2>
+
+          <p>So is this everyone doing everything? No. The boundary that matters survives. It just moves.</p>
+
+          <p>A POC is not production, and production was never its job. The Insights chat tool I built started as a working prototype that proved the idea against real questions. Turning it into what's now our AI Advisor, something hospitals can rely on, took real engineering: scale, security, failure modes, the unglamorous craft that separates a demo from a product. Same story with the Financial Insights dashboards: I built the POC, backend and all. Engineering built the product. Builders don't make that craft optional. They make it more valuable, because the ideas arriving at production's door show up already demonstrated, already shaped by feedback, already worth the investment.</p>
+
+          <p>And a Builder culture is not the end of writing. I write more than I used to, not less. The difference is what the writing carries: why this problem, why now, what we'd measure. It stops having to describe the thing. The thing describes itself.</p>
+
+          <hr>
+
+          <h2>Handing Over the Rod</h2>
+
+          <p>The obvious question is why this is happening now and not five years ago. The answer is arithmetic. The first working version of most software ideas used to cost weeks of the scarcest time a company has. It now costs days, sometimes hours. Not the production version: the first honest version, the one that can be wrong in informative ways.</p>
+
+          <p>I watch the consequences at every level of ambition. At work it looked like the Insights prototype, then the Context Engine, then tool after tool. At home it looks like my eight-year-old <a href="pitchpack-8-year-old-pm.html">running product on a soccer card site</a> while I build to his spec. When the barrier is low enough that a kid can hold the PM seat and ship, the interesting question is no longer who's allowed to build. It's what we do with the fact that everyone is.</p>
+
+          <p>When I was a fly fishing guide, there were two ways to teach a cast. You could explain it for ten minutes, or you could put the rod in someone's hands for one. Nobody ever learned the cast from the explanation. For twenty years, product managers have been explaining the cast. We finally get to hand people the rod.</p>
+
+          <hr>
+
+          <h2>What Actually Changes</h2>
+
+          <p>Inside a product org, four things change.</p>
+
+          <p><strong>The meeting changes.</strong> A POC in the room converts opinion into observation. The debate gets better because it has a referent: people argue about the thing instead of their private mental models of the thing.</p>
+
+          <p><strong>The spec changes.</strong> For AI products especially, "it works" is not a feeling. It's a measurement. The natural companion to a POC is an eval: the written-down set of cases that define what good means, run against every version. And it matters double when POCs come from everywhere, because a shared eval is how fifty builders agree on what good means before anyone argues taste.</p>
+
+          <p><strong>The backlog changes.</strong> Every company has a drawer of ideas everyone likes that never clear the resourcing bar. That drawer is where the Insights chat tool lived at LiveData. Builders empty the drawer. The cost of finding out gets so low that "not worth engineering time yet" stops being a verdict on the idea and becomes what it always should have been: a sequencing decision.</p>
+
+          <p><strong>And the failure modes change.</strong> I wrote in the spring about <a href="ultramarathons-and-ai-products.html">pacing at the CCC</a>: borrow from the finish to feel fast at the start, and the bill arrives late, with interest. Builders inherit exactly that risk. A demo that outruns its reliability creates expectations someone has to pay back, usually whoever inherits it. I know because I've done it. The discipline isn't building less. It's labeling honestly: this is a POC, here's what it proves, here's what it doesn't.</p>
+
+          <hr>
+
+          <h2>When Anyone Can Build, Direction Is the Job</h2>
+
+          <p>Here's the org-level consequence, and the part I'm accountable for now.</p>
+
+          <p>When building is scarce, Product's power is the backlog: deciding what the expensive people work on next. When building is abundant, that power evaporates, and good riddance. A hundred POCs pointed in a hundred directions is noise. The same hundred pointed at a shared vision is a search party.</p>
+
+          <p>That's the direction we're taking at LiveData. Anyone can build a POC: engineers, PMs, people whose titles have nothing to do with software. Product facilitates the discovery and the conversations around what gets explored, and concentrates on the three things that make distributed building worth it: being the voice of the problems users actually face, holding the strategy of the product, and translating solutions into the business value they carry. We don't gatekeep creation. We make it worth doing.</p>
+
+          <p>None of it works without one unglamorous prerequisite: a company vision and goals stated clearly enough that a builder three levels from the CEO can look at what they just made and know whether it moves the company. In a Builder culture, vision isn't a poster in the lobby. It's load-bearing infrastructure. It's what lets a company say yes to a hundred builders without saying yes to chaos.</p>
+
+          <p>When I was a fly fishing guide, I didn't make the casts. I read the water, put people on the right stretch of river, and handed over the rod.</p>
+
+          <p>I know how that sounds: like the job Product already claims to do. We know the problems, other people build. But that's not how it ever really worked. Rods were scarce. Only engineers held one, there were never enough of them, and so Product spent its days on the bank, describing casts in documents instead of finding the next stretch of water.</p>
+
+          <p>That's what just changed. AI puts a rod in everyone's hands. A cast is a working POC. An engineer, a PM, anyone close to a real problem can make one in days. Which leaves Product the part of the job that always mattered most: knowing which water holds problems worth solving, and what a catch is worth to the company.</p>
+
+          <p>Product knows the river. Now anyone can cast.</p>
+
+          <hr>
+
+          <h2>The On-Ramp</h2>
+
+          <p>If you want in, the on-ramp is shorter than you think, whatever your title says.</p>
+
+          <p><strong>Engineers:</strong> grab the roadmap item you've always had opinions about. Build the POC version in a week. Put it in front of someone real, review what happens together, iterate or kill it. You already know how to build. The new skill is letting feedback in before the architecture hardens.</p>
+
+          <p><strong>Everyone else:</strong> pick the idea your company likes but won't fund. Build the smallest honest version: works on real inputs, fails visibly. Show one person who'll tell you the truth, not a demo day. And expect your own sentence. Mine was "you don't know AI well enough." Yours will be something else. Treat it as a spec.</p>
+
+          <p>I turned my version of this on-ramp into a free course, the <a href="../pm-technical-course.html">Technical PM Curriculum Builder</a>, which uses AI to fit every module to your actual work. It exists because I couldn't find the version of it I needed last year.</p>
+
+          <p>You don't need permission to start. I didn't have any.</p>
+
+          <hr>
+
+          <p>My title changed this month. The work changed a year ago, at a desk, at night, the first time something I built answered a question better than anything I'd ever written about it.</p>
+
+          <p>Nobody in a product company was ever paid for documents. We were paid for judgment. The documents were just the best container judgment had.</p>
+
+          <p><em>Judgment is still the job. Now it ships.</em></p>
+
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
