@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="627" viewBox="0 0 1200 627" font-family="'IBM Plex Sans', -apple-system, system-ui, sans-serif">
+  <defs>
+    <style>
+      .bg { fill: #1a1814; }
+      .label { font-family: 'IBM Plex Mono', 'SF Mono', monospace; font-size: 18px; fill: #e8a735; letter-spacing: 0.08em; font-weight: 500; }
+      .cream { font-family: 'IBM Plex Sans', -apple-system, system-ui, sans-serif; font-size: 56px; fill: #ede9e1; font-weight: 600; letter-spacing: -0.02em; }
+      .amber { font-family: 'IBM Plex Sans', -apple-system, system-ui, sans-serif; font-size: 56px; fill: #e8a735; font-weight: 600; letter-spacing: -0.02em; }
+      .url { font-family: 'IBM Plex Mono', 'SF Mono', monospace; font-size: 16px; fill: #706b62; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1200" height="627"/>
+  <rect x="72" y="118" width="44" height="3" fill="#e8a735"/>
+  <text class="label" x="72" y="166">OPERATING ROOM AI</text>
+
+  <text class="cream" x="72" y="330">Trust is the product.</text>
+  <text class="amber" x="72" y="406">Everything else is an ingredient.</text>
+
+  <text class="url" x="72" y="556">Chris Eaton  &#183;  chriseatonai.com</text>
+</svg>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building AI Where Being Wrong Is Expensive | Chris Eaton</title>
+  <meta name="description" content="For a decade, medicine threw technology at clinical documentation and most of it failed. Then ambient AI scribes stuck. The lesson: the hard part was never the technology, it was trust.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="Chris Eaton" href="../feed.xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building AI Where Being Wrong Is Expensive">
+  <meta property="og:description" content="For a decade, medicine threw technology at clinical documentation and most of it failed. Then ambient AI scribes stuck. The lesson: the hard part was never the technology, it was trust.">
+  <meta property="og:url" content="https://chriseatonai.com/writing/ai-where-being-wrong-is-expensive">
+  <meta property="og:image" content="https://chriseatonai.com/og-stakes.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building AI Where Being Wrong Is Expensive">
+  <meta name="twitter:description" content="For a decade, medicine threw technology at clinical documentation and most of it failed. Then ambient AI scribes stuck. The lesson: the hard part was never the technology, it was trust.">
+  <meta name="twitter:image" content="https://chriseatonai.com/og-stakes.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <!-- Umami Analytics -->
+  <script defer src="https://umami-alpha-brown.vercel.app/script.js" data-website-id="5623afbe-7755-4744-8c79-21cf2cd84ef3"></script>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-name">Chris Eaton</a>
+      <div class="nav-links">
+        <a href="../about.html">About</a>
+        <a href="../index.html#writing">Writing</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#links">Links</a>
+        <a href="../courses.html">Courses</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article">
+      <div class="container">
+
+        <header class="article-header">
+          <a href="../index.html#writing" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            All writing
+          </a>
+          <h1 class="article-title">Building AI Where Being Wrong Is Expensive</h1>
+          <div class="article-meta">
+            <time>August 2026</time>
+            <span class="meta-sep">&middot;</span>
+            <span>8 min read</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+
+          <p class="article-lede">Most of what gets written about building with AI assumes a forgiving world. If the chatbot writes a clumsy email, you laugh and try again. If the AI invents a citation, you catch it and move on. The cost of a wrong answer is a few wasted seconds and mild embarrassment.</p>
+
+          <p>The operating room is not a forgiving world. There, a wrong answer is not embarrassment. It is a liability.</p>
+
+          <p>That is the world I build in. LiveData makes perioperative software used in 90+ hospitals, and the AI I work on lives inside it: surgical scheduling, OR utilization, the numbers that decide whether a hospital can take another case or has to turn a patient away. Building there teaches a version of AI product work the forgiving-world advice never covers. And I think that harder version is about to be everyone's, because as AI moves from drafting text to taking actions, the whole industry is walking into the room I already work in.</p>
+
+          <p>The clearest map of that room is a technology that just spent a decade learning these lessons in public.</p>
+
+          <hr>
+
+          <h2>The Ambient Scribe Was a Ten-Year Overnight Success</h2>
+
+          <p>Doctors carry a burden the rest of us never see, and they call it pajama time: the hour or two of clinical documentation they finish at home, at night, after the last patient has gone. It is one of the largest drivers of physician burnout, and for years the industry threw technology at it. Dictation software, templated notes, human scribes, early speech recognition. Most of it never stuck.</p>
+
+          <p>When ambient AI scribes first arrived, they did not stick either. The early tools demoed well and then failed in the room, and in this domain a note that is almost right is worse than no note at all, because now the clinician has to read every line and fix what the AI got wrong. That is slower than writing it yourself, and it is maddening. Doctors pushed back, spent their supposed time savings correcting the machine, and walked away. Trust, once spent, is expensive to buy back, and a lot of early tools never got a second chance.</p>
+
+          <p>What turned it around was not a smarter system. It was that a handful of tools, Abridge among the ones clinicians name, got reliable and transparent enough to actually earn trust. The drafts held up, and clinicians could check them fast instead of babysitting them. Once the output was trustworthy, adoption did not creep, it <a href="https://healthsystemcio.com/2025/02/05/ambient-speech-adoption-surges-as-health-systems-seek-clinician-efficiency-klas-finds/" target="_blank" rel="noopener noreferrer">surged</a>. In one of the largest rollouts, thousands of physicians used ambient documentation across millions of patient visits, and the large majority reported being more present with patients and less drained at the end of the day. In about two years it went from a tool doctors fought to something close to table stakes.</p>
+
+          <p>Here is the part worth sitting with. The capability, turning speech into a clinical note, had existed in cruder forms for a decade. The gate was never the technology. It was trust, and trust had to be earned back after the first wave of tools burned it. Almost everything I have learned building AI where the stakes are real is some version of that sentence.</p>
+
+          <hr>
+
+          <h2>Trust Is the Product</h2>
+
+          <p>In a consumer AI product, the technology is more or less the product: better AI means better outputs means a better experience. In a high-stakes domain, the technology is only an ingredient, and trust is the product.</p>
+
+          <p>The reason is adoption. When a wrong answer carries real consequences, people do not average their trust across a thousand interactions. They make individual, close to permanent judgments, and one bad answer can end the relationship. The ambient scribes that won were not flawless, but they were reliable enough to trust, and they kept the clinician in control: the AI drafts, the human signs. The questions that decided their fate were not about raw capability. They were about what the system does when it is unsure, whether the user can see and correct what it produced, and what it refuses to do on its own. That is where most of the hard design work lives, and almost none of the forgiving-world advice even asks.</p>
+
+          <p>The tools that won also found the mechanism: they made the output checkable. Abridge, the one that broke through, lets a doctor click any line of a note and see the exact moment in the conversation that produced it, so verifying a claim takes seconds instead of redoing the work. That is the general move, not a healthcare one. In high-stakes AI, traceability is not a nice-to-have feature. It is how trust gets manufactured, and it is what lets a person stay accountable for a decision an AI helped make.</p>
+
+          <hr>
+
+          <h2>Know Which Numbers the AI Isn't Allowed to Touch</h2>
+
+          <p>The most important design decision I have made in an AI product was a decision about what the AI would not do.</p>
+
+          <p>I built a tool that generates ROI projections for hospital buyers. The temptation was to let the AI produce all of it, inputs to narrative in one pass. I did the opposite. Every number comes from explicit, deterministic code with documented assumptions. The AI interprets and narrates, but it never touches a figure. The wall between the two is the product.</p>
+
+          <p>That is not a healthcare trick. It is the general skill the industry is now learning the hard way: in any serious AI system, decide which parts must be verifiable and wall the probabilistic side off from them. Money, dosages, eligibility, anything a person will be held accountable for. AI is extraordinary at language and judgment-shaped work and genuinely dangerous at arithmetic it is allowed to improvise. Drawing that line well is most of the job.</p>
+
+          <hr>
+
+          <h2>Measure the Thing That Matters, Not the Thing That Demos</h2>
+
+          <p>In the forgiving world, you know a feature works because it feels right in the demo. In a high-stakes domain, "feels right" is how you get hurt.</p>
+
+          <p>The ambient scribe has a humbling second act here. Adoption soared and clinicians loved it, and yet when researchers ran <a href="https://www.medrxiv.org/content/10.1101/2025.07.10.25331333" target="_blank" rel="noopener noreferrer">rigorous trials</a>, the hard time savings came back real but far more modest than the early numbers everyone quoted. Both things are true at once: the tool is genuinely valued, and the headline metric was softer than it sounded. The lesson is not that the technology failed. It is that you have to measure the thing that actually matters and know the difference between a number that demos well and one that holds up under a controlled trial. And the measuring is not finished: adoption is running ahead of the validation, and researchers are still charting where these systems quietly introduce errors, which is its own kind of risk in a domain like this.</p>
+
+          <p>The discipline that protects you is evals: writing down, before you ship, the cases that define what good means, and running every version against them. Those cases are the real specification. A roadmap is a list of hopes and a demo is a performance, but the eval set is the only place a team writes down, in a form the software can be held to, what it actually believes correct means. It is the first thing I ask to see, because if it does not exist, the team does not yet know what it is building.</p>
+
+          <hr>
+
+          <h2>The Hard Part Was Never the Technology</h2>
+
+          <p>If ambient scribes proved anything, it is that fit and trust, not raw capability, decide whether high-stakes AI lives or dies. The same humbling shows up everywhere I build.</p>
+
+          <p>A person in a real workflow has seconds, and a specific moment where a tool either belongs or does not exist. The most accurate system in the world, if it demands a login and a context switch at the wrong instant, will not be used, and a lesser one that answers inside the flow they already have will win. And every AI system is wrong sometimes, so in a high-stakes domain you design for the miss on purpose: a system that fails loudly and flags its own uncertainty for a human is more trustworthy than one that fails silently and confidently. The same honesty applies to how you talk about what you have built. Overselling what a system can do is the fastest way to spend trust you have not earned.</p>
+
+          <p>Ambient documentation is close to standard in the clinic now. It has not reached the operating room, which is the harder, higher-stakes end of the same problem, and part of what I spend my days on. The room I work in is where that curve goes next.</p>
+
+          <hr>
+
+          <h2>Someone Has to Hold the Ridgeline</h2>
+
+          <p>I wrote once about <a href="ultramarathons-and-ai-products.html">cresting a col in the Alps</a> during a long race and seeing the whole course at once: the valley I had climbed out of, the ridgeline ahead, how my small effort fit the shape of the entire thing.</p>
+
+          <p>That view is the job now. A single AI feature can be flawless in isolation and still create chaos in the larger system, because the people and constraints around it are connected in ways invisible from inside any one of them. The engineer tuning latency, the designer simplifying a screen, the AI doing its narrow task, all of them can be running well through their own valley while the product as a whole heads somewhere no one intended. Holding the whole picture while people build fast inside it is what product leadership is for, and it matters more, not less, now that AI has made it cheap for everyone to build their own piece.</p>
+
+          <hr>
+
+          <p>None of this began as philosophy. It began because I build where being wrong is expensive, and the expense teaches faster than any low-stakes product can. Trust as the product. Deterministic where it counts. Measure what matters. Fit over raw capability. Design for the miss. Hold the whole picture.</p>
+
+          <p>The ambient scribe spent ten years learning those lessons so the rest of medicine did not have to. The rest of the industry is about to take the same course, as AI starts taking real actions in finance, in law, in infrastructure, in anything a person can be held accountable for. Everyone is arriving at the room where a wrong answer is expensive. Some of us have just been working in it for a while.</p>
+
+          <p><em>The forgiving world is ending. The discipline that outlasts it is being built where the stakes are already real.</em></p>
+
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p>&copy; 2026 Chris Eaton</p>
+        <p class="footer-note">Built by hand. No templates were harmed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

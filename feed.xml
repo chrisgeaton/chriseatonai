@@ -8,6 +8,14 @@
     <atom:link href="https://chriseatonai.com/feed.xml" rel="self" type="application/rss+xml"/>
 
     <item>
+      <title>Building AI Where Being Wrong Is Expensive</title>
+      <link>https://chriseatonai.com/writing/ai-where-being-wrong-is-expensive.html</link>
+      <description>For a decade, medicine threw technology at clinical documentation and most of it failed. Then ambient AI scribes stuck. The lesson: the hard part was never the technology, it was trust.</description>
+      <pubDate>Mon, 03 Aug 2026 00:00:00 GMT</pubDate>
+      <guid>https://chriseatonai.com/writing/ai-where-being-wrong-is-expensive.html</guid>
+    </item>
+
+    <item>
       <title>From Owning a Product to Owning Product</title>
       <link>https://chriseatonai.com/writing/from-owning-a-product-to-owning-product.html</link>
       <description>Two months into running Product, the real shift wasn't the new work. It was that I no longer get to just have the best answer. I have to choose, and live with it.</description>
